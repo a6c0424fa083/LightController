@@ -6,5 +6,4 @@
 #  Created by Jannis Sauer on 2024-12-10.
 #
 
-add_subdirectory(HeaderWindow)
-target_sources(${APPLICATION_NAME} PUBLIC BaseWindow.cpp MasterWindow.cpp)
+target_sources(${APPLICATION_NAME} PUBLIC HeaderWindow.cpp)

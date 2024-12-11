@@ -16,6 +16,7 @@
 
 #include "backend/defines.hpp"
 #include "frontend/BaseWindow.hpp"
+#include "frontend/HeaderWindow/HeaderWindow.hpp"
 
 
 class MasterWindow : BaseWindow
@@ -25,6 +26,12 @@ public:
 
     void        Draw(ImVec2 pos, ImVec2 size);
     inline void DrawContents();
+
+private:
+    ImVec2 pos;
+    ImVec2 size;
+
+    HeaderWindow *headerWindow = new HeaderWindow();
 };
 
 
