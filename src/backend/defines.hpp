@@ -12,10 +12,13 @@
 #define DEFINES_HPP
 
 
+#include <string>
+#include <vector>
+
 #include <imgui.h>
 
-#define MASTER_WINDOW_WIDTH  960
-#define MASTER_WINDOW_HEIGHT 540
+#define MASTER_WINDOW_WIDTH  800
+#define MASTER_WINDOW_HEIGHT 480
 
 #define style ImGui::GetStyle()
 
@@ -24,9 +27,9 @@
 #define io_width  io.DisplaySize.x
 #define io_height io.DisplaySize.y
 
-#define STATIC__NO_VISUALS                                                                                            \
-    ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | \
-        ImGuiWindowFlags_NoScrollbar
+#define STATIC__NO_VISUALS                                                                                             \
+    (ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | \
+     ImGuiWindowFlags_NoScrollbar)
 
 enum USER_FONT
 {

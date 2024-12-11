@@ -14,13 +14,13 @@ MasterWindow::~MasterWindow() {}
 
 void MasterWindow::Draw(ImVec2 pos, ImVec2 size)
 {
-    this->pos  = pos;
-    this->size = size;
+    _pos  = pos;
+    _size = size;
 
     io.FontGlobalScale = fontSize;
 
     ImGui::PushFont(PAGEFILLING);
-    setWindowPosSize(this->pos, this->size);
+    setWindowPosSize(_pos, _size);
 
     style.WindowBorderSize = 0.0F;
     style.WindowRounding   = 0.0F;
@@ -44,11 +44,8 @@ void MasterWindow::Draw(ImVec2 pos, ImVec2 size)
 
 void MasterWindow::DrawContents()
 {
-    ImGui::SetCursorPos(ImVec2(saveMargin, saveMargin));
-    headerWindow->Draw(ImVec2(saveMargin, saveMargin), ImVec2(io_width - 2 * saveMargin, 50.0f));
 
-    char helloWorld[] = "Hello, world!\n";
-    ImGui::SetCursorPos(ImVec2(io_width / 2.0f - ImGui::CalcTextSize(helloWorld).x / 2.0f,
-                               io_height / 2.0f - ImGui::CalcTextSize(helloWorld).y / 2.0f));
-    ImGui::Text("%s", helloWorld);
+    if (headerWindowSize.x < 0.1f) headerWindowSize = HeaderWindow::getWindowSize();
+    headerWindow->Draw(ImVec2(0.0F, 0.0F), headerWindowSize);
+
 }

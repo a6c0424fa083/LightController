@@ -14,6 +14,7 @@
 
 #include "backend/defines.hpp"
 #include "frontend/BaseWindow.hpp"
+#include "backend/GLOBAL.hpp"
 
 class HeaderWindow : BaseWindow
 {
@@ -23,9 +24,14 @@ public:
     void Draw(ImVec2 pos, ImVec2 size);
     void DrawContents();
 
+    static ImVec2 getWindowSize();
+
 private:
-    ImVec2 pos;
-    ImVec2 size;
+    ImVec2 _pos;
+    ImVec2 _size;
+
+    float progressBarThickness = 5.0F;
+    float lineThickness = 0.2F;
 };
 
 

@@ -30,6 +30,7 @@
 // user includes
 #include "backend/defines.hpp"
 #include "frontend/MasterWindow.hpp"
+#include "backend/GLOBAL.hpp"
 
 
 // basic callback function for glfw
