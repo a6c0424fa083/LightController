@@ -12,6 +12,7 @@
 
 #include <imgui.h>
 
+#include "backend/GLOBAL.hpp"
 #include "backend/defines.hpp"
 #include "frontend/BaseWindow.hpp"
 
@@ -23,9 +24,16 @@ public:
     void Draw(ImVec2 pos, ImVec2 size);
     void DrawContents();
 
-private:
-    ImVec2 pos;
-    ImVec2 size;
+    static ImVec2 getIdealSize() { return idealSize; };
+
+
+    ImVec2 _pos;
+    ImVec2 _size;
+
+    inline static ImVec2 idealSize = ImVec2(0.0f, 0.0f);
+
+    float progressBarThickness = 5.0F;
+    float lineThickness        = 0.2F;
 };
 
 

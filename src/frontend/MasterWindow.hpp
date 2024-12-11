@@ -28,9 +28,10 @@ public:
     inline void DrawContents();
 
 private:
-    ImVec2 pos;
-    ImVec2 size;
+    ImVec2 _pos;
+    ImVec2 _size;
 
+    ImVec2 idealHeaderWindowSize = ImVec2(0.0f, 0.0f);
     HeaderWindow *headerWindow = new HeaderWindow();
 };
 

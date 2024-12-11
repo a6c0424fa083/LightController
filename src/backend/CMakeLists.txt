@@ -5,3 +5,5 @@
 #
 #  Created by Jannis Sauer on 2024-12-10.
 #
+
+target_sources(${APPLICATION_NAME} PUBLIC GLOBAL.cpp)
