@@ -1,5 +1,5 @@
 #
-#  main.cpp
+#  CMakeLists.txt
 #  LightController
 #  https://github.com/a6c0424fa083/LightController
 #
