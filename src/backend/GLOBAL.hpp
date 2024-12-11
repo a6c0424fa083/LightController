@@ -9,6 +9,7 @@
 #ifndef GLOBAL_HPP
 #define GLOBAL_HPP
 
+#include <cstdint>
 #include <string>
 #include <vector>
 
