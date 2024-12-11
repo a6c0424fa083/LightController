@@ -17,7 +17,6 @@
 #include "backend/defines.hpp"
 #include "frontend/BaseWindow.hpp"
 #include "frontend/HeaderWindow/HeaderWindow.hpp"
-#include "backend/GLOBAL.hpp"
 
 
 class MasterWindow : BaseWindow
@@ -32,7 +31,7 @@ private:
     ImVec2 _pos;
     ImVec2 _size;
 
-    ImVec2 headerWindowSize = ImVec2(0.0f, 0.0f);
+    ImVec2 idealHeaderWindowSize = ImVec2(0.0f, 0.0f);
     HeaderWindow *headerWindow = new HeaderWindow();
 };
 
