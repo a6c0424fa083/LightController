@@ -68,8 +68,8 @@ void HeaderWindow::DrawContents()
     for (size_t i = 0; i < GLOBAL::HEADERWINDOW::sections.size(); i++)
     {
         // set new cursor position based on i
-        ImGui::SetCursorPos(ImVec2(_pos.x + saveMargin + static_cast<float>(i) * saveMargin + static_cast<float>(i) * buttonSizeX,
-                                   buttonStartPosY));
+        ImGui::SetCursorPos(ImVec2(saveMargin + static_cast<float>(i) * saveMargin + static_cast<float>(i) * buttonSizeX,
+                                   buttonStartPosY - _pos.y));
 
         // draw button using index i of header_titles vector
         if (ImGui::Button(GLOBAL::HEADERWINDOW::sections.at(i).c_str(), ImVec2(buttonSizeX, buttonSizeY)))
@@ -81,10 +81,10 @@ void HeaderWindow::DrawContents()
     (buttonStartPosY + ImGui::CalcTextSize("XXX").y + 2.0F * saveMargin + borderMargin - (lineThickness / 2.0f))
     ImGui::GetWindowDrawList()->AddLine(ImVec2(_pos.x, line2StartPosY),
                                         ImVec2(_pos.x + _size.x, line2StartPosY),
-                                        ImGui::GetColorU32(ImGuiCol_TextDisabled),
+                                        ImGui::ColorConvertFloat4ToU32(ImVec4(0.6F, 0.6F, 0.6F, 1.0F)),
                                         lineThickness);
 
-    if (idealSize.x < 0.1f) idealSize = ImVec2(io_width, line2StartPosY + (lineThickness / 2.0f));
+    idealSize = ImVec2(io_width, line2StartPosY + (lineThickness / 2.0f));
 
 #undef line1StartPosY
 #undef buttonStartPosY

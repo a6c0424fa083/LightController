@@ -26,7 +26,7 @@ public:
 
     static ImVec2 getIdealSize() { return idealSize; };
 
-
+private:
     ImVec2 _pos;
     ImVec2 _size;
 
