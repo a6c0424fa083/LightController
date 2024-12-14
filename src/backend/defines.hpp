@@ -53,5 +53,8 @@ enum USER_FONT
 #define ARIAL_FONT_PATH      "../applicationData/fonts/Arial.ttf"       // relative to executable
 #define ARIALBOLD_FONT_PATH  "../applicationData/fonts/ArialBold.ttf"   // relative to executable
 
+#define MAX_LIGHT_NAME_LENGTH 64
+
+#define MAX_LIGHT_MANUFACTURER_LENGTH 64
 
 #endif  // DEFINES_HPP

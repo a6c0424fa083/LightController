@@ -15,6 +15,7 @@
 #include <backend/GLOBAL.hpp>
 #include <backend/defines.hpp>
 #include <frontend/BaseWindow.hpp>
+#include <frontend/SettingsWindow/LibraryManagerWindow/AddLightWindow/AddLightWindow.hpp>
 
 class LibraryManagerWindow : BaseWindow
 {
@@ -27,6 +28,9 @@ public:
 private:
     ImVec2 _pos;
     ImVec2 _size;
+
+    ImVec2 addLightWindowSize = ImVec2(0.0f, 0.0f);
+    AddLightWindow *addLightWindow = new AddLightWindow();
 };
 
 

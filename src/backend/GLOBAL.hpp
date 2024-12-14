@@ -24,8 +24,13 @@ namespace GLOBAL
         inline uint8_t activeSection    = sections.size() - 1;  // set last element (= settings) to active
         inline uint8_t progressBarProg  = 127;
         inline auto    progressBarColor = ImVec4(0.0f, 1.0f, 0.0f, 1.0f);
-
+        inline auto size = ImVec2(0.0f, 0.0f);
+        inline auto pos = ImVec2(0.0f, 0.0f);
     };  // namespace HEADERWINDOW
+
+    namespace ADDLIGHTWINDOW {
+        inline bool isWindowActive = false;
+    };
 
 };  // namespace GLOBAL
 

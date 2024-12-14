@@ -85,6 +85,8 @@ void HeaderWindow::DrawContents()
                                         lineThickness);
 
     idealSize = ImVec2(io_width, line2StartPosY + (lineThickness / 2.0f));
+    GLOBAL::HEADERWINDOW::size = idealSize;
+    GLOBAL::HEADERWINDOW::pos = _pos;
 
 #undef line1StartPosY
 #undef buttonStartPosY

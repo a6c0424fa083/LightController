@@ -29,6 +29,14 @@ void LibraryManagerWindow::Draw(ImVec2 pos, ImVec2 size)
 
 void LibraryManagerWindow::DrawContents()
 {
-    ImGui::SetCursorPos(ImVec2(saveMargin, saveMargin));
-    ImGui::Text("Hello, world!");
+    ImGui::SetCursorPos(ImVec2(_size.x / 2.0f - (ImGui::CalcTextSize("Add new Light").x + 2 * saveMargin) / 2.0f, saveMargin));
+    if (ImGui::Button("Add new Light",
+                      ImVec2(ImGui::CalcTextSize("Add new Light").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+        GLOBAL::ADDLIGHTWINDOW::isWindowActive = true;
+
+
+    addLightWindowSize = AddLightWindow::getIdealWindowSize();
+    if (GLOBAL::ADDLIGHTWINDOW::isWindowActive)
+        addLightWindow->Draw(ImVec2(saveMargin, GLOBAL::HEADERWINDOW::pos.y + GLOBAL::HEADERWINDOW::size.y + saveMargin),
+                             addLightWindowSize);
 }
