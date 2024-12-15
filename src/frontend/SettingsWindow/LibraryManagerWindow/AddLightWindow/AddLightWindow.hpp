@@ -15,6 +15,8 @@
 #include <backend/GLOBAL.hpp>
 #include <backend/defines.hpp>
 #include <frontend/BaseWindow.hpp>
+#include <backend/Light/Light.hpp>
+#include <backend/Light/ChannelFunction/ChannelFunction.hpp>
 
 class AddLightWindow : BaseWindow
 {
@@ -30,9 +32,11 @@ private:
     ImVec2 _pos;
     ImVec2 _size;
 
-    char _name[MAX_LIGHT_NAME_LENGTH] = { 0 };
-    char _manufacturer[MAX_LIGHT_MANUFACTURER_LENGTH] = { 0 };
-    int  _channelCount                = 0;
+    //char _name[MAX_LIGHT_NAME_LENGTH] = { 0 };
+    //char _manufacturer[MAX_LIGHT_MANUFACTURER_LENGTH] = { 0 };
+    //int  _channelCount                = 0;
+
+    Light _light {};
 
     inline static auto _idealWindowSize = ImVec2(0.0f, 0.0f);
 };
