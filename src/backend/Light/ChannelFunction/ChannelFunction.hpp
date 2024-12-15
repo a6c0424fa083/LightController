@@ -33,9 +33,9 @@ enum CHANNEL_FUNCTION : uint8_t
     CHANNEL       = 14,
 };
 
-inline std::vector<std::string> chanelFunctionStr = { "Color - Red",     "Color - Green", "Color - Blue", "Color - UV",
-                                               "Color - Ambient", "Color - White", "Dimmer",       "Strobe",
-                                               "Pan - Slow",      "Pan - Fast",    "Tilt - Slow",  "Tilt - Fast",
-                                               "Pan - Speed",     "Tilt - Speed",  "Channel" };
+inline std::vector<std::string> channelFunctionStr = { "Color - Red",     "Color - Green", "Color - Blue", "Color - UV",
+                                                       "Color - Ambient", "Color - White", "Dimmer",       "Strobe",
+                                                       "Pan - Slow",      "Pan - Fast",    "Tilt - Slow",  "Tilt - Fast",
+                                                       "Pan - Speed",     "Tilt - Speed",  "Channel" };
 
 #endif  // CHANNELFUNCTION_HPP
