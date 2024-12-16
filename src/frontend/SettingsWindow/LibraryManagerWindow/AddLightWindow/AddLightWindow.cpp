@@ -68,11 +68,11 @@ void AddLightWindow::DrawContents()
     // Loop through each channel and render the UI
     for (uint16_t i = 0; i < _light.channelCount; ++i)
     {
-        ImGui::Text("Channel %d", i + 1); // First column: Channel index
-        ImGui::NextColumn();             // Move to second column
+        ImGui::Text("Channel %d", i + 1);  // First column: Channel index
+        ImGui::NextColumn();               // Move to second column
 
         // Dropdown to select the channel function
-        const char* currentFunction = channelFunctionStr[static_cast<int>(_light.channelFunction[i])].c_str();
+        const char *currentFunction = channelFunctionStr[static_cast<int>(_light.channelFunction[i])].c_str();
         if (ImGui::BeginCombo(("##ChannelFunction" + std::to_string(i)).c_str(), currentFunction))
         {
             for (size_t j = 0; j < channelFunctionStr.size(); ++j)
@@ -82,16 +82,19 @@ void AddLightWindow::DrawContents()
                 {
                     _light.channelFunction[i] = static_cast<CHANNEL_FUNCTION>(j);
                 }
-                if (isSelected)
-                    ImGui::SetItemDefaultFocus(); // Ensure focus remains on the selected item
+                if (isSelected) ImGui::SetItemDefaultFocus();  // Ensure focus remains on the selected item
             }
             ImGui::EndCombo();
         }
-        ImGui::NextColumn(); // Return to the first column for the next row
+        ImGui::NextColumn();  // Return to the first column for the next row
     }
 
 
     ImGui::PushFont(SUBTITLE);
+
+    style.Colors[ImGuiCol_Button]        = green_ImGuiCol_Button;
+    style.Colors[ImGuiCol_ButtonHovered] = green_ImGuiCol_ButtonHovered;
+    style.Colors[ImGuiCol_ButtonActive]  = green_ImGuiCol_ButtonActive;
 
     ImGui::SetCursorPos(ImVec2(_size.x - saveMargin - ImGui::CalcTextSize("Cancel").x - 2 * saveMargin,
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
@@ -100,10 +103,15 @@ void AddLightWindow::DrawContents()
         // add the light struct to file system
     }
 
+    style.Colors[ImGuiCol_Button]        = red_ImGuiCol_Button;
+    style.Colors[ImGuiCol_ButtonHovered] = red_ImGuiCol_ButtonHovered;
+    style.Colors[ImGuiCol_ButtonActive]  = red_ImGuiCol_ButtonActive;
+
     ImGui::SetCursorPos(ImVec2(_size.x - 2 * saveMargin - 2 * ImGui::CalcTextSize("Cancel").x - 4 * saveMargin,
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
     if (ImGui::Button("Cancel",
-                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin))) {
+                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+    {
         GLOBAL::ADDLIGHTWINDOW::isWindowActive = false;
         memset(_light.name, '\0', MAX_LIGHT_NAME_LENGTH);
         memset(_light.manufacturer, '\0', MAX_LIGHT_MANUFACTURER_LENGTH);
@@ -111,6 +119,11 @@ void AddLightWindow::DrawContents()
         memset(_light.channelFunction, CHANNEL_FUNCTION::CHANNEL, 512);
         memset(_light.channelFunctionIdentifier, 0, 512);
     }
+
+    style.Colors[ImGuiCol_Button]        = default_ImGuiCol_Button;
+    style.Colors[ImGuiCol_ButtonHovered] = default_ImGuiCol_ButtonHovered;
+    style.Colors[ImGuiCol_ButtonActive]  = default_ImGuiCol_ButtonActive;
+
     ImGui::PopFont();
 
     _idealWindowSize =
