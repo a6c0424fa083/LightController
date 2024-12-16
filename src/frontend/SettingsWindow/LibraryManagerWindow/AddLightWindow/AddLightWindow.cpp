@@ -101,6 +101,14 @@ void AddLightWindow::DrawContents()
     if (ImGui::Button("Add", ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
     {
         // add the light struct to file system
+        LightFileManager::addLightToLibrary(_light);
+
+        GLOBAL::ADDLIGHTWINDOW::isWindowActive = false;
+        memset(_light.name, '\0', MAX_LIGHT_NAME_LENGTH);
+        memset(_light.manufacturer, '\0', MAX_LIGHT_MANUFACTURER_LENGTH);
+        _light.channelCount = 0;
+        memset(_light.channelFunction, CHANNEL_FUNCTION::CHANNEL, 512);
+        memset(_light.channelFunctionIdentifier, 0, 512);
     }
 
     style.Colors[ImGuiCol_Button]        = red_ImGuiCol_Button;

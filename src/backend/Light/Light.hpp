@@ -17,12 +17,12 @@
 
 struct Light
 {
-    char             name[MAX_LIGHT_NAME_LENGTH]                 = { 0 };
-    char             manufacturer[MAX_LIGHT_MANUFACTURER_LENGTH] = { 0 };
     uint16_t         channelCount                                = 0;
     uint16_t         rootAddress                                 = 1;
     CHANNEL_FUNCTION channelFunction[512]                        = { CHANNEL_FUNCTION::CHANNEL };
     uint8_t          channelFunctionIdentifier[512]              = { 0 };
+    char             name[MAX_LIGHT_NAME_LENGTH]                 = { 0 };
+    char             manufacturer[MAX_LIGHT_MANUFACTURER_LENGTH] = { 0 };
 };
 
 

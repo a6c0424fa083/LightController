@@ -57,4 +57,6 @@ enum USER_FONT
 
 #define MAX_LIGHT_MANUFACTURER_LENGTH 64
 
+#define LIGHT_LIBRARY_PATH "../applicationData/LightLibrary/"
+
 #endif  // DEFINES_HPP

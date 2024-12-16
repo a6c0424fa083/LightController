@@ -6,4 +6,4 @@
 //  Created by Jannis Sauer on 2024-12-14.
 //
 
-#include <ChannelFunction.hpp>
+#include "ChannelFunction.hpp"
