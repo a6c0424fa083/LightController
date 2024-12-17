@@ -8,13 +8,19 @@
 
 #include "LightFileManager.hpp"
 
+LightFileManager::~LightFileManager()
+{
+    delete lights;
+    lights = nullptr;
+}
+
 uint8_t LightFileManager::addLightToLibrary(Light light)
 {
     // base directory to the light "database"
     const std::string baseDir = std::filesystem::current_path().string() + "/" + std::string(LIGHT_LIBRARY_PATH);
 
     // check for existence of directory
-    if (!std::filesystem::exists(baseDir)) return 2;
+    if (!std::filesystem::exists(baseDir) || !std::filesystem::is_directory(baseDir)) return 2;
 
     // the path to the library file
     std::string lightsFilePath = baseDir + "library.LClib";
@@ -65,4 +71,130 @@ uint8_t LightFileManager::addLightToLibrary(Light light)
 
 
     return 0;
+}
+
+
+uint8_t LightFileManager::loadLightsFromLibrary()
+{
+    delete lights;
+    lights = new std::vector<Light>;
+
+    // base directory to the light "database"
+    const std::string baseDir = std::filesystem::current_path().string() + "/" + std::string(LIGHT_LIBRARY_PATH);
+
+
+    // Check if the base directory exists
+    if (!std::filesystem::exists(baseDir) || !std::filesystem::is_directory(baseDir))
+    {
+        fprintf(stderr, "Base directory does not exist or is invalid\n");
+        return 2;  // filesystem error
+    }
+
+
+    // the path to the library file
+    std::string lightsFilePath = baseDir + "library.LClib";
+
+    std::ifstream inFile(lightsFilePath, std::ios::binary);
+    if (!inFile.is_open())
+    {
+        fprintf(stderr, "Error opening file: \n");
+        return 2;  // filesystem error
+    }
+
+    // Load lights
+    std::vector<Light> manufacturerLights;
+    Light              light;
+    while (inFile.read(reinterpret_cast<char *>(&light), sizeof(Light))) { lights->push_back(light); }
+    inFile.close();
+
+
+    return 0;
+}
+
+uint8_t LightFileManager::deleteLightByName(const std::string& lightName)
+{
+    // base directory to the light "database"
+    const std::string baseDir = std::filesystem::current_path().string() + "/" + std::string(LIGHT_LIBRARY_PATH);
+
+    // Check if the base directory exists
+    if (!std::filesystem::exists(baseDir) || !std::filesystem::is_directory(baseDir))
+    {
+        fprintf(stderr, "Base directory does not exist or is invalid\n");
+        return 2;  // filesystem error
+    }
+
+
+    // the path to the library file
+    std::string lightsFilePath = baseDir + "library.LClib";
+
+    if (!std::filesystem::exists(lightsFilePath))
+    {
+        fprintf(stderr, "File does not exist: \n");
+        return 2; // File error
+    }
+
+    std::fstream file(lightsFilePath, std::ios::binary | std::ios::in | std::ios::out);
+    if (!file.is_open())
+    {
+        fprintf(stderr, "Error opening file: \n");
+        return 2; // File error
+    }
+
+    Light light;
+    Light lastLight;
+    std::streampos deletePos = -1;
+    std::streampos lastLightPos = -1;
+    size_t lightCount = 0;
+
+    // Find the position of the light to delete and the last light
+    while (file.read(reinterpret_cast<char*>(&light), sizeof(Light)))
+    {
+        if (std::strcmp(light.name, lightName.c_str()) == 0)
+        {
+            deletePos = file.tellg();
+            deletePos -= sizeof(Light); // Backtrack to start of the record
+        }
+        lastLightPos = file.tellg();
+        lastLightPos -= sizeof(Light);
+        lastLight = light;
+        lightCount++;
+    }
+
+    if (deletePos == -1)
+    {
+        fprintf(stderr, "Light not found: \n");
+        file.close();
+        return 1; // Light not found
+    }
+
+    if (lightCount == 1) // If only one light exists, truncate the file
+    {
+        file.close();
+        std::ofstream truncateFile(lightsFilePath, std::ios::binary | std::ios::trunc);
+        truncateFile.close();
+        return 0; // Success
+    }
+
+    // Overwrite the deleted light with the last light
+    file.seekp(deletePos);
+    file.write(reinterpret_cast<char*>(&lastLight), sizeof(Light));
+
+    // Truncate the last record
+    file.close();
+    std::fstream truncateFile(lightsFilePath, std::ios::binary | std::ios::in | std::ios::out);
+    truncateFile.seekp(lastLightPos);
+    truncateFile.close();
+    std::filesystem::resize_file(lightsFilePath, lastLightPos);
+
+    return 0; // Success
+}
+
+
+void LightFileManager::printLights()
+{
+    for (const auto &light : *lights)
+    {
+        printf("%50s ", light.name);
+        printf("%50s\n", light.manufacturer);
+    }
 }

@@ -27,11 +27,15 @@ public:
     void Draw(ImVec2 pos, ImVec2 size);
     void DrawContents();
 
+    void DrawChannelFunctions();
+
     static ImVec2 getIdealWindowSize() { return _idealWindowSize; };
 
 private:
     ImVec2 _pos;
     ImVec2 _size;
+
+    ImVec2 _channelFunctionContainerSize;
 
     // char _name[MAX_LIGHT_NAME_LENGTH] = { 0 };
     // char _manufacturer[MAX_LIGHT_MANUFACTURER_LENGTH] = { 0 };

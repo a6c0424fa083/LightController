@@ -22,9 +22,15 @@
 class LightFileManager : BaseWindow
 {
 public:
-    static uint8_t addLightToLibrary(Light light);
-};
 
+    ~LightFileManager();
+    static uint8_t addLightToLibrary(Light light);
+    static uint8_t loadLightsFromLibrary();
+    static uint8_t deleteLightByName(const std::string& lightName);
+    static void printLights();
+
+    inline static std::vector<Light> *lights = nullptr;
+};
 
 
 #endif  // LIGHTFILEMANAGER_HPP
