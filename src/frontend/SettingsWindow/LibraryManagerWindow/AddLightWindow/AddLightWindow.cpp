@@ -201,8 +201,3 @@ ImGui::PopFont();
 
 #undef secondRowPosY
 }
-
-void AddLightWindow::DrawChannelFunctions() {
-
-
-}

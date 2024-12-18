@@ -13,6 +13,7 @@
 #include <filesystem>
 #include <fstream>
 #include <imgui.h>
+#include <string>
 
 #include "backend/GLOBAL.hpp"
 #include "backend/Light/Light.cpp"
@@ -22,14 +23,11 @@
 class LightFileManager : BaseWindow
 {
 public:
-
     ~LightFileManager();
     static uint8_t addLightToLibrary(Light light);
     static uint8_t loadLightsFromLibrary();
-    static uint8_t deleteLightByName(const std::string& lightName);
-    static void printLights();
-
-    inline static std::vector<Light> *lights = nullptr;
+    static uint8_t deleteLightByName(const std::string &lightName);
+    static void    printLights();
 };
 
 

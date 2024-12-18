@@ -12,10 +12,11 @@
 
 #include <imgui.h>
 
-#include <backend/GLOBAL.hpp>
-#include <backend/defines.hpp>
-#include <frontend/BaseWindow.hpp>
-#include <frontend/SettingsWindow/LibraryManagerWindow/AddLightWindow/AddLightWindow.hpp>
+#include "backend/GLOBAL.hpp"
+#include "backend/defines.hpp"
+#include "frontend/BaseWindow.hpp"
+#include "frontend/SettingsWindow/LibraryManagerWindow/AddLightWindow/AddLightWindow.hpp"
+#include "frontend/SettingsWindow/LibraryManagerWindow/ListLightsWindow/ListLightsWindow.hpp"
 
 class LibraryManagerWindow : BaseWindow
 {
@@ -29,8 +30,11 @@ private:
     ImVec2 _pos;
     ImVec2 _size;
 
-    ImVec2 addLightWindowSize = ImVec2(0.0f, 0.0f);
-    AddLightWindow *addLightWindow = new AddLightWindow();
+    ImVec2          addLightWindowSize = ImVec2(0.0f, 0.0f);
+    AddLightWindow *addLightWindow     = new AddLightWindow();
+
+    ImVec2          listLightsWindowSize = ImVec2(0.0f, 0.0f);
+    ListLightsWindow *listLightsWindow = new ListLightsWindow();
 };
 
 

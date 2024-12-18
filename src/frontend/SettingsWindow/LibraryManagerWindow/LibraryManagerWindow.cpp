@@ -39,4 +39,14 @@ void LibraryManagerWindow::DrawContents()
     if (GLOBAL::ADDLIGHTWINDOW::isWindowActive)
         addLightWindow->Draw(ImVec2(saveMargin, GLOBAL::HEADERWINDOW::pos.y + GLOBAL::HEADERWINDOW::size.y + saveMargin),
                              addLightWindowSize);
+
+    ImGui::SetCursorPos(ImVec2(_size.x / 2.0f - (ImGui::CalcTextSize("List Light Library").x + 2 * saveMargin) / 2.0f, 4 * saveMargin + ImGui::CalcTextSize("XXX").y));
+    if (ImGui::Button("List Light Library",
+                      ImVec2(ImGui::CalcTextSize("List Light Library").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+        GLOBAL::LISTLIGHTSWINDOW::isWindowActive = true;
+
+    listLightsWindowSize = ListLightsWindow::getIdealWindowSize();
+    if (GLOBAL::LISTLIGHTSWINDOW::isWindowActive)
+        listLightsWindow->Draw(ImVec2(saveMargin, GLOBAL::HEADERWINDOW::pos.y + GLOBAL::HEADERWINDOW::size.y + saveMargin),
+                             listLightsWindowSize);
 }

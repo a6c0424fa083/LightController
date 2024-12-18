@@ -1,13 +1,14 @@
 //
-//  AddLightWindow.hpp
+//  ListLightsWindow.hpp
 //  LightController
 //  https://github.com/a6c0424fa083/LightController
 //
-//  Created by Jannis Sauer on 2024-12-14.
+//  Created by Jannis Sauer on 2024-12-18.
 //
 
-#ifndef ADDLIGHTWINDOW_HPP
-#define ADDLIGHTWINDOW_HPP
+#ifndef LISTLIGHTSWINDOW_HPP
+#define LISTLIGHTSWINDOW_HPP
+
 
 
 #include <imgui.h>
@@ -19,10 +20,10 @@
 #include "backend/defines.hpp"
 #include "frontend/BaseWindow.hpp"
 
-class AddLightWindow : BaseWindow
+class ListLightsWindow : BaseWindow
 {
 public:
-    ~AddLightWindow();
+    ~ListLightsWindow();
 
     void Draw(ImVec2 pos, ImVec2 size);
     void DrawContents();
@@ -33,17 +34,8 @@ private:
     ImVec2 _pos;
     ImVec2 _size;
 
-    ImVec2 _channelFunctionContainerSize;
-
-    // char _name[MAX_LIGHT_NAME_LENGTH] = { 0 };
-    // char _manufacturer[MAX_LIGHT_MANUFACTURER_LENGTH] = { 0 };
-    // int  _channelCount                = 0;
-
-    Light _light {};
-
     inline static auto _idealWindowSize = ImVec2(0.0f, 0.0f);
 };
 
 
-
-#endif  // ADDLIGHTWINDOW_HPP
+#endif //LISTLIGHTSWINDOW_HPP
