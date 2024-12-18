@@ -21,11 +21,11 @@ to get the Project.
 
 ### Mac
 
-- Install ```brew``` (installation guide can be found here: https://brew.sh)
-- Install ```cmake``` and ```make``` using ```brew install cmake make```
 - The compiler ```clang++``` can be installed
   by installing the command line tools via ```xcode-select --install```
   and finish the installation in the gui System Settings -> Software Updates
+- Install ```brew``` (installation guide can be found here: https://brew.sh)
+- Install ```cmake``` and ```make``` using ```brew install cmake make```
 
 ### Linux
 
@@ -41,11 +41,14 @@ It is important to install the packet manager directly at C:\cygwin64 (the defau
 
 - If you land on a cellular view change the **view** to **Full** and search for **gcc**
 - In the colum **New** change the selection (**Skip** by default) for **gcc-g++** to the latest stable version
-- Search for **gdb**, **make**, **cmake**, **libGL-devel**, **libGLU-devel**, **libXrandr-devel**, **libXi-devel**, **libXinerama-devel**, **libXcursor-devel**, **libXrender-devel**, **meson**, **ninja** and **git** as well and set the latest version
+- Search for **gdb**, **make**, **cmake**, **libGL-devel**, **libGLU-devel**, **libXrandr-devel**, **libXi-devel**, **libXinerama-devel**, **libXcursor-devel**, **libXrender-devel**, **meson**, **ninja**, **python3**, **python3-pip** and **git** as well and set the latest version
 - On the bottom right hit **Next** and finish the installation
 - In the Searchbar type **Enviroment Variables** and go the **Edit Enviroment Variables** page
 - Under **User variables** double-tap the **Path** variable and add ```C:\cygwin64\bin``` as a path
 - Restart your PC
+- Run ```python -m pip install meson```
+
+***WORK IN PROGRESS!***
 
 
 ## How to build the Project
