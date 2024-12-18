@@ -38,39 +38,45 @@ void ListLightsWindow::DrawContents()
     ImGui::BeginChild("ListLightsWindowChild",
                       ImVec2(_size.x - 2 * saveMargin, _size.y - 6 * saveMargin - ImGui::CalcTextSize("XXX").y),
                       true,
-                      ImGuiWindowFlags_HorizontalScrollbar);
+                      ImGuiWindowFlags_AlwaysVerticalScrollbar);
+
+    ImGui::SetCursorPos(ImVec2(_pos.x + 2 * saveMargin, _pos.y + saveMargin));
 
     for (size_t i = 0; i < GLOBAL::LIGHTFILEMANAGER::lightsLibrary.size(); ++i)
     {
         Light &light = GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(i);
 
         ImGui::PushID(static_cast<int>(i));  // Unique ID for each light container
-        ImGui::SetNextWindowPos(ImVec2(_pos.x + 2 * saveMargin, _pos.y + 2 * saveMargin + static_cast<float>(i) * (ImGui::CalcTextSize("XXX").y + 5 * saveMargin)));
+        ImGui::SetCursorPos(ImVec2(saveMargin, saveMargin + static_cast<float>(i) * (3 * ImGui::CalcTextSize("XXX").y + 5 * saveMargin)));
+        //ImGui::SetNextWindowPos(ImVec2(_pos.x + 2 * saveMargin, ImGui::GetCursorPosY() + 100.0f));
         ImGui::BeginChild("LightItem",
                           ImVec2(_size.x / 2.0f, 3 * ImGui::CalcTextSize("XXX").y + 4 * saveMargin),
                           true,
                           ImGuiWindowFlags_NoScrollbar);
 
         // Display light details
+        // TODO: account for scrollable full length (64) names
         ImGui::SetCursorPos(ImVec2(_pos.x + saveMargin, ImGui::GetCursorPosY() + saveMargin));
-        ImGui::Text("Name: %s", light.name);
-        ImGui::SameLine();
-        ImGui::SetCursorPos(ImVec2(_pos.x + saveMargin, ImGui::GetCursorPosY() + ImGui::CalcTextSize("XXX").y + saveMargin));
-        ImGui::Text("Manufacturer: %s", light.manufacturer);
-        ImGui::SameLine();
-        ImGui::SetCursorPos(ImVec2(_pos.x + saveMargin, ImGui::GetCursorPosY() + ImGui::CalcTextSize("XXX").y + saveMargin));
-        ImGui::Text("Channels: %d", light.channelCount);
-        ImGui::SameLine();
-        ImGui::SetCursorPos(ImVec2(_pos.x + saveMargin, ImGui::GetCursorPosY() + ImGui::CalcTextSize("XXX").y + saveMargin));
+        ImGui::Text("Name:         %*.*s", 35, 35, light.name);
+        //ImGui::SameLine();
+        ImGui::SetCursorPos(ImVec2(_pos.x + saveMargin, ImGui::GetCursorPosY()/* + ImGui::CalcTextSize("XXX").y + saveMargin*/));
+        ImGui::Text("Manufacturer: %*.*s", 35, 35, light.manufacturer);
+        //ImGui::SameLine();
+        ImGui::SetCursorPos(ImVec2(_pos.x + saveMargin, ImGui::GetCursorPosY()/* + ImGui::CalcTextSize("XXX").y + saveMargin*/));
+        ImGui::Text("Channels:     %35d", light.channelCount);
+        //ImGui::SameLine();
+        //ImGui::SetCursorPos(ImVec2(_pos.x + saveMargin, ImGui::GetCursorPosY()/* + ImGui::CalcTextSize("XXX").y + saveMargin*/));
 
         ImGui::EndChild();
         ImGui::PopID();
 
-        ImGui::SetCursorPos(ImVec2(_pos.x + saveMargin, ImGui::GetCursorPosY() + ImGui::CalcTextSize("XXX").y + saveMargin));
+        ///ImGui::SetCursorPos(ImVec2(_pos.x + saveMargin, ImGui::GetCursorPosY() + ImGui::CalcTextSize("XXX").y + saveMargin));
 
 
-        //ImGui::Spacing();  // Add some space between items
+        ImGui::Spacing();  // Add some space between items
     }
+
+    ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX(), ImGui::GetCursorPosY() + saveMargin));
 
     ImGui::EndChild();
 

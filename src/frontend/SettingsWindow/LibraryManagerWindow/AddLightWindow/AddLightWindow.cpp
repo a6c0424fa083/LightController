@@ -68,11 +68,11 @@ void AddLightWindow::DrawContents()
 
 
     //// Loop through each channel and render the UI
-    //for (uint16_t i = 0; i < _light.channelCount; ++i)
+    // for (uint16_t i = 0; i < _light.channelCount; ++i)
     //{
-    //    ImGui::Text("Channel %d", i + 1);  // First column: Channel index
-    //    ImGui::NextColumn();               // Move to second column
-//
+    //     ImGui::Text("Channel %d", i + 1);  // First column: Channel index
+    //     ImGui::NextColumn();               // Move to second column
+    //
     //    // Dropdown to select the channel function
     //    const char *currentFunction = channelFunctionStr[static_cast<int>(_light.channelFunction[i])].c_str();
     //    if (ImGui::BeginCombo(("##ChannelFunction" + std::to_string(i)).c_str(), currentFunction))
@@ -91,11 +91,14 @@ void AddLightWindow::DrawContents()
     //    ImGui::NextColumn();  // Return to the first column for the next row
     //}
 
-    //ImGui::SetNextWindowPos(ImVec2(saveMargin, lastCursorPos.y + saveMargin));
+    // ImGui::SetNextWindowPos(ImVec2(saveMargin, lastCursorPos.y + saveMargin));
     ImGui::SetCursorPos(ImVec2(saveMargin, lastCursorPos.y + saveMargin));
-    ImGui::PushFont(SUBTITLE); // _size.y * 0.55f
-    ImGui::BeginChild("ChannelContainer", ImVec2(_size.x - 2 * saveMargin, _size.y - lastCursorPos.y - 5 * saveMargin - ImGui::CalcTextSize("XXX").y), true, ImGuiWindowFlags_HorizontalScrollbar);
-ImGui::PopFont();
+    ImGui::PushFont(SUBTITLE);  // _size.y * 0.55f
+    ImGui::BeginChild("ChannelContainer",
+                      ImVec2(_size.x - 2 * saveMargin, _size.y - lastCursorPos.y - 5 * saveMargin - ImGui::CalcTextSize("XXX").y),
+                      true,
+                      ImGuiWindowFlags_AlwaysVerticalScrollbar);
+    ImGui::PopFont();
     /*if (_light.channelCount == 0)
     {
         ImGui::Text("No channels available.");
@@ -115,9 +118,9 @@ ImGui::PopFont();
         ImGui::Text("%3d", i + 1);
         ImGui::SameLine();
         // Dropdown to select the channel function on the same line
-        ImGui::PushID(i); // Ensure unique ID for each combo
-        const char* currentFunction = channelFunctionStr[static_cast<int>(_light.channelFunction[i])].c_str();
-        ImGui::SetNextItemWidth(-1); // Use full width of remaining column space
+        ImGui::PushID(i);  // Ensure unique ID for each combo
+        const char *currentFunction = channelFunctionStr[static_cast<int>(_light.channelFunction[i])].c_str();
+        ImGui::SetNextItemWidth(-1);  // Use full width of remaining column space
 
         if (ImGui::BeginCombo("##ChannelFunction", currentFunction))
         {
@@ -128,17 +131,16 @@ ImGui::PopFont();
                 {
                     _light.channelFunction[i] = static_cast<CHANNEL_FUNCTION>(static_cast<uint8_t>(j));
                 }
-                if (isSelected)
-                    ImGui::SetItemDefaultFocus();
+                if (isSelected) ImGui::SetItemDefaultFocus();
             }
             ImGui::EndCombo();
         }
         ImGui::PopID();
 
-        ImGui::NextColumn(); // Go to next column
+        ImGui::NextColumn();  // Go to next column
     }
 
-    ImGui::Columns(1); // Reset columns
+    ImGui::Columns(1);  // Reset columns
     ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX(), ImGui::GetCursorPosY() + saveMargin));
     ImGui::EndChild();
 
