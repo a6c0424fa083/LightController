@@ -54,13 +54,13 @@ void HeaderWindow::DrawContents()
 
 // draw borderline 1
 #define line1StartPosY (_pos.y + progressBarThickness + borderMargin - (lineThickness / 2.0f))
-    ImGui::GetWindowDrawList()->AddLine(ImVec2(_pos.x, line1StartPosY),
-                                        ImVec2(_pos.x + _size.x, line1StartPosY),
-                                        ImGui::ColorConvertFloat4ToU32(ImVec4(0.6F, 0.6F, 0.6F, 1.0F)),
-                                        lineThickness);
+    //ImGui::GetWindowDrawList()->AddLine(ImVec2(_pos.x, line1StartPosY),
+    //                                    ImVec2(_pos.x + _size.x, line1StartPosY),
+    //                                    ImGui::ColorConvertFloat4ToU32(ImVec4(0.6F, 0.6F, 0.6F, 1.0F)),
+    //                                    lineThickness);
 
 // draw individual buttons leading to the main 'areas' of the program
-#define buttonStartPosY (line1StartPosY + (lineThickness / 2.0f) + borderMargin)
+#define buttonStartPosY (line1StartPosY + /*(lineThickness / 2.0f) +*/ borderMargin)
 #define buttonSizeX                                                                                \
     ((_size.x - (static_cast<float>(GLOBAL::HEADERWINDOW::sections.size()) + 1.0F) * saveMargin) / \
      static_cast<float>(GLOBAL::HEADERWINDOW::sections.size()))
@@ -78,7 +78,7 @@ void HeaderWindow::DrawContents()
 
 // draw borderline 2
 #define line2StartPosY \
-    (buttonStartPosY + ImGui::CalcTextSize("XXX").y + 2.0F * saveMargin + borderMargin - (lineThickness / 2.0f))
+    (buttonStartPosY + ImGui::CalcTextSize("XXX").y + 2.0F * saveMargin + borderMargin + (lineThickness / 2.0f))
     ImGui::GetWindowDrawList()->AddLine(ImVec2(_pos.x, line2StartPosY),
                                         ImVec2(_pos.x + _size.x, line2StartPosY),
                                         ImGui::ColorConvertFloat4ToU32(ImVec4(0.6F, 0.6F, 0.6F, 1.0F)),

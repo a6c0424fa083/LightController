@@ -8,6 +8,8 @@
 
 #include "ListLightsWindow.hpp"
 
+#include <frontend/SettingsWindow/LibraryManagerWindow/AddLightWindow/AddLightWindow.hpp>
+
 ListLightsWindow::~ListLightsWindow() {}
 
 void ListLightsWindow::Draw(ImVec2 pos, ImVec2 size)
@@ -126,6 +128,11 @@ void ListLightsWindow::DrawContents()
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
     if (ImGui::Button("Edit", ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
     {
+        GLOBAL::ADDLIGHTWINDOW::lightToEdit = GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::LISTLIGHTSWINDOW::activeItemIndex);
+        GLOBAL::ADDLIGHTWINDOW::isWindowActive = true;
+        GLOBAL::LISTLIGHTSWINDOW::isWindowActive = false;
+        GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow = true;
+        GLOBAL::ADDLIGHTWINDOW::isEditMode = true;
     }
 
     style.Colors[ImGuiCol_Button]        = red_ImGuiCol_Button;

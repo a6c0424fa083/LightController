@@ -31,6 +31,12 @@ void AddLightWindow::DrawContents()
 {
     static ImVec2 lastCursorPos;
 
+    if (GLOBAL::ADDLIGHTWINDOW::isEditMode && !loadedLightToEdit)
+    {
+        _light            = GLOBAL::ADDLIGHTWINDOW::lightToEdit;
+        loadedLightToEdit = true;
+    }
+
 #define secondRowPosY (ImGui::CalcTextSize("Channel Count: ").x + 2 * saveMargin)
 
     ImGui::PushFont(TITLE);
@@ -153,19 +159,46 @@ void AddLightWindow::DrawContents()
 
     ImGui::SetCursorPos(ImVec2(_size.x - saveMargin - ImGui::CalcTextSize("Cancel").x - 2 * saveMargin,
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
-    if (ImGui::Button("Add", ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+    if (GLOBAL::ADDLIGHTWINDOW::isEditMode)
     {
-        // add the light struct to file system
-        LightFileManager::addLightToLibrary(_light);
+        if (ImGui::Button("Save",
+                          ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+        {
+            // add the light struct to file system
+            LightFileManager::deleteLightByIndex(GLOBAL::LISTLIGHTSWINDOW::activeItemIndex);
+            LightFileManager::addLightToLibrary(_light);
 
-        if (GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow) GLOBAL::LISTLIGHTSWINDOW::isWindowActive = true;
+            if (GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow) GLOBAL::LISTLIGHTSWINDOW::isWindowActive = true;
 
-        GLOBAL::ADDLIGHTWINDOW::isWindowActive = false;
-        memset(_light.name, '\0', MAX_LIGHT_NAME_LENGTH);
-        memset(_light.manufacturer, '\0', MAX_LIGHT_MANUFACTURER_LENGTH);
-        _light.channelCount = 0;
-        memset(_light.channelFunction, CHANNEL_FUNCTION::CHANNEL, 512);
-        memset(_light.channelFunctionIdentifier, 0, 512);
+            GLOBAL::ADDLIGHTWINDOW::isWindowActive = false;
+            memset(_light.name, '\0', MAX_LIGHT_NAME_LENGTH);
+            memset(_light.manufacturer, '\0', MAX_LIGHT_MANUFACTURER_LENGTH);
+            _light.channelCount = 0;
+            memset(_light.channelFunction, CHANNEL_FUNCTION::CHANNEL, 512);
+            memset(_light.channelFunctionIdentifier, 0, 512);
+
+            loadedLightToEdit = false;
+
+            GLOBAL::ADDLIGHTWINDOW::isEditMode = false;
+        }
+    }
+    else
+    {
+        if (ImGui::Button("Add",
+                          ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+        {
+            // add the light struct to file system
+            LightFileManager::addLightToLibrary(_light);
+
+            if (GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow) GLOBAL::LISTLIGHTSWINDOW::isWindowActive = true;
+
+            GLOBAL::ADDLIGHTWINDOW::isWindowActive = false;
+            memset(_light.name, '\0', MAX_LIGHT_NAME_LENGTH);
+            memset(_light.manufacturer, '\0', MAX_LIGHT_MANUFACTURER_LENGTH);
+            _light.channelCount = 0;
+            memset(_light.channelFunction, CHANNEL_FUNCTION::CHANNEL, 512);
+            memset(_light.channelFunctionIdentifier, 0, 512);
+        }
     }
 
     style.Colors[ImGuiCol_Button]        = red_ImGuiCol_Button;
@@ -183,6 +216,12 @@ void AddLightWindow::DrawContents()
         _light.channelCount = 0;
         memset(_light.channelFunction, CHANNEL_FUNCTION::CHANNEL, 512);
         memset(_light.channelFunctionIdentifier, 0, 512);
+
+        if (GLOBAL::ADDLIGHTWINDOW::isEditMode)
+        {
+            loadedLightToEdit                  = false;
+            GLOBAL::ADDLIGHTWINDOW::isEditMode = false;
+        }
     }
 
     style.Colors[ImGuiCol_Button]        = default_ImGuiCol_Button;

@@ -33,7 +33,7 @@ private:
     inline static ImVec2 idealSize = ImVec2(0.0f, 0.0f);
 
     float progressBarThickness = 5.0F;
-    float lineThickness        = 2.2F;
+    float lineThickness        = 2.0F;
 };
 
 

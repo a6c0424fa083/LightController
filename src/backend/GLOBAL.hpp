@@ -22,7 +22,7 @@ namespace GLOBAL
 {
     namespace HEADERWINDOW
     {
-        inline std::vector<std::string> sections = { "Patch", "Mapping", "Scene Editor", "Live", "Settings" };
+        inline std::vector<std::string> sections = { "Patch", "CH Control", "Scene Editor", "Live", "Settings" };
 
         inline uint8_t activeSection    = sections.size() - 1;  // set last element (= settings) to active
         inline uint8_t progressBarProg  = 127;
@@ -35,6 +35,8 @@ namespace GLOBAL
     {
         inline bool isWindowActive = false;
         inline bool cameFromListLightsWindow = false;
+        inline bool isEditMode = false;
+        inline Light lightToEdit = Light{};
     };
 
     namespace LIGHTFILEMANAGER

@@ -29,6 +29,8 @@ public:
 
     static ImVec2 getIdealWindowSize() { return _idealWindowSize; };
 
+    void setLight(const Light &light) { _light = light; };
+
 private:
     ImVec2 _pos;
     ImVec2 _size;
@@ -40,6 +42,8 @@ private:
     // int  _channelCount                = 0;
 
     Light _light {};
+
+    bool loadedLightToEdit = false;
 
     inline static auto _idealWindowSize = ImVec2(0.0f, 0.0f);
 };
