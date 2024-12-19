@@ -32,7 +32,7 @@ void ListLightsWindow::DrawContents()
     LightFileManager::loadLightsFromLibrary();
 
 
-    if (GLOBAL::LIGHTFILEMANAGER::lightsLibrary.empty()) { ImGui::Text("No lights available."); }
+    //if (GLOBAL::LIGHTFILEMANAGER::lightsLibrary.empty()) { ImGui::Text("No lights available."); }
 
     ImGui::SetNextWindowPos(ImVec2(_pos.x + saveMargin, _pos.y + saveMargin));
     ImGui::BeginChild("ListLightsWindowChild",
@@ -136,8 +136,8 @@ void ListLightsWindow::DrawContents()
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
     if (ImGui::Button("Delete", ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
     {
-        std::string lightName = GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::LISTLIGHTSWINDOW::activeItemIndex).name;
-        LightFileManager::deleteLightByName(lightName);
+        //std::string lightName = GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::LISTLIGHTSWINDOW::activeItemIndex).name;
+        LightFileManager::deleteLightByIndex(GLOBAL::LISTLIGHTSWINDOW::activeItemIndex);
     }
 
     style.Colors[ImGuiCol_Button]        = default_ImGuiCol_Button;

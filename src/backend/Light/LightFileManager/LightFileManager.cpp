@@ -48,7 +48,7 @@ uint8_t LightFileManager::addLightToLibrary(Light light)
     Light existingLight;
     while (inFile.read(reinterpret_cast<char *>(&existingLight), sizeof(Light)))
     {
-        if (_STRING_H_::strcmp(existingLight.name, light.name) == 0) // std::strcmp
+        if (std::strcmp(existingLight.name, light.name) == 0)
         {
             // fprintf(stderr, "Light already exists\n");
             return 1;  // Light already exists
@@ -94,6 +94,17 @@ uint8_t LightFileManager::loadLightsFromLibrary()
     // the path to the library file
     std::string lightsFilePath = baseDir + "library.LClib";
 
+    if (!std::filesystem::exists(lightsFilePath))
+    {
+        std::ofstream file(lightsFilePath, std::ios::binary);
+        if (!file.is_open())
+        {
+            fprintf(stderr, "Error opening file: \n");
+            return 2;  // filesystem error
+        }
+        file.close();
+    }
+
     std::ifstream inFile(lightsFilePath, std::ios::binary);
     if (!inFile.is_open())
     {
@@ -106,7 +117,7 @@ uint8_t LightFileManager::loadLightsFromLibrary()
     while (inFile.read(reinterpret_cast<char *>(&light), sizeof(Light)))
     {
         GLOBAL::LIGHTFILEMANAGER::lightsLibrary.push_back(light);
-        //printf("Added light! New size: %lu\n", GLOBAL::LIGHTFILEMANAGER::lightsLibrary.size());
+        // printf("Added light! New size: %lu\n", GLOBAL::LIGHTFILEMANAGER::lightsLibrary.size());
     }
     inFile.close();
 
@@ -114,8 +125,9 @@ uint8_t LightFileManager::loadLightsFromLibrary()
     return 0;
 }
 
-uint8_t LightFileManager::deleteLightByName(const std::string &lightName)
+uint8_t LightFileManager::deleteLightByIndex(size_t index)
 {
+    if (index >= GLOBAL::LIGHTFILEMANAGER::lightsLibrary.size()) return 1;
     // base directory to the light "database"
     const std::string baseDir = std::filesystem::current_path().string() + "/" + std::string(LIGHT_LIBRARY_PATH);
 
@@ -143,50 +155,40 @@ uint8_t LightFileManager::deleteLightByName(const std::string &lightName)
         return 2;  // File error
     }
 
-    Light          light;
     Light          lastLight;
-    std::streampos deletePos    = -1;
-    std::streampos lastLightPos = -1;
-    size_t         lightCount   = 0;
+    Light light;
 
-    // Find the position of the light to delete and the last light
-    while (file.read(reinterpret_cast<char *>(&light), sizeof(Light)))
-    {
-        if (_STRING_H_::strcmp(light.name, lightName.c_str()) == 0) // std::strcmp
-        {
-            deletePos = file.tellg();
-            deletePos -= sizeof(Light);  // Backtrack to start of the record
-        }
-        lastLightPos = file.tellg();
-        lastLightPos -= sizeof(Light);
-        lastLight = light;
-        lightCount++;
-    }
+    // replace element with last element
 
-    if (deletePos == -1)
-    {
-        fprintf(stderr, "Light not found: \n");
-        file.close();
-        return 1;  // Light not found
-    }
+    // get last element
+    file.seekg(static_cast<std::streamoff>((GLOBAL::LIGHTFILEMANAGER::lightsLibrary.size() - 1) * sizeof(Light)));
+    size_t lastLightPos = file.tellg();
+    file.read(reinterpret_cast<char *>(&lastLight), sizeof(Light));
 
-    if (lightCount == 1)  // If only one light exists, truncate the file
-    {
-        file.close();
-        std::ofstream truncateFile(lightsFilePath, std::ios::binary | std::ios::trunc);
-        truncateFile.close();
-        return 0;  // Success
-    }
+    printf("###   Last Light   ###\n");
+    printf("  seekg: %lu", lastLightPos);
+    printLight(lastLight);
+    printf("######################\n\n\n");
 
-    // Overwrite the deleted light with the last light
-    file.seekp(deletePos);
-    file.write(reinterpret_cast<char *>(&lastLight), sizeof(Light));
+    // jump to the beginning of the file
+    file.seekg(0);
 
-    // Truncate the last record
+
+            // go to the beginning of the latest read in light
+            file.seekp(static_cast<ssize_t>(index * sizeof(Light)));
+
+            printf("###   Light to be removed   ###\n");
+            printf("  seekg: %lu", static_cast<size_t>(file.tellp()));
+            printLight(light);
+            printf("###############################\n\n\n");
+
+            // replace the light with the last light
+            file.write(reinterpret_cast<char *>(&lastLight), sizeof(Light));
+
+
+
+
     file.close();
-    std::fstream truncateFile(lightsFilePath, std::ios::binary | std::ios::in | std::ios::out);
-    truncateFile.seekp(lastLightPos);
-    truncateFile.close();
     std::filesystem::resize_file(lightsFilePath, lastLightPos);
 
     return 0;  // Success
@@ -199,6 +201,13 @@ void LightFileManager::printLights()
     {
         printf("Name: %50s\n", light.name);
         printf("Man.: %50s\n", light.manufacturer);
-        printf("Ch.:  %50d\n\n", light.channelCount);
+        printf("Ch. : %50d\n\n", light.channelCount);
     }
+}
+
+void LightFileManager::printLight(Light light)
+{
+    printf("Name: %50s\n", light.name);
+    printf("Man.: %50s\n", light.manufacturer);
+    printf("Ch. : %50d\n\n", light.channelCount);
 }

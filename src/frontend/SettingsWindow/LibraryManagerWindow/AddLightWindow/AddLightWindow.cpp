@@ -158,6 +158,8 @@ void AddLightWindow::DrawContents()
         // add the light struct to file system
         LightFileManager::addLightToLibrary(_light);
 
+        if (GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow) GLOBAL::LISTLIGHTSWINDOW::isWindowActive = true;
+
         GLOBAL::ADDLIGHTWINDOW::isWindowActive = false;
         memset(_light.name, '\0', MAX_LIGHT_NAME_LENGTH);
         memset(_light.manufacturer, '\0', MAX_LIGHT_MANUFACTURER_LENGTH);
