@@ -48,7 +48,7 @@ uint8_t LightFileManager::addLightToLibrary(Light light)
     Light existingLight;
     while (inFile.read(reinterpret_cast<char *>(&existingLight), sizeof(Light)))
     {
-        if (std::strcmp(existingLight.name, light.name) == 0)
+        if (_STRING_H_::strcmp(existingLight.name, light.name) == 0) // std::strcmp
         {
             // fprintf(stderr, "Light already exists\n");
             return 1;  // Light already exists
@@ -152,7 +152,7 @@ uint8_t LightFileManager::deleteLightByName(const std::string &lightName)
     // Find the position of the light to delete and the last light
     while (file.read(reinterpret_cast<char *>(&light), sizeof(Light)))
     {
-        if (std::strcmp(light.name, lightName.c_str()) == 0)
+        if (_STRING_H_::strcmp(light.name, lightName.c_str()) == 0) // std::strcmp
         {
             deletePos = file.tellg();
             deletePos -= sizeof(Light);  // Backtrack to start of the record

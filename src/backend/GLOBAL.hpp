@@ -34,6 +34,7 @@ namespace GLOBAL
     namespace ADDLIGHTWINDOW
     {
         inline bool isWindowActive = false;
+        inline bool cameFromListLightsWindow = false;
     };
 
     namespace LIGHTFILEMANAGER
@@ -44,6 +45,7 @@ namespace GLOBAL
     namespace LISTLIGHTSWINDOW
     {
         inline bool isWindowActive = false;
+        inline size_t activeItemIndex = 0;
     };
 
 };  // namespace GLOBAL

@@ -170,12 +170,12 @@ void AddLightWindow::DrawContents()
     style.Colors[ImGuiCol_ButtonHovered] = red_ImGuiCol_ButtonHovered;
     style.Colors[ImGuiCol_ButtonActive]  = red_ImGuiCol_ButtonActive;
 
-    ImGui::SetCursorPos(ImVec2(_size.x - 2 * saveMargin - 2 * ImGui::CalcTextSize("Cancel").x - 4 * saveMargin,
-                               _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
+    ImGui::SetCursorPos(ImVec2(saveMargin, _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
     if (ImGui::Button("Cancel",
                       ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
     {
         GLOBAL::ADDLIGHTWINDOW::isWindowActive = false;
+        if (GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow) GLOBAL::LISTLIGHTSWINDOW::isWindowActive = true;
         memset(_light.name, '\0', MAX_LIGHT_NAME_LENGTH);
         memset(_light.manufacturer, '\0', MAX_LIGHT_MANUFACTURER_LENGTH);
         _light.channelCount = 0;
@@ -187,14 +187,16 @@ void AddLightWindow::DrawContents()
     style.Colors[ImGuiCol_ButtonHovered] = default_ImGuiCol_ButtonHovered;
     style.Colors[ImGuiCol_ButtonActive]  = default_ImGuiCol_ButtonActive;
 
-    ImGui::SetCursorPos(ImVec2(_size.x - 3 * saveMargin - 3 * ImGui::CalcTextSize("Cancel").x - 6 * saveMargin,
+    // ImGui::SetCursorPos(ImVec2(_size.x - 3 * saveMargin - 3 * ImGui::CalcTextSize("Cancel").x - 6 * saveMargin,
+    //                            _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
+    /*ImGui::SetCursorPos(ImVec2(_size.x - 2 * saveMargin - 2 * ImGui::CalcTextSize("Cancel").x - 4 * saveMargin,
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
     if (ImGui::Button("Print",
                       ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
     {
         LightFileManager::loadLightsFromLibrary();
         LightFileManager::printLights();
-    }
+    }*/
 
     ImGui::PopFont();
 
