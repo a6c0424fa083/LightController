@@ -25,20 +25,20 @@ enum CHANNEL_FUNCTION : uint8_t
     COLOR_WHITE   = 6,
     DIMMER        = 7,
     STROBE        = 8,
-    PAN_SLOW      = 9,
-    PAN_FAST      = 10,
-    TILT_SLOW     = 11,
-    TILT_FAST     = 12,
+    PAN_FAST      = 9,
+    PAN_SLOW      = 10,
+    TILT_FAST     = 11,
+    TILT_SLOW     = 12,
     PAN_SPEED     = 13,
     TILT_SPEED    = 14,
-    P_T_SPEED     = 15,
+    MOTOR_SPEED   = 15,
     GOBO          = 16,
 
 };
 
-inline std::vector<std::string> channelFunctionStr = { "Channel",    "Red",       "Green",       "Blue",      "UV",
-                                                       "Ambient",    "White",     "Dimmer",      "Strobe",    "Pan Fine",
-                                                       "Pan Corase", "Tilt Fine", "Tilt Corase", "Pan Speed", "Tilt Speed",
-                                                       "P/T Speed",  "Gobo" };
+inline std::vector<std::string> channelFunctionStr = { "Channel",     "Red",         "Green",     "Blue",      "UV",
+                                                       "Ambient",     "White",       "Dimmer",    "Strobe",    "Pan Corase",
+                                                       "Pan Fine",    "Tilt Corase", "Tilt Fine", "Pan Speed", "Tilt Speed",
+                                                       "Motor Speed", "Gobo" };
 
 #endif  // CHANNELFUNCTION_HPP
