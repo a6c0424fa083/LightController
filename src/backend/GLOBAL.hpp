@@ -25,7 +25,7 @@ namespace GLOBAL
         inline std::vector<std::string> sections = { "Patch", "CH Control", "Scene Editor", "Live", "Settings" };
 
         inline uint8_t activeSection    = sections.size() - 1;  // set last element (= settings) to active
-        inline uint8_t progressBarProg  = 127;
+        inline uint8_t progressBarProg  = 255; // 0 - 255
         inline auto    progressBarColor = ImVec4(0.0f, 1.0f, 0.0f, 1.0f);
         inline auto    size             = ImVec2(0.0f, 0.0f);
         inline auto    pos              = ImVec2(0.0f, 0.0f);
@@ -48,6 +48,12 @@ namespace GLOBAL
     {
         inline bool isWindowActive = false;
         inline size_t activeItemIndex = 0;
+    };
+
+    namespace CREATEPROJECTWINDOW
+    {
+        inline bool isWindowActive = false;
+        inline bool isEditMode = false;
     };
 
 };  // namespace GLOBAL

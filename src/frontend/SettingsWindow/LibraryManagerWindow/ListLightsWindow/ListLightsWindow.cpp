@@ -33,8 +33,15 @@ void ListLightsWindow::DrawContents()
 {
     LightFileManager::loadLightsFromLibrary();
 
+    if (GLOBAL::LIGHTFILEMANAGER::lightsLibrary.empty())
+    {
+        GLOBAL::ADDLIGHTWINDOW::isWindowActive           = true;
+        GLOBAL::LISTLIGHTSWINDOW::isWindowActive         = false;
+        GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow = true;
+    }
 
-    //if (GLOBAL::LIGHTFILEMANAGER::lightsLibrary.empty()) { ImGui::Text("No lights available."); }
+
+    // if (GLOBAL::LIGHTFILEMANAGER::lightsLibrary.empty()) { ImGui::Text("No lights available."); }
 
     ImGui::SetNextWindowPos(ImVec2(_pos.x + saveMargin, _pos.y + saveMargin));
     ImGui::BeginChild("ListLightsWindowChild",
@@ -60,7 +67,7 @@ void ListLightsWindow::DrawContents()
             ImVec2(saveMargin, saveMargin + static_cast<float>(i) * (3 * ImGui::CalcTextSize("XXX").y + 5 * saveMargin)));
         // ImGui::SetNextWindowPos(ImVec2(_pos.x + 2 * saveMargin, ImGui::GetCursorPosY() + 100.0f));
         ImGui::BeginChild("LightItem",
-                          ImVec2(_size.x / 2.0f, 3 * ImGui::CalcTextSize("XXX").y + 4 * saveMargin),
+                          ImVec2(_size.x - 35.0f, 3 * ImGui::CalcTextSize("XXX").y + 4 * saveMargin),
                           true,
                           ImGuiWindowFlags_NoScrollbar);
 
@@ -73,13 +80,13 @@ void ListLightsWindow::DrawContents()
         // Display light details
         // TODO: account for scrollable full length (64) names
         ImGui::SetCursorPos(ImVec2(_pos.x + saveMargin, ImGui::GetCursorPosY() + saveMargin));
-        ImGui::Text("Name:         %*.*s", 35, 35, light.name);
+        ImGui::Text("Name:         %*.*s", MAX_LIGHT_NAME_LENGTH, MAX_LIGHT_NAME_LENGTH, light.name);
         // ImGui::SameLine();
         ImGui::SetCursorPos(ImVec2(_pos.x + saveMargin, ImGui::GetCursorPosY() /* + ImGui::CalcTextSize("XXX").y + saveMargin*/));
-        ImGui::Text("Manufacturer: %*.*s", 35, 35, light.manufacturer);
+        ImGui::Text("Manufacturer: %*.*s", MAX_LIGHT_MANUFACTURER_LENGTH, MAX_LIGHT_MANUFACTURER_LENGTH, light.manufacturer);
         // ImGui::SameLine();
         ImGui::SetCursorPos(ImVec2(_pos.x + saveMargin, ImGui::GetCursorPosY() /* + ImGui::CalcTextSize("XXX").y + saveMargin*/));
-        ImGui::Text("Channels:     %35d", light.channelCount);
+        ImGui::Text("Channels:     %*d", MAX_LIGHT_NAME_LENGTH, light.channelCount);
         // ImGui::SameLine();
         // ImGui::SetCursorPos(ImVec2(_pos.x + saveMargin, ImGui::GetCursorPosY()/* + ImGui::CalcTextSize("XXX").y +
         // saveMargin*/));
@@ -115,8 +122,8 @@ void ListLightsWindow::DrawContents()
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
     if (ImGui::Button("Add", ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
     {
-        GLOBAL::ADDLIGHTWINDOW::isWindowActive = true;
-        GLOBAL::LISTLIGHTSWINDOW::isWindowActive = false;
+        GLOBAL::ADDLIGHTWINDOW::isWindowActive           = true;
+        GLOBAL::LISTLIGHTSWINDOW::isWindowActive         = false;
         GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow = true;
     }
 
@@ -129,10 +136,10 @@ void ListLightsWindow::DrawContents()
     if (ImGui::Button("Edit", ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
     {
         GLOBAL::ADDLIGHTWINDOW::lightToEdit = GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::LISTLIGHTSWINDOW::activeItemIndex);
-        GLOBAL::ADDLIGHTWINDOW::isWindowActive = true;
-        GLOBAL::LISTLIGHTSWINDOW::isWindowActive = false;
+        GLOBAL::ADDLIGHTWINDOW::isWindowActive           = true;
+        GLOBAL::LISTLIGHTSWINDOW::isWindowActive         = false;
         GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow = true;
-        GLOBAL::ADDLIGHTWINDOW::isEditMode = true;
+        GLOBAL::ADDLIGHTWINDOW::isEditMode               = true;
     }
 
     style.Colors[ImGuiCol_Button]        = red_ImGuiCol_Button;
@@ -141,9 +148,10 @@ void ListLightsWindow::DrawContents()
 
     ImGui::SetCursorPos(ImVec2(_size.x - 3 * saveMargin - 3 * ImGui::CalcTextSize("Cancel").x - 6 * saveMargin,
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
-    if (ImGui::Button("Delete", ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+    if (ImGui::Button("Delete",
+                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
     {
-        //std::string lightName = GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::LISTLIGHTSWINDOW::activeItemIndex).name;
+        // std::string lightName = GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::LISTLIGHTSWINDOW::activeItemIndex).name;
         LightFileManager::deleteLightByIndex(GLOBAL::LISTLIGHTSWINDOW::activeItemIndex);
     }
 
@@ -161,7 +169,7 @@ void ListLightsWindow::DrawContents()
     if (ImGui::Button("Cancel",
                       ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
     {
-        GLOBAL::LISTLIGHTSWINDOW::isWindowActive = false;
+        GLOBAL::LISTLIGHTSWINDOW::isWindowActive         = false;
         GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow = false;
     }
 

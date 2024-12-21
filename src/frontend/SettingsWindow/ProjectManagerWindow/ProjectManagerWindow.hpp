@@ -12,9 +12,10 @@
 
 #include <imgui.h>
 
-#include <backend/GLOBAL.hpp>
-#include <backend/defines.hpp>
-#include <frontend/BaseWindow.hpp>
+#include "backend/GLOBAL.hpp"
+#include "backend/defines.hpp"
+#include "frontend/BaseWindow.hpp"
+#include "frontend/SettingsWindow/ProjectManagerWindow/CreateProjectWindow/CreateProjectWindow.hpp"
 
 class ProjectManagerWindow : BaseWindow
 {
@@ -27,6 +28,10 @@ public:
 private:
     ImVec2 _pos;
     ImVec2 _size;
+
+    ImVec2 createProjectWindowSize = ImVec2(0.0f, 0.0f);
+
+    CreateProjectWindow *createProjectWindow = new CreateProjectWindow();
 };
 
 

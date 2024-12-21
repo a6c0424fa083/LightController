@@ -29,10 +29,10 @@ void LibraryManagerWindow::Draw(ImVec2 pos, ImVec2 size)
 
 void LibraryManagerWindow::DrawContents()
 {
-    ImGui::SetCursorPos(ImVec2(_size.x / 2.0f - (ImGui::CalcTextSize("Add new Light").x + 2 * saveMargin) / 2.0f, saveMargin));
+    /*ImGui::SetCursorPos(ImVec2(_size.x / 2.0f - (ImGui::CalcTextSize("Add new Light").x + 2 * saveMargin) / 2.0f, saveMargin));
     if (ImGui::Button("Add new Light",
                       ImVec2(ImGui::CalcTextSize("Add new Light").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
-        GLOBAL::ADDLIGHTWINDOW::isWindowActive = true;
+        GLOBAL::ADDLIGHTWINDOW::isWindowActive = true;*/
 
 
     addLightWindowSize = AddLightWindow::getIdealWindowSize();
@@ -40,9 +40,11 @@ void LibraryManagerWindow::DrawContents()
         addLightWindow->Draw(ImVec2(saveMargin, GLOBAL::HEADERWINDOW::pos.y + GLOBAL::HEADERWINDOW::size.y + saveMargin),
                              addLightWindowSize);
 
-    ImGui::SetCursorPos(ImVec2(_size.x / 2.0f - (ImGui::CalcTextSize("List Light Library").x + 2 * saveMargin) / 2.0f, 4 * saveMargin + ImGui::CalcTextSize("XXX").y));
-    if (ImGui::Button("List Light Library",
-                      ImVec2(ImGui::CalcTextSize("List Light Library").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+
+    //ImGui::SetCursorPos(ImVec2(_size.x / 2.0f - (ImGui::CalcTextSize("List Light Library").x + 2 * saveMargin) / 2.0f, 4 * saveMargin + ImGui::CalcTextSize("XXX").y));
+    ImGui::SetCursorPos(ImVec2(_size.x / 2.0f - (ImGui::CalcTextSize("Light Library").x + 2 * saveMargin) / 2.0f, saveMargin));
+    if (ImGui::Button("Light Library",
+                      ImVec2(ImGui::CalcTextSize("Light Library").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
         GLOBAL::LISTLIGHTSWINDOW::isWindowActive = true;
 
     listLightsWindowSize = ListLightsWindow::getIdealWindowSize();
