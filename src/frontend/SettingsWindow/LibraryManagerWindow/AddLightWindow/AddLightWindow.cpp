@@ -162,7 +162,7 @@ void AddLightWindow::DrawContents()
     if (GLOBAL::ADDLIGHTWINDOW::isEditMode)
     {
         if (ImGui::Button("Save",
-                          ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+                          ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin))/* || ImGui::IsKeyPressed(ImGuiKey_Enter)*/)
         {
             // add the light struct to file system
             LightFileManager::deleteLightByIndex(GLOBAL::LISTLIGHTSWINDOW::activeItemIndex);
@@ -185,7 +185,7 @@ void AddLightWindow::DrawContents()
     else
     {
         if (ImGui::Button("Add",
-                          ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+                          ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin))/* || ImGui::IsKeyPressed(ImGuiKey_Enter)*/)
         {
             // add the light struct to file system
             LightFileManager::addLightToLibrary(_light);
@@ -207,7 +207,7 @@ void AddLightWindow::DrawContents()
 
     ImGui::SetCursorPos(ImVec2(saveMargin, _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
     if (ImGui::Button("Cancel",
-                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin))/* || ImGui::IsKeyPressed(ImGuiKey_Escape)*/)
     {
         GLOBAL::ADDLIGHTWINDOW::isWindowActive = false;
         if (GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow) GLOBAL::LISTLIGHTSWINDOW::isWindowActive = true;
