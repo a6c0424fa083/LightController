@@ -162,8 +162,9 @@ void AddLightWindow::DrawContents()
     if (GLOBAL::ADDLIGHTWINDOW::isEditMode)
     {
         if (ImGui::Button("Save",
-                          ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin))/* || ImGui::IsKeyPressed(ImGuiKey_Enter)*/)
+                          ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) || (ImGui::IsKeyPressed(ImGuiKey_Enter) && !GLOBAL::KEYHANDLER::isKeyDown_Enter))
         {
+            GLOBAL::KEYHANDLER::isKeyDown_Enter = true;
             // add the light struct to file system
             LightFileManager::deleteLightByIndex(GLOBAL::LISTLIGHTSWINDOW::activeItemIndex);
             LightFileManager::addLightToLibrary(_light);
@@ -185,8 +186,9 @@ void AddLightWindow::DrawContents()
     else
     {
         if (ImGui::Button("Add",
-                          ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin))/* || ImGui::IsKeyPressed(ImGuiKey_Enter)*/)
+                          ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) || (ImGui::IsKeyPressed(ImGuiKey_Enter) && !GLOBAL::KEYHANDLER::isKeyDown_Enter))
         {
+            GLOBAL::KEYHANDLER::isKeyDown_Enter = true;
             // add the light struct to file system
             LightFileManager::addLightToLibrary(_light);
 
@@ -207,8 +209,9 @@ void AddLightWindow::DrawContents()
 
     ImGui::SetCursorPos(ImVec2(saveMargin, _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
     if (ImGui::Button("Cancel",
-                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin))/* || ImGui::IsKeyPressed(ImGuiKey_Escape)*/)
+                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) || (ImGui::IsKeyPressed(ImGuiKey_Escape) && !GLOBAL::KEYHANDLER::isKeyDown_Escape))
     {
+        GLOBAL::KEYHANDLER::isKeyDown_Escape = true;
         GLOBAL::ADDLIGHTWINDOW::isWindowActive = false;
         if (GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow) GLOBAL::LISTLIGHTSWINDOW::isWindowActive = true;
         memset(_light.name, '\0', MAX_LIGHT_NAME_LENGTH);

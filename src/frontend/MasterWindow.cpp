@@ -45,13 +45,16 @@ void MasterWindow::Draw(ImVec2 pos, ImVec2 size)
 void MasterWindow::DrawContents()
 {
     idealHeaderWindowSize = HeaderWindow::getIdealSize();
-    settingsWindowSize    = ImVec2(io_width - 2 * saveMargin, io_height - idealHeaderWindowSize.y - 2 * saveMargin);
+
+    patchWindowSize    = ImVec2(io_width - 2 * saveMargin, io_height - idealHeaderWindowSize.y - 2 * saveMargin);
+    settingsWindowSize = ImVec2(io_width - 2 * saveMargin, io_height - idealHeaderWindowSize.y - 2 * saveMargin);
+
     headerWindow->Draw(ImVec2(0.0f, 0.0f), idealHeaderWindowSize);
 
 
     switch (GLOBAL::HEADERWINDOW::activeSection)
     {
-        case 0: break;
+        case 0: patchWindow->Draw(ImVec2(saveMargin, idealHeaderWindowSize.y + saveMargin), patchWindowSize); break;
         case 1: break;
         case 2: break;
         case 3: break;

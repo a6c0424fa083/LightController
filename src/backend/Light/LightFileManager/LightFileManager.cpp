@@ -117,7 +117,6 @@ uint8_t LightFileManager::loadLightsFromLibrary()
     while (inFile.read(reinterpret_cast<char *>(&light), sizeof(Light)))
     {
         GLOBAL::LIGHTFILEMANAGER::lightsLibrary.push_back(light);
-        // printf("Added light! New size: %lu\n", GLOBAL::LIGHTFILEMANAGER::lightsLibrary.size());
     }
     inFile.close();
 
@@ -155,8 +154,7 @@ uint8_t LightFileManager::deleteLightByIndex(size_t index)
         return 2;  // File error
     }
 
-    Light          lastLight;
-    Light light;
+    Light lastLight;
 
     // replace element with last element
 
@@ -165,27 +163,14 @@ uint8_t LightFileManager::deleteLightByIndex(size_t index)
     size_t lastLightPos = file.tellg();
     file.read(reinterpret_cast<char *>(&lastLight), sizeof(Light));
 
-    printf("###   Last Light   ###\n");
-    printf("  seekg: %lu", lastLightPos);
-    printLight(lastLight);
-    printf("######################\n\n\n");
-
     // jump to the beginning of the file
     file.seekg(0);
 
+    // go to the beginning of the latest read in light
+    file.seekp(static_cast<ssize_t>(index * sizeof(Light)));
 
-            // go to the beginning of the latest read in light
-            file.seekp(static_cast<ssize_t>(index * sizeof(Light)));
-
-            printf("###   Light to be removed   ###\n");
-            printf("  seekg: %lu", static_cast<size_t>(file.tellp()));
-            printLight(light);
-            printf("###############################\n\n\n");
-
-            // replace the light with the last light
-            file.write(reinterpret_cast<char *>(&lastLight), sizeof(Light));
-
-
+    // replace the light with the last light
+    file.write(reinterpret_cast<char *>(&lastLight), sizeof(Light));
 
 
     file.close();
@@ -199,15 +184,15 @@ void LightFileManager::printLights()
 {
     for (const auto &light : GLOBAL::LIGHTFILEMANAGER::lightsLibrary)
     {
-        printf("Name: %50s\n", light.name);
-        printf("Man.: %50s\n", light.manufacturer);
-        printf("Ch. : %50d\n\n", light.channelCount);
+        printf("Name: %*s\n", MAX_LIGHT_NAME_LENGTH, light.name);
+        printf("Man.: %*s\n", MAX_LIGHT_MANUFACTURER_LENGTH, light.manufacturer);
+        printf("Ch. : %*d\n\n", MAX_LIGHT_NAME_LENGTH, light.channelCount);
     }
 }
 
 void LightFileManager::printLight(Light light)
 {
-    printf("Name: %50s\n", light.name);
-    printf("Man.: %50s\n", light.manufacturer);
-    printf("Ch. : %50d\n\n", light.channelCount);
+    printf("Name: %*s\n", MAX_LIGHT_NAME_LENGTH, light.name);
+    printf("Man.: %*s\n", MAX_LIGHT_MANUFACTURER_LENGTH, light.manufacturer);
+    printf("Ch. : %*d\n\n", MAX_LIGHT_NAME_LENGTH, light.channelCount);
 }

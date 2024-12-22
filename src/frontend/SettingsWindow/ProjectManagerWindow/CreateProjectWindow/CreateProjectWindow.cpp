@@ -16,7 +16,7 @@ void CreateProjectWindow::Draw(ImVec2 pos, ImVec2 size)
     _size              = size;
     io.FontGlobalScale = fontSize;
 
-    ImGui::PushFont(TITLE);
+    ImGui::PushFont(NUMBER);
     setWindowPosSize(_pos, _size);
 
     ImGui::Begin("CreateProjectWindow", nullptr, STATIC__NO_VISUALS);
@@ -29,10 +29,24 @@ void CreateProjectWindow::Draw(ImVec2 pos, ImVec2 size)
 
 void CreateProjectWindow::DrawContents()
 {
+    static ImVec2 lastCursorPos;
+
+
     ImGui::PushFont(TITLE);
     ImGui::SetCursorPos(ImVec2(_size.x / 2.0f - ImGui::CalcTextSize("Configure Project").x / 2.0f, saveMargin));
     ImGui::Text("Configure Project");
     ImGui::PopFont();
+
+    lastCursorPos = ImGui::GetCursorPos();
+
+    // margin from addWindow
+#define secondRowPosY (ImGui::CalcTextSize("Channel Count: ").x + 2 * saveMargin)
+
+    ImGui::SetCursorPos(ImVec2(saveMargin, lastCursorPos.y + saveMargin));
+    ImGui::Text("Project Name: ");
+    ImGui::SetCursorPos(ImVec2(secondRowPosY, lastCursorPos.y + saveMargin));
+    ImGui::SetNextItemWidth(_size.x - secondRowPosY - saveMargin);
+    ImGui::InputText("##ProjectName", _name, MAX_PROJECT_LENGTH);
 
 
 
@@ -47,17 +61,21 @@ void CreateProjectWindow::DrawContents()
     if (GLOBAL::CREATEPROJECTWINDOW::isEditMode)
     {
         if (ImGui::Button("Save",
-                          ImVec2(ImGui::CalcTextSize("Save").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+                          ImVec2(ImGui::CalcTextSize("Save").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
+            (ImGui::IsKeyPressed(ImGuiKey_Enter) && !GLOBAL::KEYHANDLER::isKeyDown_Enter))
         {
-            GLOBAL::CREATEPROJECTWINDOW::isEditMode = false;
+            GLOBAL::KEYHANDLER::isKeyDown_Enter         = true;
+            GLOBAL::CREATEPROJECTWINDOW::isEditMode     = false;
             GLOBAL::CREATEPROJECTWINDOW::isWindowActive = false;
         }
     }
     else
     {
         if (ImGui::Button("Create",
-                          ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+                          ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
+            (ImGui::IsKeyPressed(ImGuiKey_Enter) && !GLOBAL::KEYHANDLER::isKeyDown_Enter))
         {
+            GLOBAL::KEYHANDLER::isKeyDown_Enter         = true;
             GLOBAL::CREATEPROJECTWINDOW::isWindowActive = false;
         }
     }
@@ -68,8 +86,10 @@ void CreateProjectWindow::DrawContents()
 
     ImGui::SetCursorPos(ImVec2(saveMargin, _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
     if (ImGui::Button("Cancel",
-                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
+        (ImGui::IsKeyPressed(ImGuiKey_Escape) && !GLOBAL::KEYHANDLER::isKeyDown_Escape))
     {
+        GLOBAL::KEYHANDLER::isKeyDown_Escape        = true;
         GLOBAL::CREATEPROJECTWINDOW::isWindowActive = false;
     }
 

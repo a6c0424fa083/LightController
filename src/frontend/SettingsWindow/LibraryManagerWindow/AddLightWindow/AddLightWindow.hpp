@@ -37,9 +37,6 @@ private:
 
     ImVec2 _channelFunctionContainerSize;
 
-    // char _name[MAX_LIGHT_NAME_LENGTH] = { 0 };
-    // char _manufacturer[MAX_LIGHT_MANUFACTURER_LENGTH] = { 0 };
-    // int  _channelCount                = 0;
 
     Light _light {};
 

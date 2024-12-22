@@ -17,6 +17,7 @@
 #include "backend/defines.hpp"
 #include "frontend/BaseWindow.hpp"
 #include "frontend/HeaderWindow/HeaderWindow.hpp"
+#include "frontend/PatchWindow/PatchWindow.hpp"
 #include "frontend/SettingsWindow/SettingsWindow.hpp"
 
 
@@ -37,6 +38,9 @@ private:
 
     ImVec2          settingsWindowSize = ImVec2(0.0f, 0.0f);
     SettingsWindow *settingsWindow     = new SettingsWindow();
+
+    ImVec2       patchWindowSize = ImVec2(0.0f, 0.0f);
+    PatchWindow *patchWindow     = new PatchWindow();
 };
 
 

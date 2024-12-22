@@ -31,6 +31,7 @@
 #include "backend/defines.hpp"
 #include "frontend/MasterWindow.hpp"
 #include "backend/GLOBAL.hpp"
+#include "backend/KeyboardInputHandler/KeyboardInputHandler.hpp"
 
 
 // basic callback function for glfw
@@ -155,6 +156,8 @@ int main(/*int argc, char **argv*/)
         ImPlot::CreateContext();
 
         masterWindow->Draw(ImVec2(0.0f, 0.0f), ImVec2(io_width, io_height));
+
+        KeyboardInputHandler::updateKeyStatus();
 
         ImPlot::DestroyContext();
         ImGui::Render();

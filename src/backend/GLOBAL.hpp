@@ -16,16 +16,28 @@
 #include <imgui.h>
 
 #include "backend/Light/Light.hpp"
+#include "backend/Patch/Patch.hpp"
 
 
 namespace GLOBAL
 {
+    namespace KEYHANDLER
+    {
+        inline bool isKeyDown_Escape = false;
+        inline bool isKeyDown_Enter  = false;
+        inline bool isKeyDown_A      = false;
+        inline bool isKeyDown_E      = false;
+        inline bool isKeyDown_Delete = false;
+        inline bool isKeyDown_UpArrow = false;
+        inline bool isKeyDown_DownArrow = false;
+    };  // namespace KEYHANDLER
+
     namespace HEADERWINDOW
     {
         inline std::vector<std::string> sections = { "Patch", "CH Control", "Scene Editor", "Live", "Settings" };
 
         inline uint8_t activeSection    = sections.size() - 1;  // set last element (= settings) to active
-        inline uint8_t progressBarProg  = 255; // 0 - 255
+        inline uint8_t progressBarProg  = 255;                  // 0 - 255
         inline auto    progressBarColor = ImVec4(0.0f, 1.0f, 0.0f, 1.0f);
         inline auto    size             = ImVec2(0.0f, 0.0f);
         inline auto    pos              = ImVec2(0.0f, 0.0f);
@@ -33,11 +45,11 @@ namespace GLOBAL
 
     namespace ADDLIGHTWINDOW
     {
-        inline bool isWindowActive = false;
-        inline bool cameFromListLightsWindow = false;
-        inline bool isEditMode = false;
-        inline Light lightToEdit = Light{};
-    };
+        inline bool  isWindowActive           = false;
+        inline bool  cameFromListLightsWindow = false;
+        inline bool  isEditMode               = false;
+        inline Light lightToEdit              = Light {};
+    };  // namespace ADDLIGHTWINDOW
 
     namespace LIGHTFILEMANAGER
     {
@@ -46,14 +58,18 @@ namespace GLOBAL
 
     namespace LISTLIGHTSWINDOW
     {
-        inline bool isWindowActive = false;
+        inline bool   isWindowActive  = false;
         inline size_t activeItemIndex = 0;
-    };
+    };  // namespace LISTLIGHTSWINDOW
 
     namespace CREATEPROJECTWINDOW
     {
         inline bool isWindowActive = false;
-        inline bool isEditMode = false;
+        inline bool isEditMode     = false;
+    };  // namespace CREATEPROJECTWINDOW
+
+    namespace PATCH {
+        inline std::vector<PatchButton> patchButtons;
     };
 
 };  // namespace GLOBAL
