@@ -61,4 +61,8 @@ void MasterWindow::DrawContents()
         case 4: settingsWindow->Draw(ImVec2(saveMargin, idealHeaderWindowSize.y + saveMargin), settingsWindowSize); break;
         default: break;
     }
+
+
+    // must come at the end of the windows
+    //clearWindow->Draw(ImVec2(0.0f, 0.0f), ImVec2(io_width, io_height));
 }

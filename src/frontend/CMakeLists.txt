@@ -9,4 +9,5 @@
 add_subdirectory(HeaderWindow)
 add_subdirectory(SettingsWindow)
 add_subdirectory(PatchWindow)
+add_subdirectory(ClearWindow)
 target_sources(${APPLICATION_NAME} PUBLIC BaseWindow.cpp MasterWindow.cpp)
