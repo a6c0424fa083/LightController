@@ -23,12 +23,12 @@ namespace GLOBAL
 {
     namespace KEYHANDLER
     {
-        inline bool isKeyDown_Escape = false;
-        inline bool isKeyDown_Enter  = false;
-        inline bool isKeyDown_A      = false;
-        inline bool isKeyDown_E      = false;
-        inline bool isKeyDown_Delete = false;
-        inline bool isKeyDown_UpArrow = false;
+        inline bool isKeyDown_Escape    = false;
+        inline bool isKeyDown_Enter     = false;
+        inline bool isKeyDown_A         = false;
+        inline bool isKeyDown_E         = false;
+        inline bool isKeyDown_Delete    = false;
+        inline bool isKeyDown_UpArrow   = false;
         inline bool isKeyDown_DownArrow = false;
     };  // namespace KEYHANDLER
 
@@ -68,9 +68,19 @@ namespace GLOBAL
         inline bool isEditMode     = false;
     };  // namespace CREATEPROJECTWINDOW
 
-    namespace PATCH {
+    namespace PATCH
+    {
         inline std::vector<PatchButton> patchButtons;
     };
+
+    namespace SELECTLIGHTWINDOW
+    {
+        inline auto     light                  = Light {};
+        inline bool     selectionValid         = false;
+        inline bool     isWindowActive         = false;
+        inline uint16_t referenceButtonAddress = 0;
+        inline size_t activeItemIndex = 0;
+    }  // namespace SELECTLIGHTWINDOW
 
 };  // namespace GLOBAL
 

@@ -38,12 +38,12 @@ void PatchWindow::DrawContents()
             ImGui::SetCursorPos(ImVec2(saveMargin + static_cast<float>(c) * (saveMargin + buttonSize),
                                        saveMargin + static_cast<float>(r) * (saveMargin + buttonSize)));
             char buttonText[4];
-            snprintf(buttonText, 3, "%03d", r * colums + c);
-            buttonText[3] = '\0';
-            printf("Address: %s\n", buttonText);
+            snprintf(buttonText, 4, "%03d", r * colums + c + 1);
+
             if (ImGui::Button(buttonText, ImVec2(buttonSize, buttonSize)))
             {
-                // do something
+                GLOBAL::SELECTLIGHTWINDOW::isWindowActive = true;
+                GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress = r * colums + c + 1;
             }
         }
     }
@@ -51,6 +51,11 @@ void PatchWindow::DrawContents()
     ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX(), ImGui::GetCursorPosY() + saveMargin / 2.0f));  // saveMargin / 2.0f is not
                                                                                                       // accurete and should be
                                                                                                       // replaced soon
+
+    selectLightWindowSize = SelectLightWindow::getIdealWindowSize();
+    if (GLOBAL::SELECTLIGHTWINDOW::isWindowActive) {
+        selectLightWindow->Draw(ImVec2(_pos.x, _pos.y), selectLightWindowSize);
+    }
 
     _idealWindowSize =
         ImVec2(io_width - 2 * saveMargin, io_height - GLOBAL::HEADERWINDOW::size.y - GLOBAL::HEADERWINDOW::pos.y - 2 * saveMargin);

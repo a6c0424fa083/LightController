@@ -15,6 +15,7 @@
 #include "backend/GLOBAL.hpp"
 #include "backend/defines.hpp"
 #include "frontend/BaseWindow.hpp"
+#include "frontend/PatchWindow/SelectLightWindow/SelectLightWindow.hpp"
 
 class PatchWindow : BaseWindow
 {
@@ -30,13 +31,16 @@ private:
     ImVec2 _pos;
     ImVec2 _size;
 
-    //colums * rows = 512 !!
+    // colums * rows = 512 !!
     static constexpr uint8_t colums = 16;
-    static constexpr uint8_t rows = 32;
+    static constexpr uint8_t rows   = 32;
 
     float buttonSize;
 
     inline static auto _idealWindowSize = ImVec2(0.0f, 0.0f);
+
+    ImVec2 selectLightWindowSize = ImVec2(0.0f, 0.0f);
+    SelectLightWindow *selectLightWindow = new SelectLightWindow();
 };
 
 

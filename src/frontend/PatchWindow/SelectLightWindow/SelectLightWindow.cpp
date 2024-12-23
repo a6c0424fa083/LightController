@@ -1,18 +1,16 @@
 //
-//  ListLightsWindow.cpp
+//  SelectLightWindow.cpp
 //  LightController
 //  https://github.com/a6c0424fa083/LightController
 //
-//  Created by Jannis Sauer on 2024-12-18.
+//  Created by Jannis Sauer on 2024-12-23.
 //
 
-#include "ListLightsWindow.hpp"
+#include "SelectLightWindow.hpp"
 
-#include <frontend/SettingsWindow/LibraryManagerWindow/AddLightWindow/AddLightWindow.hpp>
+SelectLightWindow::~SelectLightWindow() {}
 
-ListLightsWindow::~ListLightsWindow() {}
-
-void ListLightsWindow::Draw(ImVec2 pos, ImVec2 size)
+void SelectLightWindow::Draw(ImVec2 pos, ImVec2 size)
 {
     _pos               = pos;
     _size              = size;
@@ -21,7 +19,7 @@ void ListLightsWindow::Draw(ImVec2 pos, ImVec2 size)
     ImGui::PushFont(NUMBER);
     setWindowPosSize(_pos, _size);
 
-    ImGui::Begin("ListLightsWindow", nullptr, STATIC__NO_VISUALS);
+    ImGui::Begin("SelectLightWindow", nullptr, STATIC__NO_VISUALS);
 
     DrawContents();
 
@@ -29,29 +27,9 @@ void ListLightsWindow::Draw(ImVec2 pos, ImVec2 size)
     ImGui::PopFont();
 }
 
-void ListLightsWindow::DrawContents()
+void SelectLightWindow::DrawContents()
 {
     LightFileManager::loadLightsFromLibrary();
-
-    if (GLOBAL::LIGHTFILEMANAGER::lightsLibrary.empty())
-    {
-        GLOBAL::ADDLIGHTWINDOW::isWindowActive           = true;
-        GLOBAL::LISTLIGHTSWINDOW::isWindowActive         = false;
-        GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow = true;
-    }
-
-    if (GLOBAL::LISTLIGHTSWINDOW::activeItemIndex > 0 && (ImGui::IsKeyPressed(ImGuiKey_UpArrow) && GLOBAL::KEYHANDLER::isKeyDown_UpArrow)) {
-        GLOBAL::LISTLIGHTSWINDOW::activeItemIndex--;
-        GLOBAL::KEYHANDLER::isKeyDown_UpArrow = true;
-    }
-
-    if (GLOBAL::LISTLIGHTSWINDOW::activeItemIndex < GLOBAL::LIGHTFILEMANAGER::lightsLibrary.size() - 1 && (ImGui::IsKeyPressed(ImGuiKey_DownArrow) && GLOBAL::KEYHANDLER::isKeyDown_DownArrow)) {
-        GLOBAL::LISTLIGHTSWINDOW::activeItemIndex++;
-        GLOBAL::KEYHANDLER::isKeyDown_DownArrow = true;
-    }
-
-
-    // if (GLOBAL::LIGHTFILEMANAGER::lightsLibrary.empty()) { ImGui::Text("No lights available."); }
 
     ImGui::SetNextWindowPos(ImVec2(_pos.x + saveMargin, _pos.y + saveMargin));
     ImGui::BeginChild("ListLightsWindowChild",
@@ -63,7 +41,7 @@ void ListLightsWindow::DrawContents()
 
     for (size_t i = 0; i < GLOBAL::LIGHTFILEMANAGER::lightsLibrary.size(); ++i)
     {
-        if (GLOBAL::LISTLIGHTSWINDOW::activeItemIndex == i)
+        if (GLOBAL::SELECTLIGHTWINDOW::activeItemIndex == i)
         {
             style.WindowBorderSize = 4 * default_WindowBorderSize;
             style.FrameBorderSize  = 4 * default_FrameBorderSize;
@@ -84,7 +62,7 @@ void ListLightsWindow::DrawContents()
         // Check for item click
         if (ImGui::IsWindowHovered() && ImGui::IsMouseClicked(0))
         {
-            GLOBAL::LISTLIGHTSWINDOW::activeItemIndex = static_cast<int>(i);
+            GLOBAL::SELECTLIGHTWINDOW::activeItemIndex = static_cast<int>(i);
         }
 
         // Display light details
@@ -108,7 +86,7 @@ void ListLightsWindow::DrawContents()
 
         ImGui::Spacing();  // Add some space between items
 
-        if (GLOBAL::LISTLIGHTSWINDOW::activeItemIndex == i)
+        if (GLOBAL::SELECTLIGHTWINDOW::activeItemIndex == i)
         {
             style.WindowBorderSize = default_WindowBorderSize;
             style.FrameBorderSize  = default_FrameBorderSize;
@@ -129,61 +107,28 @@ void ListLightsWindow::DrawContents()
 
     ImGui::SetCursorPos(ImVec2(_size.x - saveMargin - ImGui::CalcTextSize("Cancel").x - 2 * saveMargin,
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
-    if (ImGui::Button("Add", ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) || (ImGui::IsKeyPressed(ImGuiKey_A) && !GLOBAL::KEYHANDLER::isKeyDown_A))
+    if (ImGui::Button("Select",
+                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
+        (ImGui::IsKeyPressed(ImGuiKey_A) && !GLOBAL::KEYHANDLER::isKeyDown_A))
     {
-        GLOBAL::KEYHANDLER::isKeyDown_A = true;
-        GLOBAL::ADDLIGHTWINDOW::isWindowActive           = true;
-        GLOBAL::LISTLIGHTSWINDOW::isWindowActive         = false;
-        GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow = true;
+        GLOBAL::SELECTLIGHTWINDOW::isWindowActive = false;
     }
 
     style.Colors[ImGuiCol_Button]        = default_ImGuiCol_Button;
     style.Colors[ImGuiCol_ButtonHovered] = default_ImGuiCol_ButtonHovered;
     style.Colors[ImGuiCol_ButtonActive]  = default_ImGuiCol_ButtonActive;
 
-    ImGui::SetCursorPos(ImVec2(_size.x - 2 * saveMargin - 2 * ImGui::CalcTextSize("Cancel").x - 4 * saveMargin,
-                               _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
-    if (ImGui::Button("Edit", ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) || (ImGui::IsKeyPressed(ImGuiKey_E) && !GLOBAL::KEYHANDLER::isKeyDown_E))
-    {
-        GLOBAL::KEYHANDLER::isKeyDown_E = true;
-        GLOBAL::ADDLIGHTWINDOW::lightToEdit = GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::LISTLIGHTSWINDOW::activeItemIndex);
-        GLOBAL::ADDLIGHTWINDOW::isWindowActive           = true;
-        GLOBAL::LISTLIGHTSWINDOW::isWindowActive         = false;
-        GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow = true;
-        GLOBAL::ADDLIGHTWINDOW::isEditMode               = true;
-    }
 
     style.Colors[ImGuiCol_Button]        = red_ImGuiCol_Button;
     style.Colors[ImGuiCol_ButtonHovered] = red_ImGuiCol_ButtonHovered;
     style.Colors[ImGuiCol_ButtonActive]  = red_ImGuiCol_ButtonActive;
 
-    ImGui::SetCursorPos(ImVec2(_size.x - 3 * saveMargin - 3 * ImGui::CalcTextSize("Cancel").x - 6 * saveMargin,
-                               _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
-    if (ImGui::Button("Delete",
-                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) || (ImGui::IsKeyPressed(ImGuiKey_Delete) && !GLOBAL::KEYHANDLER::isKeyDown_Delete))
-    {
-        GLOBAL::KEYHANDLER::isKeyDown_Delete = true;
-        // std::string lightName = GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::LISTLIGHTSWINDOW::activeItemIndex).name;
-        LightFileManager::deleteLightByIndex(GLOBAL::LISTLIGHTSWINDOW::activeItemIndex);
-    }
-
-    style.Colors[ImGuiCol_Button]        = default_ImGuiCol_Button;
-    style.Colors[ImGuiCol_ButtonHovered] = default_ImGuiCol_ButtonHovered;
-    style.Colors[ImGuiCol_ButtonActive]  = default_ImGuiCol_ButtonActive;
-
-    style.Colors[ImGuiCol_Button]        = red_ImGuiCol_Button;
-    style.Colors[ImGuiCol_ButtonHovered] = red_ImGuiCol_ButtonHovered;
-    style.Colors[ImGuiCol_ButtonActive]  = red_ImGuiCol_ButtonActive;
-
-    // ImGui::SetCursorPos(ImVec2(_size.x - saveMargin - ImGui::CalcTextSize("Cancel").x - 2 * saveMargin, _size.y -
-    // ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
     ImGui::SetCursorPos(ImVec2(saveMargin, _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
     if (ImGui::Button("Cancel",
-                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) || (ImGui::IsKeyPressed(ImGuiKey_Escape) && !GLOBAL::KEYHANDLER::isKeyDown_Escape))
+                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
+        (ImGui::IsKeyPressed(ImGuiKey_Escape) && !GLOBAL::KEYHANDLER::isKeyDown_Escape))
     {
-        GLOBAL::KEYHANDLER::isKeyDown_Escape = true;
-        GLOBAL::LISTLIGHTSWINDOW::isWindowActive         = false;
-        GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow = false;
+        GLOBAL::SELECTLIGHTWINDOW::isWindowActive = false;
     }
 
     style.Colors[ImGuiCol_Button]        = default_ImGuiCol_Button;
