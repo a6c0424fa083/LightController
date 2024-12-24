@@ -44,9 +44,19 @@ void PatchWindow::DrawContents()
 
             if (GLOBAL::PATCH::patchButtons.at(r * colums + c).isUsed)
             {
-                style.Colors[ImGuiCol_Button]        = green_ImGuiCol_Button;
-                style.Colors[ImGuiCol_ButtonHovered] = green_ImGuiCol_ButtonHovered;
-                style.Colors[ImGuiCol_ButtonActive]  = green_ImGuiCol_ButtonActive;
+                if (GLOBAL::PATCH::patchButtons.at(r * colums + c).address ==
+                    GLOBAL::PATCH::patchButtons.at(r * colums + c).referenceLight->rootAddress)
+                {
+                    style.Colors[ImGuiCol_Button]        = darkgreen_ImGuiCol_Button;
+                    style.Colors[ImGuiCol_ButtonHovered] = darkgreen_ImGuiCol_ButtonHovered;
+                    style.Colors[ImGuiCol_ButtonActive]  = darkgreen_ImGuiCol_ButtonActive;
+                }
+                else
+                {
+                    style.Colors[ImGuiCol_Button]        = green_ImGuiCol_Button;
+                    style.Colors[ImGuiCol_ButtonHovered] = green_ImGuiCol_ButtonHovered;
+                    style.Colors[ImGuiCol_ButtonActive]  = green_ImGuiCol_ButtonActive;
+                }
             }
             if (ImGui::Button(buttonText, ImVec2(buttonSize, buttonSize)))
             {

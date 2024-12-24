@@ -34,6 +34,9 @@ public:
     inline static auto  green_ImGuiCol_Button              = ImVec4(0.11F, 0.31F, 0.11F, 1.0F);
     inline static auto  green_ImGuiCol_ButtonHovered       = ImVec4(0.14F, 0.34F, 0.14F, 1.0F);
     inline static auto  green_ImGuiCol_ButtonActive        = ImVec4(0.23F, 0.43F, 0.23F, 1.0F);
+    inline static auto  darkgreen_ImGuiCol_Button          = ImVec4(0.055F, 0.16F, 0.055F, 1.0F);
+    inline static auto  darkgreen_ImGuiCol_ButtonHovered   = ImVec4(0.070F, 0.19F, 0.070F, 1.0F);
+    inline static auto  darkgreen_ImGuiCol_ButtonActive    = ImVec4(0.115F, 0.28F, 0.115F, 1.0F);
     inline static auto  default_ImGuiCol_WindowBg          = ImVec4(0.0F, 0.0F, 0.0F, 1.0F);
     inline static auto  default_ImGuiCol_ChildBg           = ImVec4(0.0F, 0.0F, 0.0F, 1.0F);
     inline static auto  default_ImGuiCol_FrameBg           = ImVec4(0.11F, 0.11F, 0.11F, 1.0F);
