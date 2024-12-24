@@ -111,7 +111,45 @@ void SelectLightWindow::DrawContents()
                       ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
         (ImGui::IsKeyPressed(ImGuiKey_A) && !GLOBAL::KEYHANDLER::isKeyDown_A))
     {
-        GLOBAL::SELECTLIGHTWINDOW::isWindowActive = false;
+        bool hasFreeSpace = true;
+
+        if (GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::SELECTLIGHTWINDOW::activeItemIndex).channelCount +
+                GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1 >
+            512)
+        {
+            hasFreeSpace = false;
+            goto BACKEND_ACTION;
+        }
+
+        for (uint16_t i = 0; i < GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::SELECTLIGHTWINDOW::activeItemIndex).channelCount;
+             i++)
+        {
+            if (GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1 + i).isUsed)
+            {
+                hasFreeSpace = false;
+                break;
+            }
+        }
+
+    BACKEND_ACTION:
+        if (hasFreeSpace)
+        {
+            GLOBAL::SELECTLIGHTWINDOW::isWindowActive                                                    = false;
+            GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1).isUsed = true;
+
+            auto *light = new Light(GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::SELECTLIGHTWINDOW::activeItemIndex),
+                                    GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress);
+
+            GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1).referenceLight = light;
+
+            for (uint16_t i = 1;
+                 i < GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::SELECTLIGHTWINDOW::activeItemIndex).channelCount;
+                 i++)
+            {
+                GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1 + i).isUsed         = true;
+                GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1 + i).referenceLight = light;
+            }
+        }
     }
 
     style.Colors[ImGuiCol_Button]        = default_ImGuiCol_Button;

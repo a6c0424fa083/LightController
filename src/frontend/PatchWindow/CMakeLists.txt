@@ -7,4 +7,5 @@
 #
 
 add_subdirectory(SelectLightWindow)
+add_subdirectory(LightInfoWindow)
 target_sources(${APPLICATION_NAME} PUBLIC PatchWindow.cpp)

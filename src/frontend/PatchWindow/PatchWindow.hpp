@@ -15,6 +15,7 @@
 #include "backend/GLOBAL.hpp"
 #include "backend/defines.hpp"
 #include "frontend/BaseWindow.hpp"
+#include "frontend/PatchWindow/LightInfoWindow/LightInfoWindow.hpp"
 #include "frontend/PatchWindow/SelectLightWindow/SelectLightWindow.hpp"
 
 class PatchWindow : BaseWindow
@@ -39,8 +40,11 @@ private:
 
     inline static auto _idealWindowSize = ImVec2(0.0f, 0.0f);
 
-    ImVec2 selectLightWindowSize = ImVec2(0.0f, 0.0f);
-    SelectLightWindow *selectLightWindow = new SelectLightWindow();
+    ImVec2             selectLightWindowSize = ImVec2(0.0f, 0.0f);
+    SelectLightWindow *selectLightWindow     = new SelectLightWindow();
+
+    ImVec2           lightInfoWindowSize = ImVec2(0.0f, 0.0f);
+    LightInfoWindow *lightInfoWindow     = new LightInfoWindow();
 };
 
 

@@ -28,10 +28,10 @@
 #include <GLFW/glfw3.h>
 
 // user includes
-#include "backend/defines.hpp"
-#include "frontend/MasterWindow.hpp"
 #include "backend/GLOBAL.hpp"
 #include "backend/KeyboardInputHandler/KeyboardInputHandler.hpp"
+#include "backend/defines.hpp"
+#include "frontend/MasterWindow.hpp"
 
 
 // basic callback function for glfw
@@ -146,7 +146,7 @@ int main(/*int argc, char **argv*/)
     style.ChildBorderSize                    = BaseWindow::default_ChildBorderSize;
     style.ChildRounding                      = BaseWindow::default_ChildRounding;
 
-    MasterWindow *masterWindow = new MasterWindow {};
+    auto *masterWindow = new MasterWindow {};
 
     while (!glfwWindowShouldClose(window))
     {
@@ -167,6 +167,7 @@ int main(/*int argc, char **argv*/)
 
     // cleanup
     delete masterWindow;
+
 
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();

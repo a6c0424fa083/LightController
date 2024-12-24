@@ -70,8 +70,12 @@ namespace GLOBAL
 
     namespace PATCH
     {
-        inline std::vector<PatchButton> patchButtons;
-    };
+        /**
+         * @brief Index is starting from 0
+         * vector index 4 -> dmx address 5
+         */
+        inline auto patchButtons = std::vector(512, PatchButton {});
+    };  // namespace PATCH
 
     namespace SELECTLIGHTWINDOW
     {
@@ -79,8 +83,15 @@ namespace GLOBAL
         inline bool     selectionValid         = false;
         inline bool     isWindowActive         = false;
         inline uint16_t referenceButtonAddress = 0;
-        inline size_t activeItemIndex = 0;
-    }  // namespace SELECTLIGHTWINDOW
+        inline size_t   activeItemIndex        = 0;
+    }  // namespace SELECTLIGHTWINDOW;
+
+    namespace LIGHTINFOWINDOW
+    {
+        inline bool isWindowActive = false;
+        inline Light *light = nullptr;
+        inline uint16_t referenceButtonAddress = 0;
+    };
 
 };  // namespace GLOBAL
 

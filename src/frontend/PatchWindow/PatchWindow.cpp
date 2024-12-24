@@ -40,10 +40,33 @@ void PatchWindow::DrawContents()
             char buttonText[4];
             snprintf(buttonText, 4, "%03d", r * colums + c + 1);
 
+            GLOBAL::PATCH::patchButtons.at(r * colums + c).address = r * colums + c + 1;
+
+            if (GLOBAL::PATCH::patchButtons.at(r * colums + c).isUsed)
+            {
+                style.Colors[ImGuiCol_Button]        = green_ImGuiCol_Button;
+                style.Colors[ImGuiCol_ButtonHovered] = green_ImGuiCol_ButtonHovered;
+                style.Colors[ImGuiCol_ButtonActive]  = green_ImGuiCol_ButtonActive;
+            }
             if (ImGui::Button(buttonText, ImVec2(buttonSize, buttonSize)))
             {
-                GLOBAL::SELECTLIGHTWINDOW::isWindowActive = true;
-                GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress = r * colums + c + 1;
+                if (!GLOBAL::PATCH::patchButtons.at(r * colums + c).isUsed)
+                {
+                    GLOBAL::SELECTLIGHTWINDOW::isWindowActive         = true;
+                    GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress = r * colums + c + 1;
+                }
+                else
+                {
+                    GLOBAL::LIGHTINFOWINDOW::isWindowActive = true;
+                    GLOBAL::LIGHTINFOWINDOW::light          = GLOBAL::PATCH::patchButtons.at(r * colums + c).referenceLight;
+                    GLOBAL::LIGHTINFOWINDOW::referenceButtonAddress = r * colums + c + 1;
+                }
+            }
+            if (GLOBAL::PATCH::patchButtons.at(r * colums + c).isUsed)
+            {
+                style.Colors[ImGuiCol_Button]        = default_ImGuiCol_Button;
+                style.Colors[ImGuiCol_ButtonHovered] = default_ImGuiCol_ButtonHovered;
+                style.Colors[ImGuiCol_ButtonActive]  = default_ImGuiCol_ButtonActive;
             }
         }
     }
@@ -53,9 +76,10 @@ void PatchWindow::DrawContents()
                                                                                                       // replaced soon
 
     selectLightWindowSize = SelectLightWindow::getIdealWindowSize();
-    if (GLOBAL::SELECTLIGHTWINDOW::isWindowActive) {
-        selectLightWindow->Draw(ImVec2(_pos.x, _pos.y), selectLightWindowSize);
-    }
+    if (GLOBAL::SELECTLIGHTWINDOW::isWindowActive) { selectLightWindow->Draw(ImVec2(_pos.x, _pos.y), selectLightWindowSize); }
+
+    lightInfoWindowSize = LightInfoWindow::getIdealWindowSize();
+    if (GLOBAL::LIGHTINFOWINDOW::isWindowActive) { lightInfoWindow->Draw(ImVec2(_pos.x, _pos.y), lightInfoWindowSize); }
 
     _idealWindowSize =
         ImVec2(io_width - 2 * saveMargin, io_height - GLOBAL::HEADERWINDOW::size.y - GLOBAL::HEADERWINDOW::pos.y - 2 * saveMargin);

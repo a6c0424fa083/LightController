@@ -23,7 +23,27 @@ struct Light
     uint8_t          channelFunctionIdentifier[512]              = { 0 };
     char             name[MAX_LIGHT_NAME_LENGTH]                 = { 0 };
     char             manufacturer[MAX_LIGHT_MANUFACTURER_LENGTH] = { 0 };
+
+    Light() {}
+
+    Light(const Light &source, const uint16_t rootAddr)
+    {
+        channelCount = source.channelCount;
+        rootAddress  = rootAddr;
+        std::copy(std::begin(source.channelFunction), std::end(source.channelFunction), channelFunction);
+        std::copy(std::begin(source.channelFunctionIdentifier), std::end(source.channelFunctionIdentifier), channelFunctionIdentifier);
+        std::strncpy(name, source.name, MAX_LIGHT_NAME_LENGTH);
+        std::strncpy(manufacturer, source.manufacturer, MAX_LIGHT_MANUFACTURER_LENGTH);
+    }
 };
+
+inline void printLightStruct(const Light &light) {
+    printf("\n#################################### LIGHT ####################################\n");
+    printf("\nchannelCount:  %64d\n", light.channelCount);
+    printf("\n rootAddress:  %64d\n", light.rootAddress);
+    printf("\n        name:  %64.64s\n", light.name);
+    printf("\nmanufacturer:  %64.64s\n\n\n", light.manufacturer);
+}
 
 
 #endif  // LIGHT_HPP

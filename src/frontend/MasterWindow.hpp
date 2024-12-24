@@ -43,7 +43,7 @@ private:
     ImVec2       patchWindowSize = ImVec2(0.0f, 0.0f);
     PatchWindow *patchWindow     = new PatchWindow();
 
-    ClearWindow *clearWindow = new ClearWindow();
+    //ClearWindow *clearWindow = new ClearWindow();
 };
 
 
