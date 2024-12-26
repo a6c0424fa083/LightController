@@ -142,6 +142,11 @@ void SelectLightWindow::DrawContents()
 
             GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1).referenceLight = light;
 
+            // add light to the patchLight vector (also used for project storrage)
+            GLOBAL::PATCH::patchLights.emplace_back(
+                GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::SELECTLIGHTWINDOW::activeItemIndex),
+                GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress);
+
             for (uint16_t i = 1;
                  i < GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::SELECTLIGHTWINDOW::activeItemIndex).channelCount;
                  i++)

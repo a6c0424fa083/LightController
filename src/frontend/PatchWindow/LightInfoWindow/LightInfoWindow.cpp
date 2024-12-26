@@ -133,14 +133,26 @@ void LightInfoWindow::DrawContents()
                       ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
         (ImGui::IsKeyPressed(ImGuiKey_Delete) && !GLOBAL::KEYHANDLER::isKeyDown_Delete))
     {
-
         for (uint16_t i = light->rootAddress - 1; i < light->rootAddress - 1 + light->channelCount; i++)
         {
-            //if (GLOBAL::PATCH::patchButtons.at(i).referenceLight->name == light->name)
+            // if (GLOBAL::PATCH::patchButtons.at(i).referenceLight->name == light->name)
             //{
-                GLOBAL::PATCH::patchButtons.at(i).isUsed         = false;
-                GLOBAL::PATCH::patchButtons.at(i).referenceLight = nullptr;
+            GLOBAL::PATCH::patchButtons.at(i).isUsed         = false;
+            GLOBAL::PATCH::patchButtons.at(i).referenceLight = nullptr;
             //}
+        }
+
+        // no need to check for empty vector since this window can only appear if not
+        for (uint16_t i = 0; i < GLOBAL::PATCH::patchLights.size(); i++)
+        {
+            if (light->rootAddress == GLOBAL::PATCH::patchLights.at(i).rootAddress)
+            {
+                // move the last element the the deletion element
+                GLOBAL::PATCH::patchLights.at(i) = GLOBAL::PATCH::patchLights.at(GLOBAL::PATCH::patchLights.size() - 1);
+
+                // delete the last element
+                GLOBAL::PATCH::patchLights.pop_back();
+            }
         }
 
         GLOBAL::LIGHTINFOWINDOW::isWindowActive = false;

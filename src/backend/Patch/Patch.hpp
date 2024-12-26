@@ -25,6 +25,8 @@ struct PatchButton {
     ImVec4 bgColorActive = BaseWindow::default_ImGuiCol_ButtonActive;
 };
 
+void reloadPatchButtonsFromVector();
+
 
 
 #endif //PATCH_HPP

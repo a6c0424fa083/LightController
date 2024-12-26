@@ -168,6 +168,8 @@ int main(/*int argc, char **argv*/)
     // cleanup
     delete masterWindow;
 
+    //for (uint16_t i = 0; i < 512; i++) { delete GLOBAL::PATCH::patchButtons.at(i).referenceLight; }
+
 
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();

@@ -75,6 +75,7 @@ namespace GLOBAL
          * vector index 4 -> dmx address 5
          */
         inline auto patchButtons = std::vector(512, PatchButton {});
+        inline std::vector<Light> patchLights;
     };  // namespace PATCH
 
     namespace SELECTLIGHTWINDOW
