@@ -90,7 +90,7 @@ namespace GLOBAL
     namespace LIGHTINFOWINDOW
     {
         inline bool isWindowActive = false;
-        inline Light *light = nullptr;
+        inline size_t lightIndex = -1;
         inline uint16_t referenceButtonAddress = 0;
     };
 

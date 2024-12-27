@@ -8,7 +8,7 @@
 
 #include "LightInfoWindow.hpp"
 
-#define light (GLOBAL::LIGHTINFOWINDOW::light)
+#define light (GLOBAL::PATCH::patchLights.at(GLOBAL::LIGHTINFOWINDOW::lightIndex))
 
 LightInfoWindow::~LightInfoWindow() {}
 
@@ -46,7 +46,7 @@ void LightInfoWindow::DrawContents()
     ImGui::Text("Manufacturer: ");
     ImGui::SetCursorPos(ImVec2(secondRowPosY, lastCursorPos.y + saveMargin));
     ImGui::SetNextItemWidth(_size.x - secondRowPosY - saveMargin);
-    ImGui::InputText("##Manufacturer", light->manufacturer, MAX_LIGHT_MANUFACTURER_LENGTH, ImGuiInputTextFlags_ReadOnly);
+    ImGui::InputText("##Manufacturer", light.manufacturer, MAX_LIGHT_MANUFACTURER_LENGTH, ImGuiInputTextFlags_ReadOnly);
 
     lastCursorPos = ImGui::GetCursorPos();
 
@@ -54,7 +54,7 @@ void LightInfoWindow::DrawContents()
     ImGui::Text("Name: ");
     ImGui::SetCursorPos(ImVec2(secondRowPosY, lastCursorPos.y + saveMargin));
     ImGui::SetNextItemWidth(_size.x - secondRowPosY - saveMargin);
-    ImGui::InputText("##Name", light->name, MAX_LIGHT_NAME_LENGTH, ImGuiInputTextFlags_ReadOnly);
+    ImGui::InputText("##Name", light.name, MAX_LIGHT_NAME_LENGTH, ImGuiInputTextFlags_ReadOnly);
 
     lastCursorPos = ImGui::GetCursorPos();
 
@@ -62,9 +62,10 @@ void LightInfoWindow::DrawContents()
     ImGui::Text("Channel Count: ");
     ImGui::SetCursorPos(ImVec2(secondRowPosY, lastCursorPos.y + saveMargin));
     ImGui::SetNextItemWidth(80.0f);
-    int _channelCount = light->channelCount;
+    int _channelCount = light.channelCount;
     ImGui::InputInt("##ChannelCount", &_channelCount, 1, 10, ImGuiInputTextFlags_ReadOnly);
-    light->channelCount = _channelCount;
+    light.channelCount = _channelCount;
+
 
     lastCursorPos = ImGui::GetCursorPos();
 
@@ -90,21 +91,21 @@ void LightInfoWindow::DrawContents()
     ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX(), ImGui::GetCursorPosY() + saveMargin));
     ImGui::Columns(4, nullptr, false);
 
-    for (uint16_t i = 0; i < light->channelCount; ++i)
+    for (uint16_t i = 0; i < light.channelCount; ++i)
     {
         // First column: Channel index
         ImGui::Text("%3d", i + 1);
         ImGui::SameLine();
         // Dropdown to select the channel function on the same line
         ImGui::PushID(i);  // Ensure unique ID for each combo
-        const char *currentFunction = channelFunctionStr[static_cast<int>(light->channelFunction[i])].c_str();
+        const char *currentFunction = channelFunctionStr[static_cast<int>(light.channelFunction[i])].c_str();
         ImGui::SetNextItemWidth(-1);  // Use full width of remaining column space
 
         if (ImGui::BeginCombo("##ChannelFunction", currentFunction))
         {
             for (size_t j = 0; j < channelFunctionStr.size(); ++j)
             {
-                bool isSelected = (light->channelFunction[i] == static_cast<uint8_t>(j));
+                bool isSelected = (light.channelFunction[i] == static_cast<uint8_t>(j));
                 ImGui::Selectable(channelFunctionStr[j].c_str(), isSelected, ImGuiSelectableFlags_Disabled);
             }
             ImGui::EndCombo();
@@ -133,19 +134,19 @@ void LightInfoWindow::DrawContents()
                       ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
         (ImGui::IsKeyPressed(ImGuiKey_Delete) && !GLOBAL::KEYHANDLER::isKeyDown_Delete))
     {
-        for (uint16_t i = light->rootAddress - 1; i < light->rootAddress - 1 + light->channelCount; i++)
+        /*for (uint16_t i = light.rootAddress - 1; i < light.rootAddress - 1 + light.channelCount; i++)
         {
             // if (GLOBAL::PATCH::patchButtons.at(i).referenceLight->name == light->name)
             //{
             GLOBAL::PATCH::patchButtons.at(i).isUsed         = false;
-            GLOBAL::PATCH::patchButtons.at(i).referenceLight = nullptr;
+            GLOBAL::PATCH::patchButtons.at(i).referenceLightIndex = -1;
             //}
-        }
+        }*/
 
         // no need to check for empty vector since this window can only appear if not
         for (uint16_t i = 0; i < GLOBAL::PATCH::patchLights.size(); i++)
         {
-            if (light->rootAddress == GLOBAL::PATCH::patchLights.at(i).rootAddress)
+            if (light.rootAddress == GLOBAL::PATCH::patchLights.at(i).rootAddress)
             {
                 // move the last element the the deletion element
                 GLOBAL::PATCH::patchLights.at(i) = GLOBAL::PATCH::patchLights.at(GLOBAL::PATCH::patchLights.size() - 1);
@@ -154,6 +155,9 @@ void LightInfoWindow::DrawContents()
                 GLOBAL::PATCH::patchLights.pop_back();
             }
         }
+
+        // recalculate the patchButtons
+        reloadPatchButtonsFromVector();
 
         GLOBAL::LIGHTINFOWINDOW::isWindowActive = false;
     }

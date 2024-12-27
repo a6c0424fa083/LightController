@@ -18,6 +18,7 @@
 #include "backend/Light/LightFileManager/LightFileManager.hpp"
 #include "backend/defines.hpp"
 #include "frontend/BaseWindow.hpp"
+#include "backend/Patch/Patch.hpp"
 
 class LightInfoWindow : BaseWindow
 {

@@ -137,22 +137,22 @@ void SelectLightWindow::DrawContents()
             GLOBAL::SELECTLIGHTWINDOW::isWindowActive                                                    = false;
             GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1).isUsed = true;
 
-            auto *light = new Light(GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::SELECTLIGHTWINDOW::activeItemIndex),
-                                    GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress);
-
-            GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1).referenceLight = light;
+            //auto *light = new Light(GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::SELECTLIGHTWINDOW::activeItemIndex),
+            //                        GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress);
 
             // add light to the patchLight vector (also used for project storrage)
             GLOBAL::PATCH::patchLights.emplace_back(
                 GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::SELECTLIGHTWINDOW::activeItemIndex),
                 GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress);
 
+            GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1).referenceLightIndex = GLOBAL::PATCH::patchLights.size() - 1;
+
             for (uint16_t i = 1;
                  i < GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::SELECTLIGHTWINDOW::activeItemIndex).channelCount;
                  i++)
             {
                 GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1 + i).isUsed         = true;
-                GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1 + i).referenceLight = light;
+                GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1 + i).referenceLightIndex = GLOBAL::PATCH::patchLights.size() - 1;
             }
         }
     }

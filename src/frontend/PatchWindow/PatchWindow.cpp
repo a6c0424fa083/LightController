@@ -44,8 +44,9 @@ void PatchWindow::DrawContents()
 
             if (GLOBAL::PATCH::patchButtons.at(r * colums + c).isUsed)
             {
+                // TODO: should be handled by the color property of the patchButton later on
                 if (GLOBAL::PATCH::patchButtons.at(r * colums + c).address ==
-                    GLOBAL::PATCH::patchButtons.at(r * colums + c).referenceLight->rootAddress)
+                    GLOBAL::PATCH::patchLights.at(GLOBAL::PATCH::patchButtons.at(r * colums + c).referenceLightIndex).rootAddress)
                 {
                     style.Colors[ImGuiCol_Button]        = darkgreen_ImGuiCol_Button;
                     style.Colors[ImGuiCol_ButtonHovered] = darkgreen_ImGuiCol_ButtonHovered;
@@ -68,7 +69,7 @@ void PatchWindow::DrawContents()
                 else
                 {
                     GLOBAL::LIGHTINFOWINDOW::isWindowActive = true;
-                    GLOBAL::LIGHTINFOWINDOW::light          = GLOBAL::PATCH::patchButtons.at(r * colums + c).referenceLight;
+                    GLOBAL::LIGHTINFOWINDOW::lightIndex          = GLOBAL::PATCH::patchButtons.at(r * colums + c).referenceLightIndex;
                     GLOBAL::LIGHTINFOWINDOW::referenceButtonAddress = r * colums + c + 1;
                 }
             }
