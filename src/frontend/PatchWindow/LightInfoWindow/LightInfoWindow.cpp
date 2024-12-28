@@ -144,7 +144,7 @@ void LightInfoWindow::DrawContents()
         }*/
 
         // no need to check for empty vector since this window can only appear if not
-        for (uint16_t i = 0; i < GLOBAL::PATCH::patchLights.size(); i++)
+        for (size_t i = 0; i < GLOBAL::PATCH::patchLights.size(); i++)
         {
             if (light.rootAddress == GLOBAL::PATCH::patchLights.at(i).rootAddress)
             {

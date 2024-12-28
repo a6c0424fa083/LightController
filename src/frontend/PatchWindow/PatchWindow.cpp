@@ -69,7 +69,7 @@ void PatchWindow::DrawContents()
                 else
                 {
                     GLOBAL::LIGHTINFOWINDOW::isWindowActive = true;
-                    GLOBAL::LIGHTINFOWINDOW::lightIndex          = GLOBAL::PATCH::patchButtons.at(r * colums + c).referenceLightIndex;
+                    GLOBAL::LIGHTINFOWINDOW::lightIndex     = GLOBAL::PATCH::patchButtons.at(r * colums + c).referenceLightIndex;
                     GLOBAL::LIGHTINFOWINDOW::referenceButtonAddress = r * colums + c + 1;
                 }
             }

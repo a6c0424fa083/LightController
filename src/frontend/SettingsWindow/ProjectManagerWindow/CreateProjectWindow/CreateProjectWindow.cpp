@@ -48,6 +48,18 @@ void CreateProjectWindow::DrawContents()
     ImGui::SetNextItemWidth(_size.x - secondRowPosY - saveMargin);
     ImGui::InputText("##ProjectName", _name, MAX_PROJECT_LENGTH);
 
+    lastCursorPos = ImGui::GetCursorPos();
+
+    ImGui::SetNextWindowPos(ImVec2(_pos.x + saveMargin, _pos.y + saveMargin + lastCursorPos.y));
+    ImGui::BeginChild("ProjectsListWindowChild",
+                      ImVec2(_size.x - 2 * saveMargin, _size.y - 6 * saveMargin - ImGui::CalcTextSize("XXX").y - lastCursorPos.y),
+                      true,
+                      ImGuiWindowFlags_AlwaysVerticalScrollbar);
+
+    for ()
+
+    ImGui::EndChild();
+
 
 
     ImGui::PushFont(SUBTITLE);
@@ -61,7 +73,7 @@ void CreateProjectWindow::DrawContents()
     if (GLOBAL::CREATEPROJECTWINDOW::isEditMode)
     {
         if (ImGui::Button("Save",
-                          ImVec2(ImGui::CalcTextSize("Save").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
+                          ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
             (ImGui::IsKeyPressed(ImGuiKey_Enter) && !GLOBAL::KEYHANDLER::isKeyDown_Enter))
         {
             GLOBAL::KEYHANDLER::isKeyDown_Enter         = true;
@@ -79,6 +91,19 @@ void CreateProjectWindow::DrawContents()
             GLOBAL::CREATEPROJECTWINDOW::isWindowActive = false;
         }
     }
+
+    ImGui::SetCursorPos(ImVec2(_size.x - 2 * saveMargin - 2 * ImGui::CalcTextSize("Cancel").x - 4 * saveMargin,
+                               _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
+
+    if (ImGui::Button("Save",
+                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
+        (ImGui::IsKeyPressed(ImGuiKey_Enter) && !GLOBAL::KEYHANDLER::isKeyDown_Enter))
+    {
+        GLOBAL::KEYHANDLER::isKeyDown_Enter         = true;
+        GLOBAL::CREATEPROJECTWINDOW::isEditMode     = false;
+        GLOBAL::CREATEPROJECTWINDOW::isWindowActive = false;
+    }
+
 
     style.Colors[ImGuiCol_Button]        = red_ImGuiCol_Button;
     style.Colors[ImGuiCol_ButtonHovered] = red_ImGuiCol_ButtonHovered;

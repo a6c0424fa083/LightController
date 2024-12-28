@@ -13,3 +13,12 @@ uint8_t ProjectManager::createProject(const std::string &name)
     std::filesystem::path projectPath = std::filesystem::path(std::string(PROJECTS_PATH) + name);
     return 0;
 }
+
+uint8_t ProjectManager::loadProject(std::filesystem::path path) {
+
+}
+
+uint8_t ProjectManager::loadProjectsToVector() {
+}
+
+

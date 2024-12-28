@@ -21,6 +21,7 @@ class ProjectManager
 public:
     static uint8_t createProject(const std::string& name);
     static uint8_t loadProject(std::filesystem::path path);
+    static uint8_t loadProjectsToVector();
 
 };
 

@@ -12,6 +12,7 @@
 #include <cstdint>
 #include <string>
 #include <vector>
+#include <filesystem>
 
 #include <imgui.h>
 
@@ -66,6 +67,7 @@ namespace GLOBAL
     {
         inline bool isWindowActive = false;
         inline bool isEditMode     = false;
+        inline auto activeProjectPath = std::filesystem::path("../applicationData/Projects/");
     };  // namespace CREATEPROJECTWINDOW
 
     namespace PATCH
@@ -85,7 +87,7 @@ namespace GLOBAL
         inline bool     isWindowActive         = false;
         inline uint16_t referenceButtonAddress = 0;
         inline size_t   activeItemIndex        = 0;
-    }  // namespace SELECTLIGHTWINDOW;
+    };  // namespace SELECTLIGHTWINDOW
 
     namespace LIGHTINFOWINDOW
     {
