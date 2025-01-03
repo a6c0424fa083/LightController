@@ -56,7 +56,7 @@ void CreateProjectWindow::DrawContents()
                       true,
                       ImGuiWindowFlags_AlwaysVerticalScrollbar);
 
-    for ()
+    /*for ()*/
 
     ImGui::EndChild();
 
