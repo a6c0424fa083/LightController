@@ -96,6 +96,11 @@ namespace GLOBAL
         inline uint16_t referenceButtonAddress = 0;
     };
 
+    namespace PROJECT {
+        inline std::vector<std::filesystem::path> projects;
+        inline size_t activeProjectIndex = 0;
+    };
+
 };  // namespace GLOBAL
 
 

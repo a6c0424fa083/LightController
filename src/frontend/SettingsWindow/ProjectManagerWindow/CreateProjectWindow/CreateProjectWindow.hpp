@@ -13,6 +13,7 @@
 #include <imgui.h>
 
 #include "backend/GLOBAL.hpp"
+#include "backend/Project/ProjectManager/ProjectManager.hpp"
 #include "backend/defines.hpp"
 #include "frontend/BaseWindow.hpp"
 

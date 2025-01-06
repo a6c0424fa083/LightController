@@ -8,6 +8,8 @@
 
 #include "CreateProjectWindow.hpp"
 
+#include <backend/Project/Project.hpp>
+
 CreateProjectWindow::~CreateProjectWindow() {}
 
 void CreateProjectWindow::Draw(ImVec2 pos, ImVec2 size)
@@ -40,7 +42,7 @@ void CreateProjectWindow::DrawContents()
     lastCursorPos = ImGui::GetCursorPos();
 
     // margin from addWindow
-#define secondRowPosY (ImGui::CalcTextSize("Channel Count: ").x + 2 * saveMargin)
+#define secondRowPosY (ImGui::CalcTextSize("Project Name: ").x + 2 * saveMargin)
 
     ImGui::SetCursorPos(ImVec2(saveMargin, lastCursorPos.y + saveMargin));
     ImGui::Text("Project Name: ");
@@ -56,7 +58,7 @@ void CreateProjectWindow::DrawContents()
                       true,
                       ImGuiWindowFlags_AlwaysVerticalScrollbar);
 
-    /*for ()*/
+    ProjectManager::loadProjectsToVector();
 
     ImGui::EndChild();
 

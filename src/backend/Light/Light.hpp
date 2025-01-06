@@ -11,6 +11,7 @@
 
 
 #include <array>
+#include <cstring>
 
 #include "backend/Light/ChannelFunction/ChannelFunction.hpp"
 #include "backend/defines.hpp"
@@ -37,7 +38,8 @@ struct Light
     }
 };
 
-inline void printLightStruct(const Light &light) {
+inline void printLightStruct(const Light &light)
+{
     printf("\n#################################### LIGHT ####################################\n");
     printf("\nchannelCount:  %64d\n", light.channelCount);
     printf("\n rootAddress:  %64d\n", light.rootAddress);
