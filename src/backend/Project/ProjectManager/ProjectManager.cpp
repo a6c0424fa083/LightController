@@ -16,8 +16,10 @@ uint8_t ProjectManager::createProject(const std::string &name)
 
 uint8_t ProjectManager::loadProjectsToVector()
 {
+    GLOBAL::PROJECT::projects.clear();
     for (const auto &entry : std::filesystem::directory_iterator(PROJECTS_PATH))
     {
-        if (entry.is_regular_file()) { GLOBAL::PROJECT::projects.push_back(entry.path()); }
+        if (entry.is_regular_file() && entry.path().extension() == ".LCproj") { GLOBAL::PROJECT::projects.push_back(entry.path()); }
     }
+    return 0;
 }

@@ -60,6 +60,38 @@ void CreateProjectWindow::DrawContents()
 
     ProjectManager::loadProjectsToVector();
 
+    ImGui::PushFont(NUMBER);
+
+    for (size_t i = 0; i < GLOBAL::PROJECT::projects.size(); i++)
+    {
+        //if (GLOBAL::PROJECT::projects.at(i).extension() == ".LCproj") { ImGui::Text("%s", GLOBAL::PROJECT::projects.at(i).stem().string().c_str()); }
+
+        ImGui::PushID(static_cast<int>(i));  // Unique ID for each light container
+        ImGui::SetCursorPos(
+            ImVec2(saveMargin, saveMargin + static_cast<float>(i) * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
+        ImGui::BeginChild("ProjectItem",
+                          ImVec2(_size.x - 35.0f, ImGui::CalcTextSize("XXX").y + 2 * saveMargin),
+                          true,
+                          ImGuiWindowFlags_NoScrollbar);
+
+        // Check for item click
+        if (ImGui::IsWindowHovered() && ImGui::IsMouseClicked(0))
+        {
+            //GLOBAL::PROJECT::activeProjectIndex = static_cast<int>(i);
+        }
+
+        // Display light details
+        ImGui::SetCursorPos(ImVec2(_pos.x + saveMargin, ImGui::GetCursorPosY() + saveMargin));
+        ImGui::Text("%s", GLOBAL::PROJECT::projects.at(i).stem().string().c_str());
+
+        ImGui::EndChild();
+        ImGui::PopID();
+
+        ImGui::Spacing();  // Add some space between items
+    }
+
+    ImGui::PopFont();
+
     ImGui::EndChild();
 
 
