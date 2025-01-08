@@ -66,7 +66,7 @@ namespace GLOBAL
     namespace CREATEPROJECTWINDOW
     {
         inline bool isWindowActive = false;
-        inline bool isEditMode     = false;
+        //inline bool isEditMode     = false;
         inline auto activeProjectPath = std::filesystem::path("../applicationData/Projects/");
     };  // namespace CREATEPROJECTWINDOW
 
@@ -99,6 +99,7 @@ namespace GLOBAL
     namespace PROJECT {
         inline std::vector<std::filesystem::path> projects;
         inline size_t activeProjectIndex = 0;
+        inline bool newProject = true;
     };
 
 };  // namespace GLOBAL

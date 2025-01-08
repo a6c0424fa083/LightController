@@ -31,6 +31,9 @@ void CreateProjectWindow::Draw(ImVec2 pos, ImVec2 size)
 
 void CreateProjectWindow::DrawContents()
 {
+    ProjectManager::loadProjectsToVector();
+
+
     static ImVec2 lastCursorPos;
 
 
@@ -49,6 +52,7 @@ void CreateProjectWindow::DrawContents()
     ImGui::SetCursorPos(ImVec2(secondRowPosY, lastCursorPos.y + saveMargin));
     ImGui::SetNextItemWidth(_size.x - secondRowPosY - saveMargin);
     ImGui::InputText("##ProjectName", _name, MAX_PROJECT_LENGTH);
+    if (ImGui::IsItemActive()) GLOBAL::PROJECT::newProject = true;
 
     lastCursorPos = ImGui::GetCursorPos();
 
@@ -58,36 +62,53 @@ void CreateProjectWindow::DrawContents()
                       true,
                       ImGuiWindowFlags_AlwaysVerticalScrollbar);
 
-    ProjectManager::loadProjectsToVector();
-
     ImGui::PushFont(NUMBER);
 
-    for (size_t i = 0; i < GLOBAL::PROJECT::projects.size(); i++)
-    {
-        //if (GLOBAL::PROJECT::projects.at(i).extension() == ".LCproj") { ImGui::Text("%s", GLOBAL::PROJECT::projects.at(i).stem().string().c_str()); }
-
-        ImGui::PushID(static_cast<int>(i));  // Unique ID for each light container
-        ImGui::SetCursorPos(
-            ImVec2(saveMargin, saveMargin + static_cast<float>(i) * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
-        ImGui::BeginChild("ProjectItem",
-                          ImVec2(_size.x - 35.0f, ImGui::CalcTextSize("XXX").y + 2 * saveMargin),
-                          true,
-                          ImGuiWindowFlags_NoScrollbar);
-
-        // Check for item click
-        if (ImGui::IsWindowHovered() && ImGui::IsMouseClicked(0))
+    if (!GLOBAL::PROJECT::projects.empty()) {
+        for (size_t i = 0; i < GLOBAL::PROJECT::projects.size(); i++)
         {
-            //GLOBAL::PROJECT::activeProjectIndex = static_cast<int>(i);
+            // if (GLOBAL::PROJECT::projects.at(i).extension() == ".LCproj") { ImGui::Text("%s",
+            // GLOBAL::PROJECT::projects.at(i).stem().string().c_str()); }
+
+            ImGui::PushID(static_cast<int>(i));  // Unique ID for each light container
+            ImGui::SetCursorPos(ImVec2(saveMargin, saveMargin + static_cast<float>(i) * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
+
+
+            if (GLOBAL::PROJECT::activeProjectIndex == i && !GLOBAL::PROJECT::newProject)
+            {
+                style.WindowBorderSize = 4 * default_WindowBorderSize;
+                style.FrameBorderSize  = 4 * default_FrameBorderSize;
+                style.ChildBorderSize  = 4 * default_ChildBorderSize;
+            }
+
+            ImGui::BeginChild("ProjectItem",
+                              ImVec2(_size.x - 35.0f, ImGui::CalcTextSize("XXX").y + 2 * saveMargin),
+                              true,
+                              ImGuiWindowFlags_NoScrollbar);
+
+            // Check for item click
+            if (ImGui::IsWindowHovered() && ImGui::IsMouseClicked(0))
+            {
+                GLOBAL::PROJECT::activeProjectIndex = static_cast<int>(i);
+                GLOBAL::PROJECT::newProject         = false;
+            }
+
+            // Display light details
+            ImGui::SetCursorPos(ImVec2(_pos.x + saveMargin, ImGui::GetCursorPosY() + saveMargin));
+            ImGui::Text("%s", GLOBAL::PROJECT::projects.at(i).stem().string().c_str());
+
+            ImGui::EndChild();
+            ImGui::PopID();
+
+            if (GLOBAL::PROJECT::activeProjectIndex == i && !GLOBAL::PROJECT::newProject)
+            {
+                style.WindowBorderSize = default_WindowBorderSize;
+                style.FrameBorderSize  = default_FrameBorderSize;
+                style.ChildBorderSize  = default_ChildBorderSize;
+            }
+
+            ImGui::Spacing();  // Add some space between items
         }
-
-        // Display light details
-        ImGui::SetCursorPos(ImVec2(_pos.x + saveMargin, ImGui::GetCursorPosY() + saveMargin));
-        ImGui::Text("%s", GLOBAL::PROJECT::projects.at(i).stem().string().c_str());
-
-        ImGui::EndChild();
-        ImGui::PopID();
-
-        ImGui::Spacing();  // Add some space between items
     }
 
     ImGui::PopFont();
@@ -104,37 +125,23 @@ void CreateProjectWindow::DrawContents()
 
     ImGui::SetCursorPos(ImVec2(_size.x - saveMargin - ImGui::CalcTextSize("Cancel").x - 2 * saveMargin,
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
-    if (GLOBAL::CREATEPROJECTWINDOW::isEditMode)
+
+    if (ImGui::Button("Create",
+                          ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin))/* ||
+            (ImGui::IsKeyPressed(ImGuiKey_Enter) && !GLOBAL::KEYHANDLER::isKeyDown_Enter)*/)
     {
-        if (ImGui::Button("Save",
-                          ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
-            (ImGui::IsKeyPressed(ImGuiKey_Enter) && !GLOBAL::KEYHANDLER::isKeyDown_Enter))
-        {
-            GLOBAL::KEYHANDLER::isKeyDown_Enter         = true;
-            GLOBAL::CREATEPROJECTWINDOW::isEditMode     = false;
-            GLOBAL::CREATEPROJECTWINDOW::isWindowActive = false;
-        }
-    }
-    else
-    {
-        if (ImGui::Button("Create",
-                          ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
-            (ImGui::IsKeyPressed(ImGuiKey_Enter) && !GLOBAL::KEYHANDLER::isKeyDown_Enter))
-        {
-            GLOBAL::KEYHANDLER::isKeyDown_Enter         = true;
-            GLOBAL::CREATEPROJECTWINDOW::isWindowActive = false;
-        }
+        // GLOBAL::KEYHANDLER::isKeyDown_Enter         = true;
+        GLOBAL::CREATEPROJECTWINDOW::isWindowActive = false;
     }
 
     ImGui::SetCursorPos(ImVec2(_size.x - 2 * saveMargin - 2 * ImGui::CalcTextSize("Cancel").x - 4 * saveMargin,
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
 
     if (ImGui::Button("Save",
-                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
-        (ImGui::IsKeyPressed(ImGuiKey_Enter) && !GLOBAL::KEYHANDLER::isKeyDown_Enter))
+                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin))/* ||
+        (ImGui::IsKeyPressed(ImGuiKey_Enter) && !GLOBAL::KEYHANDLER::isKeyDown_Enter)*/)
     {
-        GLOBAL::KEYHANDLER::isKeyDown_Enter         = true;
-        GLOBAL::CREATEPROJECTWINDOW::isEditMode     = false;
+        // GLOBAL::KEYHANDLER::isKeyDown_Enter         = true;
         GLOBAL::CREATEPROJECTWINDOW::isWindowActive = false;
     }
 
@@ -142,6 +149,17 @@ void CreateProjectWindow::DrawContents()
     style.Colors[ImGuiCol_Button]        = red_ImGuiCol_Button;
     style.Colors[ImGuiCol_ButtonHovered] = red_ImGuiCol_ButtonHovered;
     style.Colors[ImGuiCol_ButtonActive]  = red_ImGuiCol_ButtonActive;
+
+    ImGui::SetCursorPos(
+        ImVec2(_size.x - 2 * saveMargin - 3 * ImGui::CalcTextSize("Cancel").x - 7 /*no idea why this must by 7 (6?)*/ * saveMargin,
+               _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
+
+    if (ImGui::Button("Delete",
+                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+    {
+        if (!GLOBAL::PROJECT::newProject)
+            std::filesystem::remove(GLOBAL::PROJECT::projects.at(GLOBAL::PROJECT::activeProjectIndex));
+    }
 
     ImGui::SetCursorPos(ImVec2(saveMargin, _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
     if (ImGui::Button("Cancel",

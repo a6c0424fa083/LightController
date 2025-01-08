@@ -15,12 +15,14 @@
 
 #include "backend/GLOBAL.hpp"
 #include "backend/defines.hpp"
+#include "backend/Project/Project.hpp"
 
 
 class ProjectManager
 {
 public:
-    static uint8_t createProject(const std::string &name);
+    static uint8_t addProject(Project project, std::string name);
+    static uint8_t deleteProjectByIndex(size_t index);
     static uint8_t loadProjectsToVector();
 };
 
