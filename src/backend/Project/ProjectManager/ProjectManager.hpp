@@ -21,9 +21,12 @@
 class ProjectManager
 {
 public:
-    static uint8_t addProject(Project project, std::string name);
+    static uint8_t saveProject(const std::string& name);
+    static uint8_t recallProject(size_t index);
     static uint8_t deleteProjectByIndex(size_t index);
     static uint8_t loadProjectsToVector();
+    static uint8_t updateCurrentProjectStruct();
+    static uint8_t unpackCurrentProjectStruct();
 };
 
 

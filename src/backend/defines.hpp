@@ -60,7 +60,7 @@ enum USER_FONT
 #define LIGHT_LIBRARY_PATH "../applicationData/LightLibrary/"
 
 
-#define MAX_PROJECT_LENGTH 64
+#define MAX_PROJECT_NAME_LENGTH 64
 
 #define PROJECTS_PATH "../applicationData/Projects/"
 

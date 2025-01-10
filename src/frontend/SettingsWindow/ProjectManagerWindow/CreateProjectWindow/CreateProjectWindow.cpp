@@ -8,6 +8,7 @@
 
 #include "CreateProjectWindow.hpp"
 
+#include <backend/Light/LightFileManager/LightFileManager.hpp>
 #include <backend/Project/Project.hpp>
 
 CreateProjectWindow::~CreateProjectWindow() {}
@@ -51,7 +52,7 @@ void CreateProjectWindow::DrawContents()
     ImGui::Text("Project Name: ");
     ImGui::SetCursorPos(ImVec2(secondRowPosY, lastCursorPos.y + saveMargin));
     ImGui::SetNextItemWidth(_size.x - secondRowPosY - saveMargin);
-    ImGui::InputText("##ProjectName", _name, MAX_PROJECT_LENGTH);
+    ImGui::InputText("##ProjectName", _name, MAX_PROJECT_NAME_LENGTH);
     if (ImGui::IsItemActive()) GLOBAL::PROJECT::newProject = true;
 
     lastCursorPos = ImGui::GetCursorPos();
@@ -64,14 +65,16 @@ void CreateProjectWindow::DrawContents()
 
     ImGui::PushFont(NUMBER);
 
-    if (!GLOBAL::PROJECT::projects.empty()) {
+    if (!GLOBAL::PROJECT::projects.empty())
+    {
         for (size_t i = 0; i < GLOBAL::PROJECT::projects.size(); i++)
         {
             // if (GLOBAL::PROJECT::projects.at(i).extension() == ".LCproj") { ImGui::Text("%s",
             // GLOBAL::PROJECT::projects.at(i).stem().string().c_str()); }
 
             ImGui::PushID(static_cast<int>(i));  // Unique ID for each light container
-            ImGui::SetCursorPos(ImVec2(saveMargin, saveMargin + static_cast<float>(i) * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
+            ImGui::SetCursorPos(
+                ImVec2(saveMargin, saveMargin + static_cast<float>(i) * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
 
 
             if (GLOBAL::PROJECT::activeProjectIndex == i && !GLOBAL::PROJECT::newProject)
@@ -126,16 +129,6 @@ void CreateProjectWindow::DrawContents()
     ImGui::SetCursorPos(ImVec2(_size.x - saveMargin - ImGui::CalcTextSize("Cancel").x - 2 * saveMargin,
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
 
-    if (ImGui::Button("Create",
-                          ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin))/* ||
-            (ImGui::IsKeyPressed(ImGuiKey_Enter) && !GLOBAL::KEYHANDLER::isKeyDown_Enter)*/)
-    {
-        // GLOBAL::KEYHANDLER::isKeyDown_Enter         = true;
-        GLOBAL::CREATEPROJECTWINDOW::isWindowActive = false;
-    }
-
-    ImGui::SetCursorPos(ImVec2(_size.x - 2 * saveMargin - 2 * ImGui::CalcTextSize("Cancel").x - 4 * saveMargin,
-                               _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
 
     if (ImGui::Button("Save",
                       ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin))/* ||
@@ -143,6 +136,27 @@ void CreateProjectWindow::DrawContents()
     {
         // GLOBAL::KEYHANDLER::isKeyDown_Enter         = true;
         GLOBAL::CREATEPROJECTWINDOW::isWindowActive = false;
+        ProjectManager::saveProject(std::string(_name));
+    }
+
+    style.Colors[ImGuiCol_Button]        = default_ImGuiCol_Button;
+    style.Colors[ImGuiCol_ButtonHovered] = default_ImGuiCol_ButtonHovered;
+    style.Colors[ImGuiCol_ButtonActive]  = default_ImGuiCol_ButtonActive;
+
+    ImGui::SetCursorPos(ImVec2(_size.x - 2 * saveMargin - 2 * ImGui::CalcTextSize("Cancel").x - 4 * saveMargin,
+                               _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
+
+
+    if (ImGui::Button("Recall",
+                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+    {
+        // GLOBAL::KEYHANDLER::isKeyDown_Enter         = true;
+        GLOBAL::CREATEPROJECTWINDOW::isWindowActive = false;
+        if (!GLOBAL::PROJECT::newProject)
+        {
+            printf("jump in loadProject function\n");
+            ProjectManager::recallProject(GLOBAL::PROJECT::activeProjectIndex);
+        }
     }
 
 
@@ -150,15 +164,13 @@ void CreateProjectWindow::DrawContents()
     style.Colors[ImGuiCol_ButtonHovered] = red_ImGuiCol_ButtonHovered;
     style.Colors[ImGuiCol_ButtonActive]  = red_ImGuiCol_ButtonActive;
 
-    ImGui::SetCursorPos(
-        ImVec2(_size.x - 2 * saveMargin - 3 * ImGui::CalcTextSize("Cancel").x - 7 /*no idea why this must by 7 (6?)*/ * saveMargin,
-               _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
+    ImGui::SetCursorPos(ImVec2(_size.x - 3 * saveMargin - 3 * ImGui::CalcTextSize("Cancel").x - 6 * saveMargin,
+                               _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
 
     if (ImGui::Button("Delete",
                       ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
     {
-        if (!GLOBAL::PROJECT::newProject)
-            std::filesystem::remove(GLOBAL::PROJECT::projects.at(GLOBAL::PROJECT::activeProjectIndex));
+        ProjectManager::deleteProjectByIndex(GLOBAL::PROJECT::activeProjectIndex);
     }
 
     ImGui::SetCursorPos(ImVec2(saveMargin, _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));

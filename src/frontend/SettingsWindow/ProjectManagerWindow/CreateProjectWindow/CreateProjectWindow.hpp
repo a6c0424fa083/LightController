@@ -32,7 +32,7 @@ private:
     ImVec2 _pos;
     ImVec2 _size;
 
-    char _name[MAX_PROJECT_LENGTH] = { 0 };
+    char _name[MAX_PROJECT_NAME_LENGTH] = { 0 };
 
     inline static auto _idealWindowSize = ImVec2(0.0f, 0.0f);
 };

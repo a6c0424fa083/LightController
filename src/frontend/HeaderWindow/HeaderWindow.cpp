@@ -54,10 +54,10 @@ void HeaderWindow::DrawContents()
 
 // draw borderline 1
 #define line1StartPosY (_pos.y + progressBarThickness + borderMargin - (lineThickness / 2.0f))
-    //ImGui::GetWindowDrawList()->AddLine(ImVec2(_pos.x, line1StartPosY),
-    //                                    ImVec2(_pos.x + _size.x, line1StartPosY),
-    //                                    ImGui::ColorConvertFloat4ToU32(ImVec4(0.6F, 0.6F, 0.6F, 1.0F)),
-    //                                    lineThickness);
+    // ImGui::GetWindowDrawList()->AddLine(ImVec2(_pos.x, line1StartPosY),
+    //                                     ImVec2(_pos.x + _size.x, line1StartPosY),
+    //                                     ImGui::ColorConvertFloat4ToU32(ImVec4(0.6F, 0.6F, 0.6F, 1.0F)),
+    //                                     lineThickness);
 
 // draw individual buttons leading to the main 'areas' of the program
 #define buttonStartPosY (line1StartPosY + /*(lineThickness / 2.0f) +*/ borderMargin)
@@ -73,7 +73,16 @@ void HeaderWindow::DrawContents()
 
         // draw button using index i of header_titles vector
         if (ImGui::Button(GLOBAL::HEADERWINDOW::sections.at(i).c_str(), ImVec2(buttonSizeX, buttonSizeY)))
+        {
             GLOBAL::HEADERWINDOW::activeSection = i;
+
+            // for closing all sub-windows after button push on header window
+            GLOBAL::ADDLIGHTWINDOW::isWindowActive      = false;
+            GLOBAL::LIGHTINFOWINDOW::isWindowActive     = false;
+            GLOBAL::LISTLIGHTSWINDOW::isWindowActive    = false;
+            GLOBAL::SELECTLIGHTWINDOW::isWindowActive   = false;
+            GLOBAL::CREATEPROJECTWINDOW::isWindowActive = false;
+        }
     }
 
 // draw borderline 2
@@ -84,9 +93,9 @@ void HeaderWindow::DrawContents()
                                         ImGui::ColorConvertFloat4ToU32(ImVec4(0.6F, 0.6F, 0.6F, 1.0F)),
                                         lineThickness);
 
-    idealSize = ImVec2(io_width, line2StartPosY + (lineThickness / 2.0f));
+    idealSize                  = ImVec2(io_width, line2StartPosY + (lineThickness / 2.0f));
     GLOBAL::HEADERWINDOW::size = idealSize;
-    GLOBAL::HEADERWINDOW::pos = _pos;
+    GLOBAL::HEADERWINDOW::pos  = _pos;
 
 #undef line1StartPosY
 #undef buttonStartPosY

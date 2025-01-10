@@ -10,17 +10,26 @@
 #define PROJECT_HPP
 
 
-#include "backend/GLOBAL.hpp"
 #include "backend/Light/Light.hpp"
 #include "backend/defines.hpp"
 
 struct Project
 {
     // patch section
-    uint16_t validLight  = 0;
-    Light    lights[512] = { Light {} };
+    uint16_t _validLights = 0;
+    Light    _lights[512] = { Light {} };
 
     // scene section
+
+
+
+    explicit Project(const std::vector<Light> &lights)
+    {
+        _validLights = lights.size();
+        for (uint16_t i = 0; i < (lights.size() > 512 ? 512 : lights.size()); i++) { _lights[i] = lights.at(i); }
+    }
+
+    Project() = default;
 };
 
 

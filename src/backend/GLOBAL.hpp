@@ -10,14 +10,15 @@
 #define GLOBAL_HPP
 
 #include <cstdint>
+#include <filesystem>
 #include <string>
 #include <vector>
-#include <filesystem>
 
 #include <imgui.h>
 
 #include "backend/Light/Light.hpp"
 #include "backend/Patch/Patch.hpp"
+#include "backend/Project/Project.hpp"
 
 
 namespace GLOBAL
@@ -66,7 +67,7 @@ namespace GLOBAL
     namespace CREATEPROJECTWINDOW
     {
         inline bool isWindowActive = false;
-        //inline bool isEditMode     = false;
+        // inline bool isEditMode     = false;
         inline auto activeProjectPath = std::filesystem::path("../applicationData/Projects/");
     };  // namespace CREATEPROJECTWINDOW
 
@@ -76,7 +77,7 @@ namespace GLOBAL
          * @brief Index is starting from 0
          * vector index 4 -> dmx address 5
          */
-        inline auto patchButtons = std::vector(512, PatchButton {});
+        inline auto               patchButtons = std::vector(512, PatchButton {});
         inline std::vector<Light> patchLights;
     };  // namespace PATCH
 
@@ -91,16 +92,18 @@ namespace GLOBAL
 
     namespace LIGHTINFOWINDOW
     {
-        inline bool isWindowActive = false;
-        inline size_t lightIndex = -1;
+        inline bool     isWindowActive         = false;
+        inline size_t   lightIndex             = -1;
         inline uint16_t referenceButtonAddress = 0;
-    };
+    };  // namespace LIGHTINFOWINDOW
 
-    namespace PROJECT {
+    namespace PROJECT
+    {
         inline std::vector<std::filesystem::path> projects;
-        inline size_t activeProjectIndex = 0;
-        inline bool newProject = true;
-    };
+        inline size_t                             activeProjectIndex = 0;
+        inline bool                               newProject         = true;
+        inline Project                            currentProject     = Project();
+    };  // namespace PROJECT
 
 };  // namespace GLOBAL
 

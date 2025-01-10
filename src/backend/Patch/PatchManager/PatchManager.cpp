@@ -1,15 +1,14 @@
 //
-//  Patch.cpp
+//  PatchManager.cpp
 //  LightController
 //  https://github.com/a6c0424fa083/LightController
 //
-//  Created by Jannis Sauer on 2024-12-22.
+//  Created by Jannis Sauer on 2025-01-10.
 //
 
-#include "Patch.hpp"
+#include "PatchManager.hpp"
 
-
-void reloadPatchButtonsFromVector()
+uint8_t PatchManager::reloadPatchButtonsFromVector2()
 {
     // clear all patchButton states
     for (uint16_t i = 0; i < 512; i++)
