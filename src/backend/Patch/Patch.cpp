@@ -8,7 +8,7 @@
 
 #include "Patch.hpp"
 
-
+/*
 void reloadPatchButtonsFromVector()
 {
     // clear all patchButton states
@@ -33,4 +33,4 @@ void reloadPatchButtonsFromVector()
             GLOBAL::PATCH::patchButtons.at(GLOBAL::PATCH::patchLights.at(i).rootAddress + j - 1).referenceLightIndex = i;
         }
     }
-}
+}*/

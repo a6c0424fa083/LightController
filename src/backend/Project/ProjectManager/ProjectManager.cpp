@@ -8,6 +8,8 @@
 
 #include "ProjectManager.hpp"
 
+#include <backend/Patch/PatchManager/PatchManager.hpp>
+
 uint8_t ProjectManager::saveProject(const std::string &name)
 {
     updateCurrentProjectStruct();
@@ -111,6 +113,8 @@ uint8_t ProjectManager::unpackCurrentProjectStruct()
     {
         GLOBAL::PATCH::patchLights.push_back(GLOBAL::PROJECT::currentProject._lights[i]);
     }
+
+    PatchManager::reloadPatchButtonsFromVector2();
     printf("unpacked project struct\n");
     return 0;
 }

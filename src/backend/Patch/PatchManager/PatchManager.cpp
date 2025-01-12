@@ -32,4 +32,6 @@ uint8_t PatchManager::reloadPatchButtonsFromVector2()
             GLOBAL::PATCH::patchButtons.at(GLOBAL::PATCH::patchLights.at(i).rootAddress + j - 1).referenceLightIndex = i;
         }
     }
+
+    return 0;
 }

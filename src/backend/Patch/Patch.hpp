@@ -13,7 +13,7 @@
 #include <imgui.h>
 #include <vector>
 
-#include "backend/GLOBAL.hpp"
+//#include "backend/GLOBAL.hpp"
 #include "backend/Light/Light.hpp"
 #include "frontend/BaseWindow.hpp"
 
@@ -29,7 +29,7 @@ struct PatchButton
     PatchButton() = default;
 };
 
-void reloadPatchButtonsFromVector();
+//void reloadPatchButtonsFromVector();
 
 
 

@@ -6,4 +6,4 @@
 #  Created by Jannis Sauer on 2025-01.10.
 #
 
-target_sources(${APPLICATION_NAME} PUBLIC PatchManager.hpp)
+target_sources(${APPLICATION_NAME} PUBLIC PatchManager.cpp)

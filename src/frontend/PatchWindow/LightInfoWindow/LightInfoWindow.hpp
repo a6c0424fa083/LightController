@@ -16,9 +16,10 @@
 #include "backend/Light/ChannelFunction/ChannelFunction.hpp"
 #include "backend/Light/Light.hpp"
 #include "backend/Light/LightFileManager/LightFileManager.hpp"
+#include "backend/Patch/Patch.hpp"
+#include "backend/Patch/PatchManager/PatchManager.hpp"
 #include "backend/defines.hpp"
 #include "frontend/BaseWindow.hpp"
-#include "backend/Patch/Patch.hpp"
 
 class LightInfoWindow : BaseWindow
 {
