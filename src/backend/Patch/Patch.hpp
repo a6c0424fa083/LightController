@@ -29,8 +29,6 @@ struct PatchButton
     PatchButton() = default;
 };
 
-//void reloadPatchButtonsFromVector();
-
 
 
 #endif  // PATCH_HPP
