@@ -33,19 +33,17 @@ void ListLightsWindow::DrawContents()
 {
     LightFileManager::loadLightsFromLibrary();
 
-    if (GLOBAL::LIGHTFILEMANAGER::lightsLibrary.empty())
-    {
-        GLOBAL::ADDLIGHTWINDOW::isWindowActive           = true;
-        GLOBAL::LISTLIGHTSWINDOW::isWindowActive         = false;
-        GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow = true;
-    }
 
-    if (GLOBAL::LISTLIGHTSWINDOW::activeItemIndex > 0 && (ImGui::IsKeyPressed(ImGuiKey_UpArrow) && GLOBAL::KEYHANDLER::isKeyDown_UpArrow)) {
+    if (GLOBAL::LISTLIGHTSWINDOW::activeItemIndex > 0 &&
+        (ImGui::IsKeyPressed(ImGuiKey_UpArrow) && GLOBAL::KEYHANDLER::isKeyDown_UpArrow))
+    {
         GLOBAL::LISTLIGHTSWINDOW::activeItemIndex--;
         GLOBAL::KEYHANDLER::isKeyDown_UpArrow = true;
     }
 
-    if (GLOBAL::LISTLIGHTSWINDOW::activeItemIndex < GLOBAL::LIGHTFILEMANAGER::lightsLibrary.size() - 1 && (ImGui::IsKeyPressed(ImGuiKey_DownArrow) && GLOBAL::KEYHANDLER::isKeyDown_DownArrow)) {
+    if (GLOBAL::LISTLIGHTSWINDOW::activeItemIndex < GLOBAL::LIGHTFILEMANAGER::lightsLibrary.size() - 1 &&
+        (ImGui::IsKeyPressed(ImGuiKey_DownArrow) && GLOBAL::KEYHANDLER::isKeyDown_DownArrow))
+    {
         GLOBAL::LISTLIGHTSWINDOW::activeItemIndex++;
         GLOBAL::KEYHANDLER::isKeyDown_DownArrow = true;
     }
@@ -58,6 +56,14 @@ void ListLightsWindow::DrawContents()
                       ImVec2(_size.x - 2 * saveMargin, _size.y - 6 * saveMargin - ImGui::CalcTextSize("XXX").y),
                       true,
                       ImGuiWindowFlags_AlwaysVerticalScrollbar);
+
+    if (GLOBAL::LIGHTFILEMANAGER::lightsLibrary.empty())
+    {
+        ImGui::SetCursorPos(ImVec2(saveMargin, saveMargin));
+        ImGui::PushStyleColor(ImGuiCol_Text, BaseWindow::debug_textColor);
+        ImGui::Text("You must first add a Light to see them listed here...");
+        ImGui::PopStyleColor();
+    }
 
     ImGui::SetCursorPos(ImVec2(_pos.x + 2 * saveMargin, _pos.y + saveMargin));
 
@@ -129,9 +135,10 @@ void ListLightsWindow::DrawContents()
 
     ImGui::SetCursorPos(ImVec2(_size.x - saveMargin - ImGui::CalcTextSize("Cancel").x - 2 * saveMargin,
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
-    if (ImGui::Button("Add", ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) || (ImGui::IsKeyPressed(ImGuiKey_A) && !GLOBAL::KEYHANDLER::isKeyDown_A))
+    if (ImGui::Button("Add", ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
+        (ImGui::IsKeyPressed(ImGuiKey_A) && !GLOBAL::KEYHANDLER::isKeyDown_A))
     {
-        GLOBAL::KEYHANDLER::isKeyDown_A = true;
+        GLOBAL::KEYHANDLER::isKeyDown_A                  = true;
         GLOBAL::ADDLIGHTWINDOW::isWindowActive           = true;
         GLOBAL::LISTLIGHTSWINDOW::isWindowActive         = false;
         GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow = true;
@@ -143,14 +150,20 @@ void ListLightsWindow::DrawContents()
 
     ImGui::SetCursorPos(ImVec2(_size.x - 2 * saveMargin - 2 * ImGui::CalcTextSize("Cancel").x - 4 * saveMargin,
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
-    if (ImGui::Button("Edit", ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) || (ImGui::IsKeyPressed(ImGuiKey_E) && !GLOBAL::KEYHANDLER::isKeyDown_E))
+    if (ImGui::Button("Edit",
+                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
+        (ImGui::IsKeyPressed(ImGuiKey_E) && !GLOBAL::KEYHANDLER::isKeyDown_E))
     {
-        GLOBAL::KEYHANDLER::isKeyDown_E = true;
-        GLOBAL::ADDLIGHTWINDOW::lightToEdit = GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::LISTLIGHTSWINDOW::activeItemIndex);
-        GLOBAL::ADDLIGHTWINDOW::isWindowActive           = true;
-        GLOBAL::LISTLIGHTSWINDOW::isWindowActive         = false;
-        GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow = true;
-        GLOBAL::ADDLIGHTWINDOW::isEditMode               = true;
+        if (!GLOBAL::LIGHTFILEMANAGER::lightsLibrary.empty())
+        {
+            GLOBAL::KEYHANDLER::isKeyDown_E = true;
+            GLOBAL::ADDLIGHTWINDOW::lightToEdit =
+                GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::LISTLIGHTSWINDOW::activeItemIndex);
+            GLOBAL::ADDLIGHTWINDOW::isWindowActive           = true;
+            GLOBAL::LISTLIGHTSWINDOW::isWindowActive         = false;
+            GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow = true;
+            GLOBAL::ADDLIGHTWINDOW::isEditMode               = true;
+        }
     }
 
     style.Colors[ImGuiCol_Button]        = red_ImGuiCol_Button;
@@ -160,7 +173,8 @@ void ListLightsWindow::DrawContents()
     ImGui::SetCursorPos(ImVec2(_size.x - 3 * saveMargin - 3 * ImGui::CalcTextSize("Cancel").x - 6 * saveMargin,
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
     if (ImGui::Button("Delete",
-                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) || (ImGui::IsKeyPressed(ImGuiKey_Delete) && !GLOBAL::KEYHANDLER::isKeyDown_Delete))
+                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
+        (ImGui::IsKeyPressed(ImGuiKey_Delete) && !GLOBAL::KEYHANDLER::isKeyDown_Delete))
     {
         GLOBAL::KEYHANDLER::isKeyDown_Delete = true;
         // std::string lightName = GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::LISTLIGHTSWINDOW::activeItemIndex).name;
@@ -179,9 +193,10 @@ void ListLightsWindow::DrawContents()
     // ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
     ImGui::SetCursorPos(ImVec2(saveMargin, _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
     if (ImGui::Button("Cancel",
-                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) || (ImGui::IsKeyPressed(ImGuiKey_Escape) && !GLOBAL::KEYHANDLER::isKeyDown_Escape))
+                      ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
+        (ImGui::IsKeyPressed(ImGuiKey_Escape) && !GLOBAL::KEYHANDLER::isKeyDown_Escape))
     {
-        GLOBAL::KEYHANDLER::isKeyDown_Escape = true;
+        GLOBAL::KEYHANDLER::isKeyDown_Escape             = true;
         GLOBAL::LISTLIGHTSWINDOW::isWindowActive         = false;
         GLOBAL::ADDLIGHTWINDOW::cameFromListLightsWindow = false;
     }

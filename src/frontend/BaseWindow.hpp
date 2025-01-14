@@ -48,6 +48,7 @@ public:
     inline static float default_FrameRounding              = 5.0F;
     inline static float default_ChildBorderSize            = 1.0F;
     inline static float default_ChildRounding              = 5.0F;
+    inline static auto  debug_textColor                    = ImVec4(0.35F, 0.35F, 0.35F, 1.0F);
 
     inline static float fontSize     = 0.5F;
     inline static float saveMargin   = 5.0F;
