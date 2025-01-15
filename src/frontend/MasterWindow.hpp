@@ -15,6 +15,7 @@
 #include <vector>
 
 #include "backend/defines.hpp"
+#include "frontend/ArrangeWindow/ArrangeWindow.hpp"
 #include "frontend/BaseWindow.hpp"
 #include "frontend/ClearWindow/ClearWindow.hpp"
 #include "frontend/HeaderWindow/HeaderWindow.hpp"
@@ -43,7 +44,11 @@ private:
     ImVec2       patchWindowSize = ImVec2(0.0f, 0.0f);
     PatchWindow *patchWindow     = new PatchWindow();
 
-    //ClearWindow *clearWindow = new ClearWindow();
+    ImVec2         arrangeWindowSize = ImVec2(0.0f, 0.0f);
+    ArrangeWindow *arrangeWindow     = new ArrangeWindow();
+
+
+    // ClearWindow *clearWindow = new ClearWindow();
 };
 
 

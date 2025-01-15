@@ -46,8 +46,10 @@ void MasterWindow::DrawContents()
 {
     idealHeaderWindowSize = HeaderWindow::getIdealSize();
 
+    // TODO: add proper idealSize to GLOBAL for easy reference (partly already there...)
     patchWindowSize    = ImVec2(io_width - 2 * saveMargin, io_height - idealHeaderWindowSize.y - 2 * saveMargin);
     settingsWindowSize = ImVec2(io_width - 2 * saveMargin, io_height - idealHeaderWindowSize.y - 2 * saveMargin);
+    arrangeWindowSize  = ImVec2(io_width - 2 * saveMargin, io_height - idealHeaderWindowSize.y - 2 * saveMargin);
 
     headerWindow->Draw(ImVec2(0.0f, 0.0f), idealHeaderWindowSize);
 
@@ -55,7 +57,7 @@ void MasterWindow::DrawContents()
     switch (GLOBAL::HEADERWINDOW::activeSection)
     {
         case 0: patchWindow->Draw(ImVec2(saveMargin, idealHeaderWindowSize.y + saveMargin), patchWindowSize); break;
-        case 1: break;
+        case 1: arrangeWindow->Draw(ImVec2(saveMargin, idealHeaderWindowSize.y + saveMargin), arrangeWindowSize); break;
         case 2: break;
         case 3: break;
         case 4: settingsWindow->Draw(ImVec2(saveMargin, idealHeaderWindowSize.y + saveMargin), settingsWindowSize); break;
@@ -64,5 +66,5 @@ void MasterWindow::DrawContents()
 
 
     // must come at the end of the windows
-    //clearWindow->Draw(ImVec2(0.0f, 0.0f), ImVec2(io_width, io_height));
+    // clearWindow->Draw(ImVec2(0.0f, 0.0f), ImVec2(io_width, io_height));
 }
