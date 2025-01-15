@@ -36,7 +36,7 @@ namespace GLOBAL
 
     namespace HEADERWINDOW
     {
-        inline std::vector<std::string> sections = { "Patch", "CH Control", "Scene Editor", "Live", "Settings" };
+        inline std::vector<std::string> sections = { "Patch", "Arrange", "Scene Editor", "Live", "Settings" };
 
         inline uint8_t activeSection    = sections.size() - 1;  // set last element (= settings) to active
         inline uint8_t progressBarProg  = 255;                  // 0 - 255
@@ -104,6 +104,11 @@ namespace GLOBAL
         inline bool                               newProject         = true;
         inline Project                            currentProject     = Project();
     };  // namespace PROJECT
+
+    namespace ARRANGEWINDOW {
+        inline ImVec2 size;
+        inline ImVec2 pos;
+    }; // namepace ARRANGEWINDOW
 
 };  // namespace GLOBAL
 
