@@ -10,6 +10,7 @@
 #define ARRANGEWINDOW_HPP
 
 
+#include <algorithm>
 #include <cmath>
 #include <imgui.h>
 
