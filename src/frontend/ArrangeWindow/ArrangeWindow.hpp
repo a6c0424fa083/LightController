@@ -10,6 +10,7 @@
 #define ARRANGEWINDOW_HPP
 
 
+#include <cmath>
 #include <imgui.h>
 
 #include "backend/GLOBAL.hpp"
@@ -34,4 +35,4 @@ private:
 };
 
 
-#endif //ARRANGEWINDOW_HPP
+#endif  // ARRANGEWINDOW_HPP
