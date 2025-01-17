@@ -31,7 +31,7 @@ void ArrangeWindow::DrawContents()
 {
     static const int    gridSize   = 100;
     static const float  cellSize   = 3.5f;                                      // Size of each grid cell (visual)
-    static const ImVec2 buttonSize = ImVec2(cellSize * 15.0f, cellSize * 15.0f);  // Button size
+    static const ImVec2 buttonSize = ImVec2(cellSize * 10.0f, cellSize * 10.0f);  // Button size
     static ImVec2       buttonPos  = ImVec2(0, 0);                              // Initial position of the button
     static bool         isDragging = false;                                     // Is the button being dragged?
     static ImVec2       dragOffset = ImVec2(0, 0);                              // Offset between cursor and button position
@@ -97,7 +97,9 @@ void ArrangeWindow::DrawContents()
 
     // Draw the button at its current position
     ImGui::SetCursorScreenPos(buttonPos);
-    ImGui::Button("Drag Me", buttonSize);
+    ImGui::PushFont(NUMBER);
+    ImGui::Button("XXX", buttonSize); // displaying root address of light
+    ImGui::PopFont();
 
 
     idealSize =
