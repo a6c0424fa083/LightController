@@ -14,6 +14,7 @@
 #include <string>
 #include <vector>
 
+
 enum CHANNEL_FUNCTION : uint8_t
 {
     CHANNEL       = 0,
@@ -33,12 +34,13 @@ enum CHANNEL_FUNCTION : uint8_t
     TILT_SPEED    = 14,
     MOTOR_SPEED   = 15,
     GOBO          = 16,
-
+    FUNCTION      = 17,
 };
 
-inline std::vector<std::string> channelFunctionStr = { "Channel",     "Red",         "Green",     "Blue",      "UV",
-                                                       "Ambient",     "White",       "Dimmer",    "Strobe",    "Pan Corase",
-                                                       "Pan Fine",    "Tilt Corase", "Tilt Fine", "Pan Speed", "Tilt Speed",
-                                                       "Motor Speed", "Gobo" };
+inline std::vector<std::string> channelFunctionStr = {
+    "Channel",    "Red",      "Green",       "Blue",      "UV",        "Ambient",    "White",       "Dimmer", "Strobe",
+    "Pan Corase", "Pan Fine", "Tilt Corase", "Tilt Fine", "Pan Speed", "Tilt Speed", "Motor Speed", "Gobo",   "Function",
+};
+
 
 #endif  // CHANNELFUNCTION_HPP

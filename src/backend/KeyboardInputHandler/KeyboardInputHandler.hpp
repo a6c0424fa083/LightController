@@ -12,11 +12,14 @@
 
 #include <imgui.h>
 
-class KeyboardInputHandler {
+#include <backend/GLOBAL.hpp>
+
+
+class KeyboardInputHandler
+{
 public:
     static void updateKeyStatus();
 };
 
 
-
-#endif //KEYBOARDINPUTHANDLER_HPP
+#endif  // KEYBOARDINPUTHANDLER_HPP

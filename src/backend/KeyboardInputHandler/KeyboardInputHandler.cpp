@@ -8,7 +8,6 @@
 
 #include "KeyboardInputHandler.hpp"
 
-#include <backend/GLOBAL.hpp>
 
 void KeyboardInputHandler::updateKeyStatus()
 {

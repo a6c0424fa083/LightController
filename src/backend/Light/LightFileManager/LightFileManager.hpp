@@ -10,6 +10,15 @@
 #define LIGHTFILEMANAGER_HPP
 
 
+/**
+ * I know that the library should be realised with a proper database
+ * since the current design has horroble time complexity.
+ * But as this project is intended for a smaller amount of lights
+ * I found it reasenable to use this approch for now to focus
+ * on other things first.
+ */
+
+
 #include <cstring>
 #include <filesystem>
 #include <fstream>
@@ -20,15 +29,15 @@
 #include "backend/defines.hpp"
 #include "frontend/BaseWindow.hpp"
 
+
 class LightFileManager : BaseWindow
 {
 public:
     ~LightFileManager();
+
     static uint8_t addLightToLibrary(Light light);
     static uint8_t loadLightsFromLibrary();
     static uint8_t deleteLightByIndex(size_t index);
-    static void    printLights();
-    static void    printLight(Light light);
 };
 
 
