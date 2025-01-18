@@ -43,19 +43,19 @@ void ArrangeWindow::DrawContents()
     ImDrawList *drawList = ImGui::GetWindowDrawList();
     ImVec2      gridEnd  = ImVec2(gridOrigin.x + gridSize * cellSize, gridOrigin.y + gridSize * cellSize);
 
-    for (int i = 0; i <= gridSize; ++i)
+    for (size_t i = 0; i <= gridSize; ++i)
     {
         if (i % 5 == 0)
         {
             // Vertical lines
-            drawList->AddLine(ImVec2(gridOrigin.x + i * cellSize - cellSize / 2, gridOrigin.y),
-                              ImVec2(gridOrigin.x + i * cellSize - cellSize / 2, gridEnd.y),
-                              IM_COL32(200, 200, 200, 255));
+            drawList->AddLine(ImVec2(gridOrigin.x + static_cast<float>(i) * cellSize - cellSize / 2 + 0.5f, gridOrigin.y),
+                              ImVec2(gridOrigin.x + static_cast<float>(i) * cellSize - cellSize / 2 + 0.5f, gridEnd.y),
+                              IM_COL32(200, 200, 200, 255), 1.0f);
 
             // Horizontal lines
-            drawList->AddLine(ImVec2(gridOrigin.x, gridOrigin.y + i * cellSize - cellSize / 2),
-                              ImVec2(gridEnd.x, gridOrigin.y + i * cellSize - cellSize / 2),
-                              IM_COL32(200, 200, 200, 255));
+            drawList->AddLine(ImVec2(gridOrigin.x, gridOrigin.y + static_cast<float>(i) * cellSize - cellSize / 2 + 0.5f),
+                              ImVec2(gridEnd.x, gridOrigin.y + static_cast<float>(i) * cellSize - cellSize / 2 + 0.5f),
+                              IM_COL32(200, 200, 200, 255), 1.0f);
         }
     }
 
