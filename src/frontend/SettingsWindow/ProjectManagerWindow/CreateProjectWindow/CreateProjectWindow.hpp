@@ -16,6 +16,8 @@
 #include "backend/Project/ProjectManager/ProjectManager.hpp"
 #include "backend/defines.hpp"
 #include "frontend/BaseWindow.hpp"
+#include "backend/Light/LightFileManager/LightFileManager.hpp"
+#include "backend/Project/Project.hpp"
 
 
 class CreateProjectWindow : BaseWindow

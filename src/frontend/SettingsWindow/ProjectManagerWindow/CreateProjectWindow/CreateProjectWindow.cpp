@@ -8,8 +8,6 @@
 
 #include "CreateProjectWindow.hpp"
 
-#include <backend/Light/LightFileManager/LightFileManager.hpp>
-#include <backend/Project/Project.hpp>
 
 CreateProjectWindow::~CreateProjectWindow() {}
 
@@ -136,7 +134,12 @@ void CreateProjectWindow::DrawContents()
     {
         // GLOBAL::KEYHANDLER::isKeyDown_Enter         = true;
         GLOBAL::CREATEPROJECTWINDOW::isWindowActive = false;
-        ProjectManager::saveProject(std::string(_name));
+        if (!GLOBAL::PROJECT::newProject)
+            ProjectManager::saveProject(GLOBAL::PROJECT::projects.at(GLOBAL::PROJECT::activeProjectIndex).stem().string(),
+                                        !GLOBAL::PROJECT::newProject /*enable override on existing projects*/);
+        else
+            ProjectManager::saveProject(std::string(_name),
+                                        !GLOBAL::PROJECT::newProject /*disable override on existing projects*/);
     }
 
     style.Colors[ImGuiCol_Button]        = default_ImGuiCol_Button;
@@ -154,7 +157,7 @@ void CreateProjectWindow::DrawContents()
         GLOBAL::CREATEPROJECTWINDOW::isWindowActive = false;
         if (!GLOBAL::PROJECT::newProject)
         {
-            printf("jump in loadProject function\n");
+            //printf("jump in loadProject function\n");
             ProjectManager::recallProject(GLOBAL::PROJECT::activeProjectIndex);
         }
     }

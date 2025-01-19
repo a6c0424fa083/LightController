@@ -10,7 +10,7 @@
 
 #include <backend/Patch/PatchManager/PatchManager.hpp>
 
-uint8_t ProjectManager::saveProject(const std::string &name)
+uint8_t ProjectManager::saveProject(const std::string &name, const bool override)
 {
     updateCurrentProjectStruct();
 
@@ -25,7 +25,7 @@ uint8_t ProjectManager::saveProject(const std::string &name)
 
 
     // check if the project-name already exists
-    if (std::filesystem::exists(projectFilePath))
+    if (std::filesystem::exists(projectFilePath) && override == false)
     {
         return 8;  // duplicate project error
     }
@@ -44,7 +44,7 @@ uint8_t ProjectManager::recallProject(size_t index)
 {
     std::string projectFilePath = GLOBAL::PROJECT::projects.at(index).string();
 
-    printf("Path: %s\n", projectFilePath.c_str());
+    //printf("Path: %s\n", projectFilePath.c_str());
 
 
     // check if the project-name exists else throw error
@@ -65,7 +65,7 @@ uint8_t ProjectManager::recallProject(size_t index)
 
     GLOBAL::PROJECT::currentProject = _project;
 
-    printf("read file to prject struct\n");
+    //printf("read file to prject struct\n");
 
     createFile.close();
 
@@ -115,6 +115,6 @@ uint8_t ProjectManager::unpackCurrentProjectStruct()
     }
 
     PatchManager::reloadPatchButtonsFromVector();
-    printf("unpacked project struct\n");
+    //printf("unpacked project struct\n");
     return 0;
 }
