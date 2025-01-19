@@ -6,7 +6,6 @@
 //  Created by Jannis Sauer on 2024-12-10.
 //
 
-
 // general includes
 #include <cstdint>
 #include <cstdio>
