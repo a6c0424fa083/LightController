@@ -16,6 +16,18 @@
 #include "backend/Light/ChannelFunction/ChannelFunction.hpp"
 #include "backend/defines.hpp"
 
+
+/**
+ * @brief This struct defines a light
+ *
+ * <b>Featuring:</b>
+ * - channelCount
+ * - rootAddress
+ * - channelFunction[]
+ * - channelFunctionIdentifier[] (currently not used)
+ * - name[]
+ * - manufacturer[]
+ */
 struct Light
 {
     uint16_t         channelCount                                = 0;
@@ -25,8 +37,17 @@ struct Light
     char             name[MAX_LIGHT_NAME_LENGTH]                 = { 0 };
     char             manufacturer[MAX_LIGHT_MANUFACTURER_LENGTH] = { 0 };
 
+    /**
+     * @brief This is the default constructor of the struct leafing the default values
+     */
     Light() {}
 
+    /**
+     * @brief This constructor copies the data from one source to the light
+     * while using a different root address
+     * @param source A reference to an existing light
+     * @param rootAddr A new root address
+     */
     Light(const Light &source, const uint16_t rootAddr)
     {
         channelCount = source.channelCount;
@@ -37,15 +58,6 @@ struct Light
         std::strncpy(manufacturer, source.manufacturer, MAX_LIGHT_MANUFACTURER_LENGTH);
     }
 };
-
-inline void printLightStruct(const Light &light)
-{
-    printf("\n#################################### LIGHT ####################################\n");
-    printf("\nchannelCount:  %64d\n", light.channelCount);
-    printf("\n rootAddress:  %64d\n", light.rootAddress);
-    printf("\n        name:  %64.64s\n", light.name);
-    printf("\nmanufacturer:  %64.64s\n\n\n", light.manufacturer);
-}
 
 
 #endif  // LIGHT_HPP

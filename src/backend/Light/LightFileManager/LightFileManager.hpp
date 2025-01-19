@@ -30,11 +30,17 @@
 #include "frontend/BaseWindow.hpp"
 
 
+/**
+ * @brief This class manages the library file
+ *
+ * <b>Featuring:</b>
+ * - addLightToLibrary()
+ * - loadsLightsFromLibrary()
+ * - deleteLightByIndex()
+ */
 class LightFileManager : BaseWindow
 {
 public:
-    ~LightFileManager();
-
     static uint8_t addLightToLibrary(Light light);
     static uint8_t loadLightsFromLibrary();
     static uint8_t deleteLightByIndex(size_t index);

@@ -8,7 +8,6 @@
 
 #include "LightFileManager.hpp"
 
-LightFileManager::~LightFileManager() {}
 
 /**
  * @brief This function adds a 'Light' struct to the library.<br>
