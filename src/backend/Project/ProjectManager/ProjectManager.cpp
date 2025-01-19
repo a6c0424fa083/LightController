@@ -114,7 +114,7 @@ uint8_t ProjectManager::unpackCurrentProjectStruct()
         GLOBAL::PATCH::patchLights.push_back(GLOBAL::PROJECT::currentProject._lights[i]);
     }
 
-    PatchManager::reloadPatchButtonsFromVector2();
+    PatchManager::reloadPatchButtonsFromVector();
     printf("unpacked project struct\n");
     return 0;
 }

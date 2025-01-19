@@ -9,16 +9,17 @@
 #ifndef PATCHMANAGER_HPP
 #define PATCHMANAGER_HPP
 
+
 #include "backend/GLOBAL.hpp"
 #include "backend/Patch/Patch.hpp"
 #include "backend/defines.hpp"
 
+
 class PatchManager
 {
 public:
-    static uint8_t reloadPatchButtonsFromVector2();
+    static uint8_t reloadPatchButtonsFromVector();
 };
-
 
 
 #endif  // PATCHMANAGER_HPP

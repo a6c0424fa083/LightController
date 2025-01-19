@@ -157,7 +157,7 @@ void LightInfoWindow::DrawContents()
         }
 
         // recalculate the patchButtons
-        PatchManager::reloadPatchButtonsFromVector2();
+        PatchManager::reloadPatchButtonsFromVector();
 
         GLOBAL::LIGHTINFOWINDOW::isWindowActive = false;
     }

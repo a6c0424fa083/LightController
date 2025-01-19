@@ -8,7 +8,7 @@
 
 #include "PatchManager.hpp"
 
-uint8_t PatchManager::reloadPatchButtonsFromVector2()
+uint8_t PatchManager::reloadPatchButtonsFromVector()
 {
     // clear all patchButton states
     for (uint16_t i = 0; i < 512; i++)
@@ -26,9 +26,10 @@ uint8_t PatchManager::reloadPatchButtonsFromVector2()
 
     for (size_t i = 0; i < GLOBAL::PATCH::patchLights.size(); i++)
     {
-        for (size_t j = 0; j < GLOBAL::PATCH::patchLights.at(i).channelCount; j++) {
-            GLOBAL::PATCH::patchButtons.at(GLOBAL::PATCH::patchLights.at(i).rootAddress + j - 1).isUsed         = true;
-            //auto *light                                      = new Light(GLOBAL::PATCH::patchLights.at(i), i + 1);
+        for (size_t j = 0; j < GLOBAL::PATCH::patchLights.at(i).channelCount; j++)
+        {
+            GLOBAL::PATCH::patchButtons.at(GLOBAL::PATCH::patchLights.at(i).rootAddress + j - 1).isUsed = true;
+            // auto *light                                      = new Light(GLOBAL::PATCH::patchLights.at(i), i + 1);
             GLOBAL::PATCH::patchButtons.at(GLOBAL::PATCH::patchLights.at(i).rootAddress + j - 1).referenceLightIndex = i;
         }
     }
