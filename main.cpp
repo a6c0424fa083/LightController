@@ -93,6 +93,7 @@ int main(/*int argc, char **argv*/)
 
     // create master window
     GLFWwindow *window = glfwCreateWindow(MASTER_WINDOW_WIDTH, MASTER_WINDOW_HEIGHT, "LightController", nullptr, nullptr);
+    glfwSetWindowSizeLimits(window, MASTER_WINDOW_WIDTH, MASTER_WINDOW_HEIGHT, GLFW_DONT_CARE, GLFW_DONT_CARE);
 
     // check if window was created successfully
     if (window == nullptr) exit(EXIT_FAILURE);
