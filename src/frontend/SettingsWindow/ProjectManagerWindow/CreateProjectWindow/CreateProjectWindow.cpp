@@ -120,9 +120,9 @@ void CreateProjectWindow::DrawContents()
 
     ImGui::PushFont(SUBTITLE);
 
-    style.Colors[ImGuiCol_Button]        = green_ImGuiCol_Button;
-    style.Colors[ImGuiCol_ButtonHovered] = green_ImGuiCol_ButtonHovered;
-    style.Colors[ImGuiCol_ButtonActive]  = green_ImGuiCol_ButtonActive;
+    //style.Colors[ImGuiCol_Button]        = green_ImGuiCol_Button;
+    //style.Colors[ImGuiCol_ButtonHovered] = green_ImGuiCol_ButtonHovered;
+    //style.Colors[ImGuiCol_ButtonActive]  = green_ImGuiCol_ButtonActive;
 
     ImGui::SetCursorPos(ImVec2(_size.x - saveMargin - ImGui::CalcTextSize("Cancel").x - 2 * saveMargin,
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
@@ -142,9 +142,9 @@ void CreateProjectWindow::DrawContents()
                                         !GLOBAL::PROJECT::newProject /*disable override on existing projects*/);
     }
 
-    style.Colors[ImGuiCol_Button]        = default_ImGuiCol_Button;
-    style.Colors[ImGuiCol_ButtonHovered] = default_ImGuiCol_ButtonHovered;
-    style.Colors[ImGuiCol_ButtonActive]  = default_ImGuiCol_ButtonActive;
+    //style.Colors[ImGuiCol_Button]        = default_ImGuiCol_Button;
+    //style.Colors[ImGuiCol_ButtonHovered] = default_ImGuiCol_ButtonHovered;
+    //style.Colors[ImGuiCol_ButtonActive]  = default_ImGuiCol_ButtonActive;
 
     ImGui::SetCursorPos(ImVec2(_size.x - 2 * saveMargin - 2 * ImGui::CalcTextSize("Cancel").x - 4 * saveMargin,
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
