@@ -28,11 +28,24 @@ public:
 
     void DrawGrid();
 
+    ImVec2 getNearestSnapPoint(ImVec2 pos, ImVec2 buttonSize) const;
+
     static ImVec2 getIdealSize() { return idealSize; };
 
 private:
     ImVec2 _pos;
     ImVec2 _size;
+
+    ImVec2              _gridSize;
+    std::vector<size_t> _gridSnapPoints = { 270, 170 };
+    size_t              _gridNthVisible = 5;  // every n'th grid is shown
+    ImVec2              lightListSize   = ImVec2(0.0f, 0.0f);
+    ImVec2              _gridPos        = ImVec2(0.0f, 0.0f);
+    bool                _isInTable      = true;
+
+    ImVec2 _buttonPos  = ImVec2(0, 0);
+    bool   _isDragging = false;
+    ImVec2 _dragOffset = ImVec2(0, 0);
 
     inline static ImVec2 idealSize = ImVec2(0.0f, 0.0f);
 };
