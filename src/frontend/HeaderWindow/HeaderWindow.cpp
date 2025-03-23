@@ -77,11 +77,12 @@ void HeaderWindow::DrawContents()
             GLOBAL::HEADERWINDOW::activeSection = i;
 
             // for closing all sub-windows after button push on header window
-            GLOBAL::ADDLIGHTWINDOW::isWindowActive      = false;
-            GLOBAL::LIGHTINFOWINDOW::isWindowActive     = false;
-            GLOBAL::LISTLIGHTSWINDOW::isWindowActive    = false;
-            GLOBAL::SELECTLIGHTWINDOW::isWindowActive   = false;
-            GLOBAL::CREATEPROJECTWINDOW::isWindowActive = false;
+            GLOBAL::ADDLIGHTWINDOW::isWindowActive           = false;
+            GLOBAL::LIGHTINFOWINDOW::isWindowActive          = false;
+            GLOBAL::LISTLIGHTSWINDOW::isWindowActive         = false;
+            GLOBAL::SELECTLIGHTWINDOW::isWindowActive        = false;
+            GLOBAL::CREATEPROJECTWINDOW::isWindowActive      = false;
+            GLOBAL::ARRANGEWINDOW::isEditOptionsWindowActive = false;
         }
     }
 

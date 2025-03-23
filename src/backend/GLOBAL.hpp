@@ -108,6 +108,8 @@ namespace GLOBAL
     namespace ARRANGEWINDOW {
         inline ImVec2 size;
         inline ImVec2 pos;
+        inline bool isButtonEdit = true; // edit / move
+        inline bool isEditOptionsWindowActive = false;
     }; // namepace ARRANGEWINDOW
 
 };  // namespace GLOBAL

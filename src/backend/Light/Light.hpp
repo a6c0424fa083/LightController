@@ -12,6 +12,7 @@
 
 #include <array>
 #include <cstring>
+#include <imgui.h>
 
 #include "backend/Light/ChannelFunction/ChannelFunction.hpp"
 #include "backend/defines.hpp"
@@ -36,9 +37,13 @@ struct Light
     uint8_t          channelFunctionIdentifier[512]              = { 0 };
     char             name[MAX_LIGHT_NAME_LENGTH]                 = { 0 };
     char             manufacturer[MAX_LIGHT_MANUFACTURER_LENGTH] = { 0 };
+    uint8_t          universe                                    = 0;
+    ImVec4           color                                       = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+    bool             colorShown                                  = false;
+    bool             lightArranged                               = false;
 
     /**
-     * @brief This is the default constructor of the struct leafing the default values
+     * @brief This is the default constructor of the struct leaving the default values
      */
     Light() {}
 

@@ -28,6 +28,8 @@ public:
 
     void DrawGrid();
 
+    void DrawEditOptionsWindow();
+
     static ImVec2 getIdealSize() { return idealSize; };
 
 private:
