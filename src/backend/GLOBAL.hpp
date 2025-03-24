@@ -110,6 +110,7 @@ namespace GLOBAL
         inline ImVec2 pos;
         inline bool isButtonEdit = true; // edit / move
         inline bool isEditOptionsWindowActive = false;
+        size_t referenceLightIndex = 0;
     }; // namepace ARRANGEWINDOW
 
 };  // namespace GLOBAL

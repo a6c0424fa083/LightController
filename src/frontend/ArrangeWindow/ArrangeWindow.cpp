@@ -41,21 +41,28 @@ void ArrangeWindow::DrawContents()
 
     style.ChildBorderSize = 0.0f;
     ImGui::SetCursorPos(ImVec2(0.0f, 0.0f));
-    setWindowPosSize(ImVec2(_pos.x + saveMargin ,_pos.y + saveMargin), ImVec2(2 * saveMargin + ImGui::CalcTextSize("XXXXX").x, _size.y - 5 * saveMargin - ImGui::CalcTextSize("XXX").y));
+    setWindowPosSize(
+        ImVec2(_pos.x + saveMargin, _pos.y + saveMargin),
+        ImVec2(2 * saveMargin + ImGui::CalcTextSize("XXXXX").x, _size.y - 5 * saveMargin - ImGui::CalcTextSize("XXX").y));
 
-    ImGui::Begin(
-        "LightsList",
-        nullptr, STATIC__NO_VISUALS);
+    ImGui::Begin("LightsList", nullptr, STATIC__NO_VISUALS);
 
     for (size_t i = 0; i < GLOBAL::PATCH::patchLights.size(); i++)
     {
         char label[4];
         snprintf(label, sizeof(label), "%03i", GLOBAL::PATCH::patchLights[i].rootAddress);
 
-        ImGui::SetCursorPos(ImVec2((2 * saveMargin + ImGui::CalcTextSize("XXXXX").x) / 2.0f - (ImGui::CalcTextSize("XXX").x + 2 * saveMargin) / 2.0f, ImGui::GetCursorPosY() + saveMargin));
+        ImGui::SetCursorPos(ImVec2(
+            (2 * saveMargin + ImGui::CalcTextSize("XXXXX").x) / 2.0f - (ImGui::CalcTextSize("XXX").x + 2 * saveMargin) / 2.0f,
+            ImGui::GetCursorPosY() + saveMargin));
         if (ImGui::Button(label, ImVec2(ImGui::CalcTextSize("XXX").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
         {
-            if (GLOBAL::ARRANGEWINDOW::isButtonEdit) { GLOBAL::ARRANGEWINDOW::isEditOptionsWindowActive = true; }
+            if (GLOBAL::ARRANGEWINDOW::isButtonEdit)
+            {
+                GLOBAL::ARRANGEWINDOW::isEditOptionsWindowActive = true;
+                GLOBAL::ARRANGEWINDOW::referenceLightIndex       = i;
+            }
+
             else {}
         }
     }
@@ -94,18 +101,22 @@ void ArrangeWindow::DrawEditOptionsWindow()
 
 
 
-
-
-    ImGui::SetCursorPos(
-        ImVec2(saveMargin, saveMargin + 0 * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
+    ImGui::SetCursorPos(ImVec2(saveMargin, saveMargin + 0 * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
     if (ImGui::Button("Live Edit", ImVec2(size.x - 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin))) {}
 
-    ImGui::SetCursorPos(
-        ImVec2(saveMargin, saveMargin + 1 * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
-    if (ImGui::Button("Arrange", ImVec2(size.x - 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin))) {}
+    ImGui::SetCursorPos(ImVec2(saveMargin, saveMargin + 1 * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
+    if (ImGui::Button("Arrange", ImVec2(size.x - 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+    {
+        GLOBAL::PATCH::patchLights.at(GLOBAL::ARRANGEWINDOW::referenceLightIndex).lightArranged = true;
+    }
 
-    ImGui::SetCursorPos(
-        ImVec2(saveMargin, saveMargin + 2 * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
+    ImGui::SetCursorPos(ImVec2(saveMargin, saveMargin + 2 * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
+    if (ImGui::Button("Put to List", ImVec2(size.x - 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
+    {
+        GLOBAL::PATCH::patchLights.at(GLOBAL::ARRANGEWINDOW::referenceLightIndex).lightArranged = false;
+    }
+
+    ImGui::SetCursorPos(ImVec2(saveMargin, saveMargin + 3 * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
     if (ImGui::Button("Edit Color", ImVec2(size.x - 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin))) {}
 
 
