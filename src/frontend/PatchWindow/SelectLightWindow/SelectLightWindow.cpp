@@ -101,15 +101,18 @@ void SelectLightWindow::DrawContents()
 
     ImGui::PushFont(SUBTITLE);
 
-    style.Colors[ImGuiCol_Button]        = green_ImGuiCol_Button;
-    style.Colors[ImGuiCol_ButtonHovered] = green_ImGuiCol_ButtonHovered;
-    style.Colors[ImGuiCol_ButtonActive]  = green_ImGuiCol_ButtonActive;
+    if (GLOBAL::LIGHTFILEMANAGER::lightsLibrary.size() > 0)
+    {
+        style.Colors[ImGuiCol_Button]        = green_ImGuiCol_Button;
+        style.Colors[ImGuiCol_ButtonHovered] = green_ImGuiCol_ButtonHovered;
+        style.Colors[ImGuiCol_ButtonActive]  = green_ImGuiCol_ButtonActive;
+    }
 
     ImGui::SetCursorPos(ImVec2(_size.x - saveMargin - ImGui::CalcTextSize("Cancel").x - 2 * saveMargin,
                                _size.y - ImGui::CalcTextSize("XXX").y - 3 * saveMargin));
-    if (ImGui::Button("Select",
+    if ((ImGui::Button("Select",
                       ImVec2(ImGui::CalcTextSize("Cancel").x + 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)) ||
-        (ImGui::IsKeyPressed(ImGuiKey_A) && !GLOBAL::KEYHANDLER::isKeyDown_A))
+        (ImGui::IsKeyPressed(ImGuiKey_A) && !GLOBAL::KEYHANDLER::isKeyDown_A)) && GLOBAL::LIGHTFILEMANAGER::lightsLibrary.size() > 0)
     {
         bool hasFreeSpace = true;
 
@@ -137,22 +140,24 @@ void SelectLightWindow::DrawContents()
             GLOBAL::SELECTLIGHTWINDOW::isWindowActive                                                    = false;
             GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1).isUsed = true;
 
-            //auto *light = new Light(GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::SELECTLIGHTWINDOW::activeItemIndex),
-            //                        GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress);
+            // auto *light = new Light(GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::SELECTLIGHTWINDOW::activeItemIndex),
+            //                         GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress);
 
             // add light to the patchLight vector (also used for project storrage)
             GLOBAL::PATCH::patchLights.emplace_back(
                 GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::SELECTLIGHTWINDOW::activeItemIndex),
                 GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress);
 
-            GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1).referenceLightIndex = GLOBAL::PATCH::patchLights.size() - 1;
+            GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1).referenceLightIndex =
+                GLOBAL::PATCH::patchLights.size() - 1;
 
             for (uint16_t i = 1;
                  i < GLOBAL::LIGHTFILEMANAGER::lightsLibrary.at(GLOBAL::SELECTLIGHTWINDOW::activeItemIndex).channelCount;
                  i++)
             {
-                GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1 + i).isUsed         = true;
-                GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1 + i).referenceLightIndex = GLOBAL::PATCH::patchLights.size() - 1;
+                GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1 + i).isUsed = true;
+                GLOBAL::PATCH::patchButtons.at(GLOBAL::SELECTLIGHTWINDOW::referenceButtonAddress - 1 + i).referenceLightIndex =
+                    GLOBAL::PATCH::patchLights.size() - 1;
             }
         }
     }
