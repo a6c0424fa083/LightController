@@ -20,7 +20,9 @@ function(target_set_warnings TARGET ENABLED ENABLED_AS_ERRORS)
     set(CLANG_WARNINGS
         -Wall
         -Wextra
-        -Wpedantic)
+        -Wpedantic
+        #-Wzero-length-array
+    )
 
     set(GCC_WARNINGS
         ${CLANG_WARNINGS})

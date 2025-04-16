@@ -17,6 +17,7 @@
 #include "backend/GLOBAL.hpp"
 #include "backend/defines.hpp"
 #include "frontend/BaseWindow.hpp"
+#include "backend/Light/ButtonColor/ButtonColor.hpp"
 
 class ArrangeWindow : BaseWindow
 {
@@ -29,6 +30,7 @@ public:
     void DrawGrid();
 
     void DrawEditOptionsWindow();
+    void DrawEditColorWindow();
 
     static ImVec2 getIdealSize() { return idealSize; };
 

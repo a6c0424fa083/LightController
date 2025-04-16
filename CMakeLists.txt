@@ -29,6 +29,8 @@ set(CMAKE_LIBRARY_ARCHITECTURE x84_64) # x86_64 / arm64
 
 # define project
 set(APPLICATION_NAME LightController)
+option(BUILD_FOR_GUI_LAUNCH "Enable to execution via GUI (Terminal calls won't work)" OFF) # changes the Base-Path for the data
+
 project(${APPLICATION_NAME}
     VERSION 0.1.0
     LANGUAGES C CXX
@@ -52,7 +54,12 @@ add_executable(${APPLICATION_NAME})
 target_sources(${APPLICATION_NAME} PUBLIC main.cpp)
 
 # main target options
-target_set_warnings(${APPLICATION_NAME} ON ON)
+target_set_warnings(${APPLICATION_NAME} ON OFF)
+if (${BUILD_FOR_GUI_LAUNCH})
+    target_compile_definitions(${APPLICATION_NAME} PUBLIC APPLICATION_DATA_PATH="Library/Application Support/LightController/")
+else ()
+    target_compile_definitions(${APPLICATION_NAME} PUBLIC APPLICATION_DATA_PATH="../applicationData/")
+endif ()
 
 # include subdirectories to build the project recursively
 add_subdirectory(src)
@@ -136,3 +143,20 @@ target_link_libraries(${IMPLOT_LIB_NAME} PUBLIC ${IMGUI_LIB_NAME})
 
 # main
 target_link_libraries(${APPLICATION_NAME} PUBLIC ${IMPLOT_LIB_NAME}) # OpenGL and glfw are already linked publicly to imgui
+
+
+
+
+### libusb ###
+
+#target_include_directories(${APPLICATION_NAME} PUBLIC /opt/homebrew/include/libusb-1.0)
+target_include_directories(${APPLICATION_NAME} PUBLIC /usr/local/Cellar/libusb/1.0.27/include/libusb-1.0)
+
+#target_link_libraries(${APPLICATION_NAME} PUBLIC /opt/homebrew/lib/libusb-1.0.a)
+target_link_libraries(${APPLICATION_NAME} PUBLIC /usr/local/Cellar/libusb/1.0.27/lib/libusb-1.0.dylib)
+
+if (${BUILD_FOR_GUI_LAUNCH})
+#add_custom_command(TARGET ${APPLICATION_NAME} POST_BUILD
+#    COMMAND cp ${CMAKE_SOURCE_DIR}/cmake-build-production/LightController /Applications/
+#)
+endif ()

@@ -16,29 +16,31 @@
 
 #include "backend/Light/ChannelFunction/ChannelFunction.hpp"
 #include "backend/defines.hpp"
+#include "frontend/BaseWindow.hpp"
 
 
 /**
  * @brief This struct defines a light
  *
- * <b>Featuring:</b>
- * - channelCount
+ * <b>Featuring mainly:</b>
  * - rootAddress
+ * - channelCount
  * - channelFunction[]
- * - channelFunctionIdentifier[] (currently not used)
  * - name[]
  * - manufacturer[]
+ * - universe
  */
 struct Light
 {
-    uint16_t         channelCount                                = 0;
+    ImVec4           color                                       = BaseWindow::default_ImGuiCol_Button;
+    ImVec2           arrangePos                                  = ImVec2(0.0f, 0.0f);
     uint16_t         rootAddress                                 = 1;
+    uint16_t         channelCount                                = 0;
     CHANNEL_FUNCTION channelFunction[512]                        = { CHANNEL_FUNCTION::CHANNEL };
     uint8_t          channelFunctionIdentifier[512]              = { 0 };
+    uint8_t          universe                                    = 0;
     char             name[MAX_LIGHT_NAME_LENGTH]                 = { 0 };
     char             manufacturer[MAX_LIGHT_MANUFACTURER_LENGTH] = { 0 };
-    uint8_t          universe                                    = 0;
-    ImVec4           color                                       = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
     bool             colorShown                                  = false;
     bool             lightArranged                               = false;
 
@@ -61,6 +63,11 @@ struct Light
         std::copy(std::begin(source.channelFunctionIdentifier), std::end(source.channelFunctionIdentifier), channelFunctionIdentifier);
         std::strncpy(name, source.name, MAX_LIGHT_NAME_LENGTH);
         std::strncpy(manufacturer, source.manufacturer, MAX_LIGHT_MANUFACTURER_LENGTH);
+        universe      = source.universe;
+        color         = source.color;
+        colorShown    = source.colorShown;
+        lightArranged = source.lightArranged;
+        arrangePos    = source.arrangePos;
     }
 };
 

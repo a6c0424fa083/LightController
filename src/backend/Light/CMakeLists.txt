@@ -8,4 +8,5 @@
 
 add_subdirectory(LightFileManager)
 add_subdirectory(ChannelFunction)
+add_subdirectory(ButtonColor)
 target_sources(${APPLICATION_NAME} PUBLIC Light.cpp)

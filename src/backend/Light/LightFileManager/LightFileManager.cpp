@@ -148,7 +148,7 @@ uint8_t LightFileManager::deleteLightByIndex(const size_t index)
     std::fstream file(lightsFilePath, std::ios::binary | std::ios::in | std::ios::out);
     if (!file.is_open()) { return 2; }
 
-    // create a struct to store the last element of the libary
+    // create a struct to store the last element of the library
     Light lastLight;
 
     // set the input cursor to the beginning of the last element in the file

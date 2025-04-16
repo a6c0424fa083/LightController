@@ -48,20 +48,22 @@ enum USER_FONT
 #define INFORMATION io.Fonts->Fonts[USER_FONT::INFORMATION]
 #define NUMBER      io.Fonts->Fonts[USER_FONT::NUMBER]
 
-#define MONACO_FONT_PATH     "../applicationData/fonts/Monaco.ttf"      // relative to executable
-#define ARIALBLACK_FONT_PATH "../applicationData/fonts/ArialBlack.ttf"  // relative to executable
-#define ARIAL_FONT_PATH      "../applicationData/fonts/Arial.ttf"       // relative to executable
-#define ARIALBOLD_FONT_PATH  "../applicationData/fonts/ArialBold.ttf"   // relative to executable
+//#define APPLICATION_DATA_PATH " "
+
+#define MONACO_FONT_PATH      APPLICATION_DATA_PATH "fonts/Monaco.ttf"      // relative to executable
+#define ARIALBLACK_FONT_PATH  APPLICATION_DATA_PATH "fonts/ArialBlack.ttf"  // relative to executable
+#define ARIAL_FONT_PATH       APPLICATION_DATA_PATH "fonts/Arial.ttf"       // relative to executable
+#define ARIALBOLD_FONT_PATH   APPLICATION_DATA_PATH "fonts/ArialBold.ttf"   // relative to executable
 
 #define MAX_LIGHT_NAME_LENGTH 64
 
 #define MAX_LIGHT_MANUFACTURER_LENGTH 64
 
-#define LIGHT_LIBRARY_PATH "../applicationData/LightLibrary/"
+#define LIGHT_LIBRARY_PATH APPLICATION_DATA_PATH "LightLibrary/"
 
 
 #define MAX_PROJECT_NAME_LENGTH 64
 
-#define PROJECTS_PATH "../applicationData/Projects/"
+#define PROJECTS_PATH APPLICATION_DATA_PATH "Projects/"
 
 #endif  // DEFINES_HPP
