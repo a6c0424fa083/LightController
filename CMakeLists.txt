@@ -82,6 +82,15 @@ set(GLFW_LIB_NAME glfw)
 set(GLFW_LIB_PATH ${LIB_BASE_DIR}/glfw) # set library path
 add_subdirectory(${GLFW_LIB_PATH}) # build library from their build system (CMAKE)
 
+# libusb
+set(LIBUSB_LIB_NAME usb-1.0)
+set(LIBUSB_LIB_PATH ${LIB_BASE_DIR}/libusb-cmake) # set library path
+add_subdirectory(${LIBUSB_LIB_PATH}) # build library from their build system (CMAKE)
+target_include_directories(${LIBUSB_LIB_NAME} PUBLIC
+        ${LIBUSB_LIB_PATH}/libusb/libusb
+        ${LIBUSB_LIB_PATH}/libusb/libusb/os
+)
+
 # imgui
 set(IMGUI_LIB_NAME imgui) # set library name
 set(IMGUI_LIB_PATH ${LIB_BASE_DIR}/imgui) # set library path
@@ -143,18 +152,15 @@ target_link_libraries(${IMPLOT_LIB_NAME} PUBLIC ${IMGUI_LIB_NAME})
 
 # main
 target_link_libraries(${APPLICATION_NAME} PUBLIC ${IMPLOT_LIB_NAME}) # OpenGL and glfw are already linked publicly to imgui
+target_link_libraries(${APPLICATION_NAME} PUBLIC ${LIBUSB_LIB_NAME})
 
 
 
+###################################
+###   Post-Build-Instructions   ###
+###################################
 
-### libusb ###
-
-#target_include_directories(${APPLICATION_NAME} PUBLIC /opt/homebrew/include/libusb-1.0)
-target_include_directories(${APPLICATION_NAME} PUBLIC /usr/local/Cellar/libusb/1.0.27/include/libusb-1.0)
-
-#target_link_libraries(${APPLICATION_NAME} PUBLIC /opt/homebrew/lib/libusb-1.0.a)
-target_link_libraries(${APPLICATION_NAME} PUBLIC /usr/local/Cellar/libusb/1.0.27/lib/libusb-1.0.dylib)
-
+# select build mode
 if (${BUILD_FOR_GUI_LAUNCH})
 #add_custom_command(TARGET ${APPLICATION_NAME} POST_BUILD
 #    COMMAND cp ${CMAKE_SOURCE_DIR}/cmake-build-production/LightController /Applications/
