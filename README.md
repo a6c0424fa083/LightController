@@ -54,20 +54,6 @@ It is important to install the packet manager directly at C:\cygwin64 (the defau
 This Project is build using the cmake build system only!<br>
 To build it simply follow these few steps:<br>
 
-**Note:**<br>
-You should change the targeted architecture in the root CMakeLists.txt file according to your system architecture.
-
-**CMakeLists.txt:**
-```cmake
-                                                             # Lines
-
-# define build architecture                                  #    26
-set(CMAKE_OSX_ARCHITECTURES    x86_64) # x86_64 / arm64      #    27
-set(CMAKE_LIBRARY_ARCHITECTURE x84_64) # x86_64 / arm64      #    28
-```
-
-Therefore, edit the lines 27 / 28 to your needs.
-
 ### Create a build directory
 
 You can choose a fitting build-directory name.
@@ -82,8 +68,18 @@ mkdir your-build-directory
 Run cmake to prebuild the Project.
 
 ```shell
-cmake -S . -B ./your-build-directory
+cmake -S . -B ./your-build-directory -j 8
 ```
+
+If you are on an arm64 device run:
+
+```shell
+cmake -S . -B ./your-build-directory -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_LIBRARY_ARCHITECTURES=arm64 -j 8
+```
+
+
+**Note:**<br>
+The ```-j 8``` option specifies the thread count the project is build with.
 
 **Note:**<br>
 You can use the -G flag to select a custom generator.
@@ -99,7 +95,9 @@ to detect the target build system.
 
 **Example:**<br>
 Use ```cmake -S . -B ./your-build-directory -G "Ninja"```
-to build for ninja builds.
+to build for ninja builds.<br>
+Or ```cmake -S . -B ./your-build-directory -G "Unix Makefiles"```
+to force makefile build.
 
 
 ### Build the Project using make
@@ -118,9 +116,10 @@ located in the root of the build directory ```your-build-directory```.
 
 ## Run the Project
 
-That's it! You can now execute the executable.<br>
+That's it! You can now execute the executable.
+
 **Note:**<br>
-If you are using Mac a simple double-tap causes issues (the font-path could not be found).
+If you are using Mac a simple double-tap causes issues since the relative project root changes.
 To avoid this start the application in the Terminal with ```./LightController```.
 
 
@@ -128,5 +127,4 @@ To avoid this start the application in the Terminal with ```./LightController```
 
 **The following Environments have been tested and run the program:**<br>
 
-- [x] macOS Sequoia / arm64
-- [x] ubuntu 6.8.0-50-generic / x86_64
+***WORK IN PROGRESS!***

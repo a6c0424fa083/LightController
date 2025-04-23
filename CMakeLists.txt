@@ -24,8 +24,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS        OFF)
 
 # define build architecture
-set(CMAKE_OSX_ARCHITECTURES    x86_64) # x86_64 / arm64
-set(CMAKE_LIBRARY_ARCHITECTURE x84_64) # x86_64 / arm64
+option(CMAKE_OSX_ARCHITECTURES    x86_64) # x86_64 / arm64
+option(CMAKE_LIBRARY_ARCHITECTURE x86_64) # x86_64 / arm64
 
 # define project
 set(APPLICATION_NAME LightController)
