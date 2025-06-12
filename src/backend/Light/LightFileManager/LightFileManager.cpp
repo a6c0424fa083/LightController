@@ -11,7 +11,7 @@
 
 /**
  * @brief This function adds a 'Light' struct to the library.<br>
- * this also accounts for if the library doesn't exst jet
+ * this also accounts for if the library doesn't exist jet
  * @param light The 'Light' struct that should be added
  * @return Return 0 on success, other on failure
  *
@@ -118,8 +118,8 @@ uint8_t LightFileManager::loadLightsFromLibrary()
 
 
 /**
- * @brief This function deleted a element based in the index
- * @param index This index leeding the the element that should be deleted
+ * @brief This function deletes an element based in the index
+ * @param index This index leading to the element that should be deleted
  * @return Return 0 on success, other on failure
  *
  * <b>Return values:</b><br>
@@ -163,7 +163,7 @@ uint8_t LightFileManager::deleteLightByIndex(const size_t index)
     // set input cursor to the beginning of the file
     file.seekg(0);
 
-    // set output cursor the the beginning of the element that should be deleted
+    // set output cursor to the beginning of the element that should be deleted
     file.seekp(static_cast<ssize_t>(index * sizeof(Light)));
 
     // replace the light with the last light (effectively deleting it)
