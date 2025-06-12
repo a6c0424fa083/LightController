@@ -48,12 +48,18 @@ enum USER_FONT
 #define INFORMATION io.Fonts->Fonts[USER_FONT::INFORMATION]
 #define NUMBER      io.Fonts->Fonts[USER_FONT::NUMBER]
 
-//#define APPLICATION_DATA_PATH " "
-
+// #define APPLICATION_DATA_PATH ""
+/*
 #define MONACO_FONT_PATH      APPLICATION_DATA_PATH "fonts/Monaco.ttf"      // relative to executable
 #define ARIALBLACK_FONT_PATH  APPLICATION_DATA_PATH "fonts/ArialBlack.ttf"  // relative to executable
 #define ARIAL_FONT_PATH       APPLICATION_DATA_PATH "fonts/Arial.ttf"       // relative to executable
 #define ARIALBOLD_FONT_PATH   APPLICATION_DATA_PATH "fonts/ArialBold.ttf"   // relative to executable
+*/
+
+#define MONO_FONT_PATH  APPLICATION_DATA_PATH "fonts/GeistMono-Medium.otf"  // relative to executable
+#define BLACK_FONT_PATH APPLICATION_DATA_PATH "fonts/Geist-Black.otf"       // relative to executable
+#define FONT_PATH       APPLICATION_DATA_PATH "fonts/Geist-Medium.otf"      // relative to executable
+#define BOLD_FONT_PATH  APPLICATION_DATA_PATH "fonts/Geist-Bold.otf"        // relative to executable
 
 #define MAX_LIGHT_NAME_LENGTH 64
 

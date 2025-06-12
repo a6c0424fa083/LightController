@@ -116,17 +116,17 @@ int main(/*int argc, char **argv*/)
     // add fonts (order is crucial)
 
     // PAGEFILLING
-    io.Fonts->AddFontFromFileTTF(std::filesystem::canonical(ARIALBLACK_FONT_PATH).string().c_str(), 320.0F);
+    io.Fonts->AddFontFromFileTTF(std::filesystem::canonical(BLACK_FONT_PATH).string().c_str(), 320.0F);
     // TITLE
-    io.Fonts->AddFontFromFileTTF(std::filesystem::canonical(ARIALBOLD_FONT_PATH).string().c_str(), 56.0F);
+    io.Fonts->AddFontFromFileTTF(std::filesystem::canonical(BOLD_FONT_PATH).string().c_str(), 56.0F);
     // SUBTITLE
-    io.Fonts->AddFontFromFileTTF(std::filesystem::canonical(ARIALBOLD_FONT_PATH).string().c_str(), 40.0F);
+    io.Fonts->AddFontFromFileTTF(std::filesystem::canonical(BOLD_FONT_PATH).string().c_str(), 40.0F);
     // TEXT
-    io.Fonts->AddFontFromFileTTF(std::filesystem::canonical(ARIAL_FONT_PATH).string().c_str(), 32.0F);
+    io.Fonts->AddFontFromFileTTF(std::filesystem::canonical(FONT_PATH).string().c_str(), 32.0F);
     // INFORMATION
-    io.Fonts->AddFontFromFileTTF(std::filesystem::canonical(ARIAL_FONT_PATH).string().c_str(), 16.0F);
+    io.Fonts->AddFontFromFileTTF(std::filesystem::canonical(FONT_PATH).string().c_str(), 16.0F);
     // NUMBER
-    io.Fonts->AddFontFromFileTTF(std::filesystem::canonical(MONACO_FONT_PATH).string().c_str(), 32.0F);
+    io.Fonts->AddFontFromFileTTF(std::filesystem::canonical(MONO_FONT_PATH).string().c_str(), 32.0F);
 
     // style setting
     style.Colors[ImGuiCol_TableBorderStrong] = BaseWindow::default_ImGuiCol_TableBorderStrong;
