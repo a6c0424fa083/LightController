@@ -22,7 +22,10 @@ struct Project
     // scene section
 
 
-
+    /**
+     * @brief This Constructor creates a Project based on a Light vector
+     * @param lights The Light vector
+     */
     explicit Project(const std::vector<Light> &lights)
     {
         _validLights = lights.size();
@@ -30,7 +33,7 @@ struct Project
     }
 
     Project() = default;
-};
+} __attribute__((packed));
 
 
 #endif  // PROJECT_HPP

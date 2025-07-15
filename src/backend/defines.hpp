@@ -48,7 +48,7 @@ enum USER_FONT
 #define INFORMATION io.Fonts->Fonts[USER_FONT::INFORMATION]
 #define NUMBER      io.Fonts->Fonts[USER_FONT::NUMBER]
 
-// #define APPLICATION_DATA_PATH ""
+//#define APPLICATION_DATA_PATH "" // defined in CMakeLists.txt
 /*
 #define MONACO_FONT_PATH      APPLICATION_DATA_PATH "fonts/Monaco.ttf"      // relative to executable
 #define ARIALBLACK_FONT_PATH  APPLICATION_DATA_PATH "fonts/ArialBlack.ttf"  // relative to executable

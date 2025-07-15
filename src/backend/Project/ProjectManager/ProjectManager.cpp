@@ -15,7 +15,7 @@ uint8_t ProjectManager::saveProject(const std::string &name, const bool override
     updateCurrentProjectStruct();
 
     // base directory to the light "database"
-    const std::string baseDir = std::filesystem::current_path().string() + "/" + std::string(PROJECTS_PATH);
+    const std::string baseDir = /*std::filesystem::current_path().string() + "/" + */std::string(PROJECTS_PATH);
 
     // check for existence of directory
     if (!std::filesystem::exists(baseDir) || !std::filesystem::is_directory(baseDir)) return 2;

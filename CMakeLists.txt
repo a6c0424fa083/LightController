@@ -56,9 +56,9 @@ target_sources(${APPLICATION_NAME} PUBLIC main.cpp)
 # main target options
 target_set_warnings(${APPLICATION_NAME} ON OFF)
 if (${BUILD_FOR_GUI_LAUNCH})
-    target_compile_definitions(${APPLICATION_NAME} PUBLIC APPLICATION_DATA_PATH="Library/Application Support/LightController/")
+    target_compile_definitions(${APPLICATION_NAME} PUBLIC APPLICATION_DATA_PATH="/opt/LightController/applicationData/")
 else ()
-    target_compile_definitions(${APPLICATION_NAME} PUBLIC APPLICATION_DATA_PATH="../applicationData/")
+    target_compile_definitions(${APPLICATION_NAME} PUBLIC APPLICATION_DATA_PATH="/opt/LightController/applicationData/")
 endif ()
 
 # include subdirectories to build the project recursively

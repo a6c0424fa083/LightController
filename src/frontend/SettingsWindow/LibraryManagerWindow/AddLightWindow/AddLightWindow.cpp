@@ -176,7 +176,7 @@ void AddLightWindow::DrawContents()
             memset(_light.manufacturer, '\0', MAX_LIGHT_MANUFACTURER_LENGTH);
             _light.channelCount = 0;
             memset(_light.channelFunction, CHANNEL_FUNCTION::CHANNEL, 512);
-            memset(_light.channelFunctionIdentifier, 0, 512);
+            //memset(_light.channelFunctionIdentifier, 0, 512);
 
             loadedLightToEdit = false;
 
@@ -199,7 +199,7 @@ void AddLightWindow::DrawContents()
             memset(_light.manufacturer, '\0', MAX_LIGHT_MANUFACTURER_LENGTH);
             _light.channelCount = 0;
             memset(_light.channelFunction, CHANNEL_FUNCTION::CHANNEL, 512);
-            memset(_light.channelFunctionIdentifier, 0, 512);
+            //memset(_light.channelFunctionIdentifier, 0, 512);
         }
     }
 
@@ -218,7 +218,7 @@ void AddLightWindow::DrawContents()
         memset(_light.manufacturer, '\0', MAX_LIGHT_MANUFACTURER_LENGTH);
         _light.channelCount = 0;
         memset(_light.channelFunction, CHANNEL_FUNCTION::CHANNEL, 512);
-        memset(_light.channelFunctionIdentifier, 0, 512);
+        //memset(_light.channelFunctionIdentifier, 0, 512);
 
         if (GLOBAL::ADDLIGHTWINDOW::isEditMode)
         {

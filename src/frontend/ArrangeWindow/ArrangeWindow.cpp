@@ -175,72 +175,72 @@ void ArrangeWindow::DrawEditColorWindow()
 
 
     ImGui::SetCursorPos(ImVec2(saveMargin, saveMargin + 0 * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
-    style.Colors[ImGuiCol_Button]        = ButtonColor::colorRed;
-    style.Colors[ImGuiCol_ButtonHovered] = ButtonColor::hovered(ButtonColor::colorRed);
-    style.Colors[ImGuiCol_ButtonActive]  = ButtonColor::active(ButtonColor::colorRed);
+    style.Colors[ImGuiCol_Button]        = ButtonColor::color(RED);
+    style.Colors[ImGuiCol_ButtonHovered] = ButtonColor::hovered(RED);
+    style.Colors[ImGuiCol_ButtonActive]  = ButtonColor::active(RED);
     if (ImGui::Button("##Red", ImVec2(size.x - 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
     {
-        GLOBAL::PATCH::patchLights.at(GLOBAL::ARRANGEWINDOW::referenceLightIndex).color = ButtonColor::colorRed;
+        GLOBAL::PATCH::patchLights.at(GLOBAL::ARRANGEWINDOW::referenceLightIndex).color = ButtonColor::color(RED);
     }
 
 
     ImGui::SetCursorPos(ImVec2(saveMargin, saveMargin + 1 * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
-    style.Colors[ImGuiCol_Button]        = ButtonColor::colorGreen;
-    style.Colors[ImGuiCol_ButtonHovered] = ButtonColor::hovered(ButtonColor::colorGreen);
-    style.Colors[ImGuiCol_ButtonActive]  = ButtonColor::active(ButtonColor::colorGreen);
+    style.Colors[ImGuiCol_Button]        = ButtonColor::color(GREEN);
+    style.Colors[ImGuiCol_ButtonHovered] = ButtonColor::hovered(GREEN);
+    style.Colors[ImGuiCol_ButtonActive]  = ButtonColor::active(GREEN);
     if (ImGui::Button("##Green", ImVec2(size.x - 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
     {
-        GLOBAL::PATCH::patchLights.at(GLOBAL::ARRANGEWINDOW::referenceLightIndex).color = ButtonColor::colorGreen;
+        GLOBAL::PATCH::patchLights.at(GLOBAL::ARRANGEWINDOW::referenceLightIndex).color = ButtonColor::color(GREEN);
     }
 
 
     ImGui::SetCursorPos(ImVec2(saveMargin, saveMargin + 2 * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
-    style.Colors[ImGuiCol_Button]        = ButtonColor::colorBlue;
-    style.Colors[ImGuiCol_ButtonHovered] = ButtonColor::hovered(ButtonColor::colorBlue);
-    style.Colors[ImGuiCol_ButtonActive]  = ButtonColor::active(ButtonColor::colorBlue);
+    style.Colors[ImGuiCol_Button]        = ButtonColor::color(BLUE);
+    style.Colors[ImGuiCol_ButtonHovered] = ButtonColor::hovered(BLUE);
+    style.Colors[ImGuiCol_ButtonActive]  = ButtonColor::active(BLUE);
     if (ImGui::Button("##Blue", ImVec2(size.x - 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
     {
-        GLOBAL::PATCH::patchLights.at(GLOBAL::ARRANGEWINDOW::referenceLightIndex).color = ButtonColor::colorBlue;
+        GLOBAL::PATCH::patchLights.at(GLOBAL::ARRANGEWINDOW::referenceLightIndex).color = ButtonColor::color(BLUE);
     }
 
 
     ImGui::SetCursorPos(ImVec2(saveMargin, saveMargin + 3 * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
-    style.Colors[ImGuiCol_Button]        = ButtonColor::colorYellow;
-    style.Colors[ImGuiCol_ButtonHovered] = ButtonColor::hovered(ButtonColor::colorYellow);
-    style.Colors[ImGuiCol_ButtonActive]  = ButtonColor::active(ButtonColor::colorYellow);
+    style.Colors[ImGuiCol_Button]        = ButtonColor::color(YELLOW);
+    style.Colors[ImGuiCol_ButtonHovered] = ButtonColor::hovered(YELLOW);
+    style.Colors[ImGuiCol_ButtonActive]  = ButtonColor::active(YELLOW);
     if (ImGui::Button("##Yellow", ImVec2(size.x - 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
     {
-        GLOBAL::PATCH::patchLights.at(GLOBAL::ARRANGEWINDOW::referenceLightIndex).color = ButtonColor::colorYellow;
+        GLOBAL::PATCH::patchLights.at(GLOBAL::ARRANGEWINDOW::referenceLightIndex).color = ButtonColor::color(YELLOW);
     }
 
 
     ImGui::SetCursorPos(ImVec2(saveMargin, saveMargin + 4 * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
-    style.Colors[ImGuiCol_Button]        = ButtonColor::colorPurple;
-    style.Colors[ImGuiCol_ButtonHovered] = ButtonColor::hovered(ButtonColor::colorPurple);
-    style.Colors[ImGuiCol_ButtonActive]  = ButtonColor::active(ButtonColor::colorPurple);
+    style.Colors[ImGuiCol_Button]        = ButtonColor::color(PURPLE);
+    style.Colors[ImGuiCol_ButtonHovered] = ButtonColor::hovered(PURPLE);
+    style.Colors[ImGuiCol_ButtonActive]  = ButtonColor::active(PURPLE);
     if (ImGui::Button("##Purple", ImVec2(size.x - 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
     {
-        GLOBAL::PATCH::patchLights.at(GLOBAL::ARRANGEWINDOW::referenceLightIndex).color = ButtonColor::colorPurple;
+        GLOBAL::PATCH::patchLights.at(GLOBAL::ARRANGEWINDOW::referenceLightIndex).color = ButtonColor::color(PURPLE);
     }
 
 
     ImGui::SetCursorPos(ImVec2(saveMargin, saveMargin + 5 * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
-    style.Colors[ImGuiCol_Button]        = ButtonColor::colorTurquoise;
-    style.Colors[ImGuiCol_ButtonHovered] = ButtonColor::hovered(ButtonColor::colorTurquoise);
-    style.Colors[ImGuiCol_ButtonActive]  = ButtonColor::active(ButtonColor::colorTurquoise);
+    style.Colors[ImGuiCol_Button]        = ButtonColor::color(TURQUOISE);
+    style.Colors[ImGuiCol_ButtonHovered] = ButtonColor::hovered(TURQUOISE);
+    style.Colors[ImGuiCol_ButtonActive]  = ButtonColor::active(TURQUOISE);
     if (ImGui::Button("##Turquoise", ImVec2(size.x - 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
     {
-        GLOBAL::PATCH::patchLights.at(GLOBAL::ARRANGEWINDOW::referenceLightIndex).color = ButtonColor::colorTurquoise;
+        GLOBAL::PATCH::patchLights.at(GLOBAL::ARRANGEWINDOW::referenceLightIndex).color = ButtonColor::color(TURQUOISE);
     }
 
 
     ImGui::SetCursorPos(ImVec2(saveMargin, saveMargin + 6 * (ImGui::CalcTextSize("XXX").y + 3 * saveMargin)));
-    style.Colors[ImGuiCol_Button]        = ButtonColor::colorGray;
-    style.Colors[ImGuiCol_ButtonHovered] = ButtonColor::hovered(ButtonColor::colorGray);
-    style.Colors[ImGuiCol_ButtonActive]  = ButtonColor::active(ButtonColor::colorGray);
+    style.Colors[ImGuiCol_Button]        = ButtonColor::color(GRAY);
+    style.Colors[ImGuiCol_ButtonHovered] = ButtonColor::hovered(GRAY);
+    style.Colors[ImGuiCol_ButtonActive]  = ButtonColor::active(GRAY);
     if (ImGui::Button("##Gray", ImVec2(size.x - 2 * saveMargin, ImGui::CalcTextSize("XXX").y + 2 * saveMargin)))
     {
-        GLOBAL::PATCH::patchLights.at(GLOBAL::ARRANGEWINDOW::referenceLightIndex).color = ButtonColor::colorGray;
+        GLOBAL::PATCH::patchLights.at(GLOBAL::ARRANGEWINDOW::referenceLightIndex).color = ButtonColor::color(GRAY);
     }
 
 

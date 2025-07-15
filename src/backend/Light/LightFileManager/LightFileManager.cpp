@@ -25,7 +25,7 @@
 uint8_t LightFileManager::addLightToLibrary(Light light)
 {
     // directory of the light library (relative to executable)
-    const std::string baseDir = std::filesystem::current_path().string() + "/" + std::string(LIGHT_LIBRARY_PATH);
+    const std::string baseDir = /*std::filesystem::current_path().string() + "/" +*/ std::string(LIGHT_LIBRARY_PATH);
 
     // check for existence of directory
     if (!std::filesystem::exists(baseDir) || !std::filesystem::is_directory(baseDir)) return 1;
@@ -43,13 +43,17 @@ uint8_t LightFileManager::addLightToLibrary(Light light)
 
     // open library file
     std::ifstream inFile(lightsFilePath, std::ios::binary);
-    if (!inFile.is_open()) { return 3; }
+    if (!inFile.is_open()) {
+        return 3;
+    }
 
     // check if the light already exists (if so: exit)
     Light existingLight;
     while (inFile.read(reinterpret_cast<char *>(&existingLight), sizeof(Light)))
     {
-        if (std::strcmp(existingLight.name, light.name) == 0) { return 0; }
+        if (std::strcmp(existingLight.name, light.name) == 0) {
+            return 0;
+        }
     }
     inFile.close();
 
@@ -85,7 +89,7 @@ uint8_t LightFileManager::loadLightsFromLibrary()
     GLOBAL::LIGHTFILEMANAGER::lightsLibrary.clear();
 
     // directory of the light library (relative to executable)
-    const std::string baseDir = std::filesystem::current_path().string() + "/" + std::string(LIGHT_LIBRARY_PATH);
+    const std::string baseDir = /*std::filesystem::current_path().string() + "/" + */std::string(LIGHT_LIBRARY_PATH);
 
     // check for existence of directory
     if (!std::filesystem::exists(baseDir) || !std::filesystem::is_directory(baseDir)) return 1;
@@ -133,7 +137,7 @@ uint8_t LightFileManager::deleteLightByIndex(const size_t index)
     if (index >= GLOBAL::LIGHTFILEMANAGER::lightsLibrary.size()) return 1;
 
     // directory of the light library (relative to executable)
-    const std::string baseDir = std::filesystem::current_path().string() + "/" + std::string(LIGHT_LIBRARY_PATH);
+    const std::string baseDir = /*std::filesystem::current_path().string() + "/" + */std::string(LIGHT_LIBRARY_PATH);
 
     // check for existence of directory
     if (!std::filesystem::exists(baseDir) || !std::filesystem::is_directory(baseDir)) return 1;
