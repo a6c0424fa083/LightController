@@ -68,18 +68,15 @@ mkdir your-build-directory
 Run cmake to prebuild the Project.
 
 ```shell
-cmake -S . -B ./your-build-directory -j 8
+cmake -S . -B ./your-build-directory
 ```
 
 If you are on an arm64 device run:
 
 ```shell
-cmake -S . -B ./your-build-directory -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_LIBRARY_ARCHITECTURES=arm64 -j 8
+cmake -S . -B ./your-build-directory -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_LIBRARY_ARCHITECTURES=arm64
 ```
 
-
-**Note:**<br>
-The ```-j 8``` option specifies the thread count the project is build with.
 
 **Note:**<br>
 You can use the -G flag to select a custom generator.
